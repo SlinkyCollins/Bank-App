@@ -1,13 +1,16 @@
 import './App.css'
+import { Navigate, Route, Routes } from "react-router-dom";
+import Signup from './Components/Signup';
+import Signin from './Components/Signin';
 
 function App() {
 
   return (
     <>
-      <div>
-        <p className="text-3xl font-bold underline">HEYYO</p>
-        <h1 className='.bg-blue-50 text-underline'>IM WORKING</h1>
-      </div>
+      <Routes>
+        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/signin" element={<Signin/>}/>
+      </Routes>  
     </>
   )
 }
