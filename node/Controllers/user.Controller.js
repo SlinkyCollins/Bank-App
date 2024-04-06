@@ -69,4 +69,21 @@ const loginUser = async(req, res) => {
     }
 }
 
-module.exports = {welcomeUser, registerUser, loginUser}
+const dashboard = async(req, res) => {
+    // res.send("Welcome to the dashboard user page");
+    let token = req.headers.authorization.split(" ")[1];
+    console.log(token); // Log the token to the console
+
+    jwt.verify(token, secret, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.send({ status: false, Message: "Error verifying", result})
+        } else {
+            console.log(result);
+            res.send({ status: true, Message: "Welcome", result})
+        }
+    })
+}
+
+
+module.exports = {welcomeUser, registerUser, loginUser, dashboard}
