@@ -44,9 +44,9 @@ const Signin = () => {
         }
       })
       .catch((err)=>{
+        toast.error("Wrong login information");
         console.log(err);
         console.log('wrong credentials');
-        toast.error(err);
       })
       values.email = "";
       values.password = "";
@@ -55,9 +55,9 @@ const Signin = () => {
 });
   return (
     <div className="form-container">
+        <Toaster/>
       <div className="logo-container">
         Sign in
-        <Toaster/>
       </div>
 
       <form className="form" onSubmit={formik.handleSubmit}>
