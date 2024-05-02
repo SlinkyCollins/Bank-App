@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik";
 import  axios from "axios";
 import * as Yup from "yup";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -60,13 +60,15 @@ const Signup = () => {
                 axios.post(URL, values)
                 .then((response) => {
                     console.log(response);
-                    toast.success('Signed up')
+                    setTimeout(() => {
+                        toast.success('Signed up')
+                    }, 500);
                     console.log("User saved successfully");
                     navigate("/Signin");
                 })
                 .catch((err)=> {
                     console.log(err);
-                    toast.error("error saving user");
+                    toast.error("Error saving user");
                 })
             }
         }
@@ -74,7 +76,6 @@ const Signup = () => {
     return (
         <div className="form-container">
             <div className="logo-container">
-            <Toaster/>
                 Sign up
             </div>
 

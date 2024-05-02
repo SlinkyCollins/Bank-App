@@ -2,23 +2,29 @@ import axios from "axios"
 import { useFormik } from "formik"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useEffect } from "react";
 // import { useHistory } from 'react-router-dom';
 
 
 const Signin = () => {
+  const navigate = useNavigate()
   useEffect(() => {
     const sessionExpired = localStorage.getItem("sessionExpired");
     if (sessionExpired) {
       localStorage.removeItem("sessionExpired");
       // Display session expired message to the user
-      // alert("Session expired. Please log in again.");
       toast.error("Session expired. Please log in again.")
+      console.log("Session expired. Please log in again.");
+    } else {
+      const userLoggedOut = localStorage.getItem("userLoggedOut");
+      if (userLoggedOut) {
+        localStorage.removeItem("userLoggedOut");
+        // Display "User logged out" message
+      }
     }
   }, []);
-  const navigate = useNavigate()
-  // const history = useHistory();
+
   const URL = "http://localhost:5000/host/login"
   const formik = useFormik({
     initialValues: {
@@ -37,23 +43,24 @@ const Signin = () => {
         console.log(values);
         axios.post(URL, values)
           .then((response) => {
-            navigate("/dashboard")
             console.log(response);
             if (response.data && response.data.user) {
               console.log("User login successful");
-              toast.success("User login successful")
+              setTimeout(() => {
+                toast.success("Login successful")
+              }, 500)
+              navigate("/dashboard")
               let token = response.data.token
               localStorage.setItem("token", token)
               console.log(token);
-              // history.push('/dashboard')
               setValues({
                 ...values,
                 email: "",
                 password: "",
               })
-            } else if (!response.data && !response.data.user) {
+            } else {
               console.log("User not found");
-              toast.error("User not found");
+              toast.error("User not found, please sign up");
             }
           })
           .catch((err) => {
@@ -68,7 +75,6 @@ const Signin = () => {
   });
   return (
     <div className="form-container">
-      <Toaster />
       <div className="logo-container">
         Sign in
       </div>
