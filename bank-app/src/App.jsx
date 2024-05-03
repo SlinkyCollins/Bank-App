@@ -4,6 +4,7 @@ import Signup from './Components/Signup';
 import Signin from './Components/Signin';
 import Dashboard from './Components/Dashboard';
 import { Toaster } from "react-hot-toast";
+import Homepage from './Components/Pages/Homepage';
 
 function App() {
   console.log("App component rendered");
@@ -12,6 +13,8 @@ function App() {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
+        <Route path="/" element={<Homepage/>}/>
+        <Route path="/home" element={<Navigate to="/"/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/signin" element={<Signin/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
