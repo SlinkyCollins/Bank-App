@@ -21,7 +21,7 @@ const Dashboard = () => {
       // Dismiss the loading toast
       setTimeout(() => {
         toast.dismiss(loadingToastId);
-      }, 500)
+      }, 300)
 
       // Show success toast
       setTimeout(() => {
