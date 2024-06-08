@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 const Dashboard = () => {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
-  
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // let URL = "http://localhost:5000/host/dashboard";
@@ -53,7 +54,7 @@ const Dashboard = () => {
         } else {
           // Handle error: user details not found in response
           console.error("User details not found in response");
-          toast.error("Error fetching user details");
+          // toast.error("Error fetching user details");
         }
       } catch (error) {
         // Handle error: request failed
@@ -99,7 +100,7 @@ const Dashboard = () => {
 
       // Show success toast
       setTimeout(() => {
-        toast.success("Logged out successfully");
+        toast.success("Logged out");
       }, 500)
 
       // Clear console
@@ -119,6 +120,8 @@ const Dashboard = () => {
     }
   };
 
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   return (
     <div>
@@ -130,9 +133,13 @@ const Dashboard = () => {
           {/* Render other user details here */}
         </div>
       ) : (
-        <p>Loading user details...</p>
+        <div>
+          <p>Name: Loading user details...</p>
+          <p>Email: Loading user details...</p>
+        </div>
       )}
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={openModal}>Logout</button>
+      <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
     </div>
   );
 };
