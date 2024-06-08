@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   let navigate = useNavigate();
@@ -124,21 +125,44 @@ const Dashboard = () => {
   const closeModal = () => setShowModal(false);
 
   return (
-    <div>
-      <h1 className="text-underline">Welcome to the Dashboard</h1>
-      {user ? (
-        <div>
-          <p>Name: {user.firstName} {user.lastName}</p>
-          <p>Email: {user.email}</p>
-          {/* Render other user details here */}
-        </div>
-      ) : (
-        <div>
-          <p>Name: Loading user details...</p>
-          <p>Email: Loading user details...</p>
-        </div>
-      )}
-      <button onClick={openModal}>Logout</button>
+    
+    // <div>
+    //   <h1 className="text-underline">Welcome to the Dashboard</h1>
+    //   {user ? (
+    //     <div>
+    //       <p>Name: {user.firstName} {user.lastName}</p>
+    //       <p>Email: {user.email}</p>
+    //       {/* Render other user details here */}
+    //     </div>
+    //   ) : (
+    //     <div>
+    //       <p>Name: Loading user details...</p>
+    //       <p>Email: Loading user details...</p>
+    //     </div>
+    //   )}
+    //   <button onClick={openModal}>Logout</button>
+    //   <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
+    // </div>
+
+    <div className="dashboard-container">
+      <header className="dashboard-header">
+        <h1>Welcome to the Dashboard</h1>
+        <button className="logout-button" onClick={openModal}>Logout</button>
+      </header>
+      <main className="dashboard-main">
+        {user ? (
+          <div className="user-info">
+            <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            {/* Render other user details here */}
+          </div>
+        ) : (
+          <div className="user-info loading">
+            <p>Name: Loading user details...</p>
+            <p>Email: Loading user details...</p>
+          </div>
+        )}
+      </main>
       <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
     </div>
   );
