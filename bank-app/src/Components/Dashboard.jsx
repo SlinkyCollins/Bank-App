@@ -4,6 +4,11 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import "./Dashboard.css";
+import Typography from "@mui/material/Typography";
+import Button from '@mui/material/Button';
+import { ButtonGroup, Container } from "@mui/material";
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Dashboard = () => {
   let navigate = useNavigate();
@@ -52,15 +57,13 @@ const Dashboard = () => {
         });
         if (response.data.user) {
           setUser(response.data.user);
-        } else {
-          // Handle error: user details not found in response
-          console.error("User details not found in response");
-          // toast.error("Error fetching user details");
         }
       } catch (error) {
         // Handle error: request failed
         console.error("Error fetching user details:", error);
-        toast.error("Error fetching user details. Please try again later.");
+        toast.dismiss(); 
+        toast.error("Session Expired. Please log in again.");
+        localStorage.removeItem("token");
         navigate("/signin");
       }
     };
@@ -92,7 +95,7 @@ const Dashboard = () => {
       localStorage.removeItem("sessionExpired");
       
       //useLoggedOut = true;
-      localStorage.setItem("userLoggedOut", "true");
+      // localStorage.setItem("userLoggedOut", "true");
 
       // Dismiss the loading toast
       setTimeout(() => {
@@ -144,16 +147,42 @@ const Dashboard = () => {
     //   <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
     // </div>
 
-    <div className="dashboard-container">
+    <Container fixed className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Welcome to the Dashboard</h1>
+        <h1>Welcome</h1>
         <button className="logout-button" onClick={openModal}>Logout</button>
       </header>
+      <Typography
+        noWrap
+        gutterBottom
+        variant="h6"
+        component="h2"
+        color="textSecondary"
+      >
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed in repudiandae, qui reiciendis possimus dolorem? Modi tempora magni delectus magnam sunt nemo odio at ipsa atque, fuga reprehenderit voluptatum quaerat. Expedita ullam esse corporis vero aliquid officiis dicta quidem cupiditate sed, explicabo corrupti soluta impedit voluptatum, voluptates iure animi cum. Qui esse, dignissimos quam dolore cumque consectetur nemo aliquam minima accusantium ullam velit eos voluptate fugit error, omnis asperiores iusto nam optio culpa sapiente sequi! Molestias obcaecati, nihil cupiditate porro officia pariatur vero, corrupti nam quaerat doloremque provident reiciendis nulla natus qui tempora minus ipsa quis? Sequi amet, dolorum rerum dignissimos est, corporis nostrum neque fugiat vero consequatur sunt possimus aspernatur ab. Dolor esse omnis quidem animi veniam, possimus expedita!
+      </Typography>
+      <Button variant="contained" type="submit" onClick={()=> console.log("You clicked me")} >
+        <LogoutIcon 
+          fontSize="medium"
+          color="default"
+        />
+        Submit</Button>
+      <ButtonGroup color="primary" variant="outlined">
+        <Button>One</Button>
+        <Button>Two</Button>
+        <Button>Three</Button>
+        <Button>Four</Button>
+        <Button>Five</Button>
+      </ButtonGroup>
+      <br />
+      <AcUnitIcon color="secondary" />
+
+
       <main className="dashboard-main">
         {user ? (
           <div className="user-info">
-            <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
-            <p><strong>Email:</strong> {user.email}</p>
+            <p><span>Name:</span> {user.firstName} {user.lastName}</p>
+            <p><span>Email:</span> {user.email}</p>
             {/* Render other user details here */}
           </div>
         ) : (
@@ -164,7 +193,7 @@ const Dashboard = () => {
         )}
       </main>
       <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
-    </div>
+    </Container>
   );
 };
 

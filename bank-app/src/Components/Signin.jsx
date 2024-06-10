@@ -3,27 +3,27 @@ import { useFormik } from "formik"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast';
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import { useHistory } from 'react-router-dom';
 
 
 const Signin = () => {
   const navigate = useNavigate()
-  useEffect(() => {
-    const sessionExpired = localStorage.getItem("sessionExpired");
-    if (sessionExpired) {
-      localStorage.removeItem("sessionExpired");
-      // Display session expired message to the user
-      toast.error("Session expired. Please log in again.")
-      console.log("Session expired. Please log in again.");
-    } else {
-      const userLoggedOut = localStorage.getItem("userLoggedOut");
-      if (userLoggedOut) {
-        localStorage.removeItem("userLoggedOut");
-        // Display "User logged out" message
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const sessionExpired = localStorage.getItem("sessionExpired");
+  //   if (sessionExpired) {
+  //     localStorage.removeItem("sessionExpired");
+  //     // Display session expired message to the user
+  //     toast.error("Session expired. Please log in again.")
+  //     console.log("Session expired. Please log in again.");
+  //   } else {
+  //     const userLoggedOut = localStorage.getItem("userLoggedOut");
+  //     if (userLoggedOut) {
+  //       localStorage.removeItem("userLoggedOut");
+  //       // Display "User logged out" message
+  //     }
+  //   }
+  // }, []);
 
   const URL = "http://localhost:5000/host/login"
   const formik = useFormik({
@@ -64,7 +64,7 @@ const Signin = () => {
             }
           })
           .catch((err) => {
-            toast.error("Wrong email or password");
+            toast.error("Incorrect email or password");
             console.log(err);
             console.log('wrong credentials');
           })

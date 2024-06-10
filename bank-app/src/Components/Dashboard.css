@@ -53,6 +53,10 @@
   .user-info p {
     margin: 10px 0;
   }
+
+  .user-info p span {
+    font-weight: 600;
+  }
   
   .loading p {
     color: #999;
