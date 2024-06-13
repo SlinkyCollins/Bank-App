@@ -9,11 +9,20 @@ import Button from '@mui/material/Button';
 import { ButtonGroup, Container } from "@mui/material";
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import LogoutIcon from '@mui/icons-material/Logout';
+// import { makeStyles } from '@mui/material/styles';
+
+// const useStyles = makeStyles({
+//   btn: {
+//     fontSize: 52,
+//     backgroundColor: 'red'
+//   }
+// })
 
 const Dashboard = () => {
   let navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  // const classes = useStyles()
 
   useEffect(() => {
     // let URL = "http://localhost:5000/host/dashboard";
@@ -64,7 +73,7 @@ const Dashboard = () => {
         toast.dismiss(); 
         toast.error("Session Expired. Please log in again.");
         localStorage.removeItem("token");
-        navigate("/signin");
+        navigate("/login");
       }
     };
 
@@ -111,7 +120,7 @@ const Dashboard = () => {
       console.clear();
 
       // Navigate to the signin page
-      navigate("/signin");
+      navigate("/login");
     } catch (error) {
       // Dismiss the loading toast
       toast.dismiss(loadingToastId);
@@ -161,7 +170,12 @@ const Dashboard = () => {
       >
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed in repudiandae, qui reiciendis possimus dolorem? Modi tempora magni delectus magnam sunt nemo odio at ipsa atque, fuga reprehenderit voluptatum quaerat. Expedita ullam esse corporis vero aliquid officiis dicta quidem cupiditate sed, explicabo corrupti soluta impedit voluptatum, voluptates iure animi cum. Qui esse, dignissimos quam dolore cumque consectetur nemo aliquam minima accusantium ullam velit eos voluptate fugit error, omnis asperiores iusto nam optio culpa sapiente sequi! Molestias obcaecati, nihil cupiditate porro officia pariatur vero, corrupti nam quaerat doloremque provident reiciendis nulla natus qui tempora minus ipsa quis? Sequi amet, dolorum rerum dignissimos est, corporis nostrum neque fugiat vero consequatur sunt possimus aspernatur ab. Dolor esse omnis quidem animi veniam, possimus expedita!
       </Typography>
-      <Button variant="contained" type="submit" onClick={()=> console.log("You clicked me")} >
+      <Button 
+        // className={classes.btn}
+        variant="contained" 
+        type="submit" 
+        onClick={()=> console.log("You clicked me")} 
+      >
         <LogoutIcon 
           fontSize="medium"
           color="default"

@@ -1,10 +1,14 @@
 import './App.css'
 import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from './Components/Signup';
-import Signin from './Components/Signin';
+// import Signin from './Components/Signin';
 import Dashboard from './Components/Dashboard';
 import { Toaster } from "react-hot-toast";
 import Homepage from './Components/Pages/Homepage';
+import Login from './Components/Login';
+import SignUpp from './Components/SignUpp';
+
+
 
 function App() {
   console.log("App component rendered");
@@ -16,7 +20,9 @@ function App() {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/home" element={<Navigate to="/"/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/signin" element={<Signin/>}/>
+        {/* <Route path="/signin" element={<Signin/>}/> */}
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/create" element={<SignUpp/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate to="/signin"/>}/>
       </Routes>  

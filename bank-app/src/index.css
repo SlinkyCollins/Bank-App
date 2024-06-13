@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
 .form-container {
   max-width: 400px;
   background-color: #fff;
@@ -211,4 +217,20 @@
 
 .slideOut {
   animation: slideOut 0.3s ease-out;
+}
+
+.bg-image {
+  position: relative;
+}
+
+.bg-image::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* color: #06b806; */
+  background-color:rgba(46, 158, 83, 0.902);
+  /* background-color:rgba(46, 72, 158, 0.9); */
 }
