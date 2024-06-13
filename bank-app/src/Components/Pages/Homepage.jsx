@@ -1,22 +1,7 @@
-// import React from 'react'
-
-// const Homepage = () => {
-//   return (
-//     <div>Homepage</div>
-//   )
-// }
-
-// export default Homepage
-
-
-
-
-
-
-
 import { Container, Typography, Button, AppBar, Toolbar, CssBaseline, Box } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Link, NavLink } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import './Homepage.css'; // Import your custom CSS file
 
