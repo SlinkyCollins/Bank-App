@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import { Link } from 'react-router-dom';
-
 import axios from "axios"
 import { useFormik } from "formik"
 import { useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast';
+
 
 
 const Login = () => {
@@ -36,6 +35,7 @@ const Login = () => {
         onSubmit: (values, { setValues }) => {
             if (values.email === "" || values.password === "") {
                 console.log("Please enter the values");
+                toast.error("Please enter your details");
             }
             const errors = {};
             if (!values.email) {
@@ -66,7 +66,7 @@ const Login = () => {
                         }
                     })
                     .catch((err) => {
-                        toast.error("Incorrect email or password");
+                        toast.error("Invalid details, please try again");
                         console.log(err);
                         console.log('wrong credentials');
                     })
@@ -81,8 +81,8 @@ const Login = () => {
                 <div className="bg-image">
                     <img src="/src/assets/banking (20).jpg" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
                 </div>
-                <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem" }}>
-                    <h1 style={{ fontSize: "2rem", fontWeight: "600" }}>NairaNest</h1>
+                <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem", cursor: "pointer" }}>
+                    <Link to="/"><h1 style={{ fontSize: "2rem", fontWeight: "600" }}>NairaNest</h1></Link>
                 </div>
                 <div style={{ position: "absolute", width: "50%", top: "50%", left: "50%", transform: "translate(-100%, -50%)", padding: "0 0 0 5rem" }}>
                     <div>
@@ -142,34 +142,6 @@ const Login = () => {
                                 )
                             }}
                         />
-
-                        {/* <FormControl variant="outlined" margin="normal" fullWidth>
-                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                    style={{ backgroundColor: "#fff" }}
-                                    onChange={formik.handleChange}
-                                    value={formik.values.password}
-                                />
-                            </FormControl> */}
-
-                        {/* <TextField fullWidth id="password" label="Password" variant="outlined" margin="normal" /> */}
-                   
-
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: ".5rem 0" }}>
                             <div style={{ color: "#685665" }}>

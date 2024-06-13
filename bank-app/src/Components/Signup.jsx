@@ -1,11 +1,27 @@
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik";
-import  axios from "axios";
+import axios from "axios";
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const Signup = () => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
     const navigate = useNavigate();
     const URL = 'http://localhost:5000/host/register';
     const formik = useFormik({
@@ -17,139 +33,159 @@ const Signup = () => {
         },
         validationSchema: Yup.object({
             firstName: Yup
-            .string()
-            .required("First name is required")
-            .max(15, "must be 15 characters or less")
-            .min(3, "must be 3 characters or more"),
+                .string()
+                .required("Please enter your first name")
+                .max(15, "must be 15 characters or less")
+                .min(3, "must be 3 characters or more"),
             lastName: Yup
-            .string()
-            .required("Last name is required")
-            .max(15, "must be 15 characters or less")
-            .min(3, "must be 3 characters or more"),
-            email: Yup.string().email("Invalid Email Address").required("Email Address is Required"),
+                .string()
+                .required("Please enter your last name")
+                .max(15, "must be 15 characters or less")
+                .min(3, "must be 3 characters or more"),
+            email: Yup.string().email("Enter in the format: name@example.com").required("Email Address is Required"),
             password: Yup
-            .string()
-            .min(8, "must be at least 8 characters")
-            .required("Password is Required")
+                .string()
+                .min(6, "Password must be six or more characters")
+                .required("Password is Required")
         }),
         onSubmit: (values) => {
-            if(values.firstName === "" || values.lastName === "" || values.email === "" || values.password === "" ) {
+            if (values.firstName === "" || values.lastName === "" || values.email === "" || values.password === "") {
                 console.log("Please fill in the values");
+                return;
             }
-            const errors = {};
-            if (values.firstName) {
-                errors.firstName = "Required";
-                console.log("First name Required");
-            } else if (values.firstName.length > 15) {
-                errors.firstName = "Must be 15 characters or less";
-                console.log("Must be 15 characters or less");
-            }
-            if (!values.lastName) {
-                errors.lastName = "Last name Required";
-            } else if (values.lastName.length > 15) {
-                errors.lastName = "Must be 15 characters or less";
-                console.log("Must be 15 characters or less");
-            }
-            if(!values.email) {
-                errors.email = "Email Required";
-                console.log("Email is Required");
-            } 
 
-            else {
-                console.log(values);
-                axios.post(URL, values)
+            axios.post(URL, values)
                 .then((response) => {
                     console.log(response);
                     setTimeout(() => {
-                        toast.success('Signed up')
+                        toast.success('Signed up successfully')
                     }, 500);
                     console.log("User saved successfully");
-                    navigate("/Signin");
+                    navigate("/login");
                 })
-                .catch((err)=> {
+                .catch((err) => {
                     console.log(err);
-                    toast.error("Error saving user");
-                })
-            }
+                    toast.error("Error signing up user");
+                });
         }
     });
+
     return (
-        <div className="form-container">
-            <div className="logo-container">
-                Sign up
+        <div style={{ display: "flex" }}>
+            <div style={{ minHeight: "100vh", width: "50%", color: "#fff" }}>
+                <div className="bg-image">
+                    <img src="/src/assets/bg-img.jpg" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
+                </div>
+                <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem" }}>
+                    <h1 style={{ fontSize: "2rem", fontWeight: "600" }}>NairaNest</h1>
+                </div>
+                <div style={{ position: "absolute", width: "50%", top: "50%", left: "50%", transform: "translate(-100%, -50%)", padding: "0 0 0 5rem" }}>
+                    <div>
+                        <h1 style={{ fontSize: "2.6rem", fontWeight: "600" }}>Get Verified!</h1>
+                        <p style={{ fontSize: "1.1rem", marginTop: "1rem", width: "90%" }}>Every day, NairaNest makes thousands of customers happy.</p>
+                    </div>
+                </div>
             </div>
+            <div style={{ minHeight: "100vh", width: "50%", color: "#000", textAlign: "left", display: "flex", justifyContent: "center", alignItems: "center", margin: "0" }}>
+                <div>
+                    <h1 style={{ fontSize: "1.7rem", marginBottom: "1rem" }}>Sign Up</h1>
+                    <Box
+                        onSubmit={formik.handleSubmit}
+                        component="form"
+                        sx={{
+                            width: 500,
+                            maxWidth: '100%',
+                        }}
+                    >
+                        <TextField
+                            fullWidth
+                            id="firstName"
+                            name="firstName"
+                            label="First Name"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.firstName}
+                            variant="outlined"
+                            margin="normal"
+                            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                            helperText={formik.touched.firstName && formik.errors.firstName ? (
+                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.firstName}</span>
+                            ) : null}
+                        />
 
-            <form onSubmit={formik.handleSubmit} className="form">
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input 
-                    onBlur={formik.handleBlur}
-                    type='text' 
-                    id='firstName' 
-                    name='firstName' 
-                    placeholder='Enter first name' 
-                    onChange={formik.handleChange}
-                    value={formik.values.firstName}
-                    />
-                    {formik.touched.firstName && formik.errors.firstName ? (
-                        <div className="text-red-500">{formik.errors.firstName}</div>
-                    ) : null}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input 
-                    onBlur={formik.handleBlur}
-                    type='text' 
-                    id='lastName' 
-                    name='lastName' 
-                    placeholder='Enter last name' 
-                    onChange={formik.handleChange}
-                    value={formik.values.lastName}
-                    />
-                    {formik.touched.lastName && formik.errors.lastName ? (
-                        <div className="text-red-500">{formik.errors.lastName}</div>
-                    ) : null}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input 
-                    onBlur={formik.handleBlur}
-                    type='email' 
-                    id='email' 
-                    name='email' 
-                    placeholder='Enter your email' 
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    />
-                    {formik.touched.email && formik.errors.email ? (
-                        <div className="text-red-500">{formik.errors.email}</div>
-                    ) : null}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Password</label>
-                    <input 
-                    onBlur={formik.handleBlur}
-                    type='password' 
-                    id='password' 
-                    name='password' 
-                    placeholder='Enter your password'
-                    onChange={formik.handleChange} 
-                    value={formik.values.password}
-                    />
-                    {formik.touched.password && formik.errors.password ? (
-                        <div className="text-red-500">{formik.errors.password}</div>
-                    ) : null}
-                </div>
 
-                <button className="form-submit-btn" type="submit">Sign Up</button>
-            </form>
+                        <TextField
+                            fullWidth
+                            id="lastName"
+                            label="Last Name"
+                            name="lastName"
+                            onChange={formik.handleChange}
+                            value={formik.values.lastName}
+                            onBlur={formik.handleBlur}
+                            variant="outlined"
+                            margin="normal"
+                            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                            helperText={formik.touched.lastName && formik.errors.lastName ? (
+                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.lastName}</span>
+                            ) : null}
+                        />
 
-            <p className="signup-link">
-                Already have an account?
-                <span className="text-blue-500 hover:underline"><Link to="/login"> Sign in</Link></span>
-            </p>
+                        <TextField
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            name="email"
+                            variant="outlined"
+                            margin="normal"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email ? (
+                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.email}</span>
+                            ) : null}
+                            
+                        />
+
+                        <TextField
+                            fullWidth
+                            id="password"
+                            name="password"
+                            label="Password"
+                            type={showPassword ? "text" : "password"}
+                            variant="outlined"
+                            margin="normal"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label='toggle password visibility'
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password ? (
+                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.password}</span>
+                            ) : null}
+                            
+                        />
+
+                        <Button style={{ backgroundColor: "#2dbe60", width: "100%", margin: "1rem 0", padding: ".8rem 0", fontWeight: "700" }} variant="contained" type='submit'>Sign Up</Button>
+                    </Box>
+                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login"><span style={{ color: "#2dbe60" }}>Login</span></Link></p>
+                </div>
+            </div>
         </div>
     )
 }
 
-export default Signup
+export default Signup;
