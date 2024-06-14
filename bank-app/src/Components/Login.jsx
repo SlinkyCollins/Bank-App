@@ -14,16 +14,34 @@ import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { LoadingButton } from '@mui/lab';
+import { useEffect } from 'react';
 
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
+    
+    
+    useEffect(() => {
+        const email = localStorage.getItem('email');
+        const rememberMe = localStorage.getItem('rememberMe') === 'true';
+
+        if (email && rememberMe) {
+            formik.setFieldValue('email', email);
+            setRememberMe(rememberMe);
+        }
+    }, []);
+
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const handleRememberMeChange = (event) => {
+        setRememberMe(event.target.checked);
+    }
 
     const navigate = useNavigate();
 
@@ -46,6 +64,14 @@ const Login = () => {
                         toast.success("Login successful");
                         let token = response.data.token;
                         localStorage.setItem("token", token);
+                        if (rememberMe) {
+                            localStorage.setItem("rememberMe", "true");
+                            localStorage.setItem("email", values.email);
+                        }
+                        else {
+                            localStorage.removeItem("email");
+                            localStorage.removeItem("rememberMe");
+                        }
                         navigate("/dashboard");
                     } else {
                         toast.error("User not found, please sign up");
@@ -140,7 +166,7 @@ const Login = () => {
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: ".5rem 0" }}>
                             <div style={{ color: "#685665" }}>
                                 <FormControlLabel
-                                    control={<Checkbox size='small' />}
+                                    control={<Checkbox size='small' checked={rememberMe} onChange={handleRememberMeChange} />}
                                     label="Remember Me"
                                     value="Remember Me"
                                 />

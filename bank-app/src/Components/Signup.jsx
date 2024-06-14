@@ -69,7 +69,7 @@ const Signup = () => {
                     toast.error("User already exists, please try again");
                 })
                 .finally(() => {
-                    setSubmitting(false); // End submission
+                    setSubmitting(false); //  End submission
                 });
         }
     });
@@ -81,7 +81,7 @@ const Signup = () => {
                     <img src="/src/assets/bg-img.jpg" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
                 </div>
                 <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem" }}>
-                    <h1 style={{ fontSize: "2rem", fontWeight: "600" }}>NairaNest</h1>
+                    <h1 style={{ fontSize: "2rem", fontWeight: "600" }}><Link to="/" style={{textDecoration: "none", color: "inherit"}}>NairaNest</Link></h1>
                 </div>
                 <div style={{ position: "absolute", width: "50%", top: "50%", left: "50%", transform: "translate(-100%, -50%)", padding: "0 0 0 5rem" }}>
                     <div>
