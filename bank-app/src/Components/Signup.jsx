@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -12,6 +11,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { LoadingButton } from '@mui/lab';
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -48,11 +48,12 @@ const Signup = () => {
                 .min(6, "Password must be six or more characters")
                 .required("Password is Required")
         }),
-        onSubmit: (values) => {
+        onSubmit: (values, { setSubmitting }) => {
             if (values.firstName === "" || values.lastName === "" || values.email === "" || values.password === "") {
                 console.log("Please fill in the values");
                 return;
             }
+            setSubmitting(true); // start submission
 
             axios.post(URL, values)
                 .then((response) => {
@@ -66,6 +67,9 @@ const Signup = () => {
                 .catch((err) => {
                     console.log(err);
                     toast.error("User already exists, please try again");
+                })
+                .finally(() => {
+                    setSubmitting(false); // End submission
                 });
         }
     });
@@ -179,7 +183,21 @@ const Signup = () => {
                             
                         />
 
-                        <Button style={{ backgroundColor: "#2dbe60", width: "100%", margin: "1rem 0", padding: ".8rem 0", fontWeight: "700" }} variant="contained" type='submit'>Sign Up</Button>
+                        <LoadingButton 
+                        loading={formik.isSubmitting} 
+                        style=
+                        {{ backgroundColor: "#2dbe60",
+                         width: "100%",
+                          margin: "1rem 0",
+                          padding: ".8rem 0",
+                          fontWeight: "700"
+                        }} 
+                        variant="contained" 
+                        type='submit'
+                        >
+                        Sign Up
+                        </LoadingButton>
+
                     </Box>
                     <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{textDecoration: "none", color: "inherit"}}><span style={{ color: "#2dbe60" }}  className='link'>Login</span></Link></p>
                 </div>
