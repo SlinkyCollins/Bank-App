@@ -65,14 +65,14 @@ const Signup = () => {
                 })
                 .catch((err) => {
                     console.log(err);
-                    toast.error("Error signing up user");
+                    toast.error("User already exists, please try again");
                 });
         }
     });
 
     return (
         <div style={{ display: "flex" }}>
-            <div style={{ minHeight: "100vh", width: "50%", color: "#fff" }}>
+            <div style={{width: "50%", color: "#fff" }}>
                 <div className="bg-image">
                     <img src="/src/assets/bg-img.jpg" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
                 </div>
@@ -82,7 +82,7 @@ const Signup = () => {
                 <div style={{ position: "absolute", width: "50%", top: "50%", left: "50%", transform: "translate(-100%, -50%)", padding: "0 0 0 5rem" }}>
                     <div>
                         <h1 style={{ fontSize: "2.6rem", fontWeight: "600" }}>Get Verified!</h1>
-                        <p style={{ fontSize: "1.1rem", marginTop: "1rem", width: "90%" }}>Every day, NairaNest makes thousands of customers happy.</p>
+                        <p style={{ fontSize: "1rem", marginTop: "1rem", width: "90%" }}>Every day, NairaNest makes thousands of customers happy.</p>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ const Signup = () => {
 
                         <Button style={{ backgroundColor: "#2dbe60", width: "100%", margin: "1rem 0", padding: ".8rem 0", fontWeight: "700" }} variant="contained" type='submit'>Sign Up</Button>
                     </Box>
-                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login"><span style={{ color: "#2dbe60" }}>Login</span></Link></p>
+                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{textDecoration: "none", color: "inherit"}}><span style={{ color: "#2dbe60" }}  className='link'>Login</span></Link></p>
                 </div>
             </div>
         </div>
