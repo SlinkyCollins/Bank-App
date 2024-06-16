@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,11 +14,16 @@ import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
+// import { jwtDecode } from 'jwt-decode';
 
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+    const [isLockedOut, setIsLockedOut] = useState(false);
+    const [lockoutTimer, setLockoutTimer] = useState(0);
+    const [lockoutMessage, setLockoutMessage] = useState('');
+    const [warningMessage, setWarningMessage] = useState('');
     
     
     useEffect(() => {
@@ -31,6 +35,16 @@ const Login = () => {
             setRememberMe(rememberMe);
         }
     }, []);
+
+    useEffect(() => {
+        let timer;
+        if (lockoutTimer > 0) {
+            timer = setTimeout(() => setLockoutTimer(lockoutTimer - 1), 1000);
+        } else {
+            setIsLockedOut(false);
+        }
+        return () => clearTimeout(timer);
+    }, [lockoutTimer]);
 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -62,8 +76,12 @@ const Login = () => {
                 .then((response) => {
                     if (response.data && response.data.user) {
                         toast.success("Login successful");
+                        // console.log(response.data.user);
                         let token = response.data.token;
                         localStorage.setItem("token", token);
+                        // const decodedToken = jwtDecode(token);
+                        // console.log('Decoded token', decodedToken);
+                        // console.log('Logged in user:', decodedToken.id);
                         if (rememberMe) {
                             localStorage.setItem("rememberMe", "true");
                             localStorage.setItem("email", values.email);
@@ -79,9 +97,18 @@ const Login = () => {
                 })
                 .catch((err) => {
                     if (err.response && err.response.status === 404) {
+                        setWarningMessage(err.response.data.warning); // set warning message
                         toast.error("User not found, please sign up");
                     } else if (err.response && err.response.status === 403) {
+                        setWarningMessage(err.response.data.warning); // set warning message
                         toast.error("Invalid credentials, please try again");
+                    }    else if (err.response && err.response.status === 429) {
+                        const retryAfter = Math.floor(err.response.data.retryAfter / 1000); // convert milliseconds to seconds
+                        setIsLockedOut(true);
+                        setLockoutTimer(retryAfter);
+                        // toast.error(`Too many login attempts. Please try again in ${retryAfter} seconds.`);
+                        toast.error(`Too many login attempts. Please try again later.`);
+                        setLockoutMessage(err.response.data.message);  // Set lockout message
                     } else {
                         toast.error("An error occurred. Please try again later.");
                     }
@@ -91,6 +118,10 @@ const Login = () => {
                 });
         },
     });
+
+    setTimeout(() => {
+        setLockoutMessage('');
+    }, 30000);
 
     return (
         <div style={{ display: "flex" }}>
@@ -111,6 +142,8 @@ const Login = () => {
             <div style={{ minHeight: "100vh", width: "50%", color: "#000", backgroundColor: "#f1f5f6", textAlign: "left", display: "flex", justifyContent: "center", alignItems: "center", margin: "0" }}>
                 <div>
                     <h1 style={{ fontSize: "1.7rem", marginBottom: "1rem" }}>Log In</h1>
+                    {lockoutMessage && <div style={{ color: 'red', marginBottom: '1rem' }}>{lockoutMessage}</div>}  {/* Display lockout message */}
+                    {warningMessage && <div style={{ color: 'orange', marginBottom: '1rem' }}>{warningMessage}</div>}  {/* Display warning message */}
                     <Box
                         onSubmit={formik.handleSubmit}
                         component="form"
@@ -177,16 +210,17 @@ const Login = () => {
                         </div>
                          <LoadingButton
                             style={{
-                                backgroundColor: "#2dbe60",
+                                backgroundColor: isLockedOut ? "#ccc" : "#2dbe60",
                                 width: "100%",
                                 marginBottom: "1rem",
                                 padding: ".8rem 0",
-                                fontWeight: "700"
+                                fontWeight: "700",
                             }}
                             type='submit'
                             variant="contained"
-                            loading={formik.isSubmitting}
-                            loadingIndicator="Loading…"
+                            loading={formik.isSubmitting || isLockedOut}
+                            loadingIndicator={isLockedOut ? `Try again in ${lockoutTimer}s` : "Loading..."}
+                            disabled={formik.isSubmitting || isLockedOut}
                         >
                             Login
                         </LoadingButton>

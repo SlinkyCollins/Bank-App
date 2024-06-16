@@ -70,30 +70,63 @@ const registerUser = async(req, res) => {
 // }
 
 
+const loginAttempts = {}; // Keep track of login attempts by IP address
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+    const ip = req.ip;
+
+    const key = `${email}:${ip}`;
+
+    if (!loginAttempts[key]) {
+        loginAttempts[key] = { count: 0, lastAttempt: Date.now() };
+    }
+
+    const attemptsLimit = 5;
+    const lockoutTime = 300000;
+    const warningLimit = 3;
+
+    if (loginAttempts[key].count >= attemptsLimit && (Date.now() - loginAttempts[key].lastAttempt < lockoutTime)) { // 5 minutes lockout
+        const retryAfter = lockoutTime - (Date.now() - loginAttempts[key].lastAttempt)
+        return res.status(429).json({ message: 'Too many login attempts. Please try again later.', retryAfter });
+    }
 
     try {
         // Find user by email
-        const user = await userModel.findOne({ email: email });
+        const user = await userModel.findOne({ email });
 
         if (!user) {
-            return res.status(404).json({ Message: 'User not found, sign up' });
+            loginAttempts[key].count += 1;
+            loginAttempts[key].lastAttempt = Date.now();
+            let warningMessage = ''
+            if (loginAttempts[key].count >= warningLimit && loginAttempts[key].count < attemptsLimit) {
+                warningMessage = `Warning: You have ${attemptsLimit - loginAttempts[key].count} attempts left before being locked out.`
+            }
+            return res.status(404).json({ message: 'User not found, sign up', warning: warningMessage });
         }
 
         // Check if password is correct
         const correctPassword = await bcrypt.compare(password, user.password);
 
         if (!correctPassword) {
-            return res.status(403).json({ Message: 'Invalid credentials' });
+            loginAttempts[key].count += 1;
+            loginAttempts[key].lastAttempt = Date.now();
+            let warningMessage = '';
+            if (loginAttempts[key].count >= warningLimit && loginAttempts[key].count < attemptsLimit) {
+                warningMessage = `Warning: You have ${attemptsLimit - loginAttempts[key].count} attempts left before being locked out.`;
+            }
+            return res.status(403).json({ message: 'Invalid credentials', warning: warningMessage });
         }
+
+        // Reset login attempts on successful login
+        loginAttempts[key] = { count: 0, lastAttempt: Date.now() };
 
         // Generate JWT token
         const token = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
 
         // Send response with token and user details
         res.status(200).json({
-            Message: 'Login successful',
+            message: 'Login successful',
             token: token,
             user: user
         });
@@ -101,9 +134,10 @@ const loginUser = async (req, res) => {
     } catch (error) {
         // Handle error
         console.error("Error:", error);
-        res.status(500).json({ Message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 
 // const dashboard = async(req, res) => {
