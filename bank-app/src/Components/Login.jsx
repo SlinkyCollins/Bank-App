@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
 import "../Components/Login.css"
-import banking1 from "../assets/banking1.jpg";
+import banking2 from "../assets/banking2.jpg";
 
 
 const Login = () => {
@@ -134,8 +134,8 @@ const Login = () => {
     return (
         <Grid container sx={{height: "100vh"}} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>
-                <div className="bg-image">
-                    <img src={banking1} style={{ width: "100%", height: "26rem", objectFit: "cover" }} />
+                <div className="bg-image" style={{height: "26rem"}}>
+                    <img src={banking2} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
