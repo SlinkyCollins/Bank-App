@@ -134,7 +134,7 @@ const Login = () => {
         <Grid container sx={{height: "100vh"}} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>
                 <div className="bg-image">
-                    <img src="/src/assets/banking (20).jpg" alt="" style={{ width: "100%", height: "26rem", objectFit: "cover" }} />
+                    <img src="/src/assets/banking1.jpg" alt="" style={{ width: "100%", height: "26rem", objectFit: "cover" }} />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
@@ -149,7 +149,7 @@ const Login = () => {
 
             <Grid className='logingriditem2' item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f6', padding: "2.5rem 0"}}>
                 <Box sx={{ width: '90%', maxWidth: 500 }}>
-                    <h1 style={{ fontSize: "1.5rem", marginBottom: "1rem", fontWeight: "400" }}>Log In</h1>
+                    <h1 style={{ fontSize: "1.5rem", marginBottom: "1rem", fontWeight: "500" }}>Log In</h1>
                     {lockoutMessage && <div style={{ color: 'red', marginBottom: '1rem' }}>{lockoutMessage}</div>}  {/* Display lockout message */}
                     {warningMessage && <div style={{ color: 'orange', marginBottom: '1rem' }}>{warningMessage}</div>}  {/* Display warning message */}
                     <Box

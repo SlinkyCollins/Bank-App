@@ -28,7 +28,6 @@
     .logingridcontainer .logingriditem1 .bg-image img {
         width: 100% !important;
         height: 100vh !important;
-        object-fit: cover !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
         width: 50% !important;   
@@ -64,7 +63,6 @@
     .logingridcontainer .logingriditem1 .bg-image img {
         width: 100% !important;
         height: 100vh !important;
-        object-fit: cover !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
         padding: 3rem 0 0 3rem !important;
@@ -102,7 +100,6 @@
     .logingridcontainer .logingriditem1 .bg-image img {
         width: 100% !important;
         height: 100vh !important;
-        object-fit: cover !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
         padding: 3rem 0 0 5rem !important;
