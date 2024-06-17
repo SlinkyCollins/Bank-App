@@ -4,6 +4,7 @@ import { createTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import './Homepage.css'; // Import your custom CSS file
+import Logo from "../Pages/logo.png"; 
 
 const theme = createTheme({
   palette: {
@@ -38,7 +39,7 @@ const Homepage = () => {
       <AppBar position="static">
         <Toolbar>
           <div  style={{ display: "flex", flexDirection: "column", marginRight: "2rem"}}>
-            <Link to="/"><img src="/src/assets/logo.png" style={{width: "7rem", borderRadius: "50%", cursor: "pointer"}} /></Link>
+            <Link to="/"><img src={Logo} style={{width: "7rem", borderRadius: "50%", cursor: "pointer"}} /></Link>
           </div>
           <Typography variant="h6" component="div" sx={{marginRight: "1rem", fontSize: ".9rem", cursor: "pointer"}}>
             HOME

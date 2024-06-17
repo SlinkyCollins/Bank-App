@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import toast from 'react-hot-toast';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { LoadingButton } from '@mui/lab';
+import bgImg from "../assets/bg-img.jpg";
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +79,7 @@ const Signup = () => {
         <div style={{ display: "flex" }}>
             <div style={{width: "50%", color: "#fff" }}>
                 <div className="bg-image">
-                    <img src="/src/assets/bg-img.jpg" style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
+                    <img src={bgImg} style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
                 </div>
                 <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem" }}>
                     <h1 style={{ fontSize: "2rem", fontWeight: "600" }}><Link to="/" style={{textDecoration: "none", color: "inherit"}}>NairaNest</Link></h1>
