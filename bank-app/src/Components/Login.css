@@ -16,6 +16,7 @@
     }
     .logingridcontainer .logingriditem1 .bg-image img {
         height: 32rem !important;
+        object-fit: cover !important;
     }
 
     .logingridcontainer .logingriditem2 {
