@@ -131,6 +131,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
+  background-size: cover;
   background-color: rgba(77, 187, 109, 0.49);
 }
 
