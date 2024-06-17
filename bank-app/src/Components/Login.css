@@ -14,7 +14,7 @@
         font-size: 2.5rem !important;
         margin-bottom: 8rem !important;
     }
-    .logingridcontainer .logingriditem1 .bg-image img {
+    .logingridcontainer .logingriditem1 .bg-image {
         height: 32rem !important;
         object-fit: cover !important;
     }
@@ -26,7 +26,7 @@
 
 /* tablets and laptops */
 @media (min-width: 900px) and (max-width: 1024.99px) {
-    .logingridcontainer .logingriditem1 .bg-image img {
+    .logingridcontainer .logingriditem1 .bg-image  {
         width: 100% !important;
         height: 100vh !important;
     }
@@ -43,8 +43,6 @@
        position: absolute !important;
        top: 50% !important;
        left: 0 !important;
-
-       /* left: 50% !important; */
        transform: translate(0%, 80%) !important;
        padding: 2rem !important;
     }
@@ -61,7 +59,7 @@
 
 /* large laptops */
 @media (min-width: 1025px) and (max-width: 1215.99px) {
-    .logingridcontainer .logingriditem1 .bg-image img {
+    .logingridcontainer .logingriditem1 .bg-image {
         width: 100% !important;
         height: 100vh !important;
     }
@@ -98,7 +96,7 @@
 
 /* 4k screens */
 @media (min-width: 1216px) {
-    .logingridcontainer .logingriditem1 .bg-image img {
+    .logingridcontainer .logingriditem1 .bg-image {
         width: 100% !important;
         height: 100vh !important;
     }
