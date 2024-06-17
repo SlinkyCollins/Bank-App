@@ -131,9 +131,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  /* color: #06b806; */
-  background-color:rgba(46, 158, 83, 0.902);
-  /* background-color:rgba(46, 72, 158, 0.9); */
+  background-color: rgba(77, 187, 109, 0.89);
 }
 
 .link:hover {

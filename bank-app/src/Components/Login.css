@@ -1,0 +1,135 @@
+
+/* small devices and tablets */
+@media (min-width: 500px) and (max-width: 899.99px) {
+    .logingridcontainer .logingriditem1 .login-header {
+        font-size: 3rem !important;
+        font-weight: 600;
+    }
+
+    .logingridcontainer .logingriditem1 .login-paragraph {
+        font-size: 1.5rem !important;
+        line-height: 2.5rem !important;
+    }
+    .logingridcontainer .logingriditem1 .nairanest-login-logo {
+        font-size: 2.5rem !important;
+        margin-bottom: 8rem !important;
+    }
+    .logingridcontainer .logingriditem1 .bg-image img {
+        height: 32rem !important;
+    }
+
+    .logingridcontainer .logingriditem2 {
+        height: 60% !important;
+    }
+}
+
+/* tablets and laptops */
+@media (min-width: 900px) and (max-width: 1024.99px) {
+    .logingridcontainer .logingriditem1 .bg-image img {
+        width: 100% !important;
+        height: 100vh !important;
+        object-fit: cover !important;
+    }
+    .logingridcontainer .logingriditem1 .logoWrapper {
+        width: 50% !important;   
+    }
+
+    .logingridcontainer .logingriditem1 .nairanest-login-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper {
+       position: absolute !important;
+       top: 50% !important;
+       left: 0 !important;
+
+       /* left: 50% !important; */
+       transform: translate(0%, 80%) !important;
+       padding: 2rem !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-header {
+        font-size: 2.4rem !important;
+        font-weight: 600 !important;  
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-paragraph {
+       margin-top: 2rem !important;
+    }
+}
+
+/* large laptops */
+@media (min-width: 1025px) and (max-width: 1215.99px) {
+    .logingridcontainer .logingriditem1 .bg-image img {
+        width: 100% !important;
+        height: 100vh !important;
+        object-fit: cover !important;
+    }
+    .logingridcontainer .logingriditem1 .logoWrapper {
+        padding: 3rem 0 0 3rem !important;
+    }
+
+    .logingridcontainer .logingriditem1 .nairanest-login-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-100%, 150%) !important;
+        padding: 0 0 0 3rem !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-header {
+       font-size: 2.6rem !important;
+       font-weight: 600 !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-paragraph {
+       font-size: 1.1rem !important;
+       margin-top: 1.5rem !important;
+       width: 90% !important;
+       line-height: 1.5rem !important;
+    }
+}
+
+
+/* 4k screens */
+@media (min-width: 1216px) {
+    .logingridcontainer .logingriditem1 .bg-image img {
+        width: 100% !important;
+        height: 100vh !important;
+        object-fit: cover !important;
+    }
+    .logingridcontainer .logingriditem1 .logoWrapper {
+        padding: 3rem 0 0 5rem !important;
+    }
+
+    .logingridcontainer .logingriditem1 .nairanest-login-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-100%, 180%) !important;
+        padding: 0 0 0 5rem !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-header {
+       font-size: 2.6rem !important;
+       font-weight: 600 !important;
+    }
+
+    .logingridcontainer .logingriditem1 .logoWrapper .loginTextWrapper .login-paragraph {
+       font-size: 1.1rem !important;
+       margin-top: 1.5rem !important;
+       width: 90% !important;
+       line-height: 1.5rem !important;
+    }   
+}
