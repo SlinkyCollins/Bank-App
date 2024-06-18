@@ -122,7 +122,6 @@ body {
 
 .bg-image {
   position: relative;
-  height: 23rem;
 }
 
 .bg-image::after{

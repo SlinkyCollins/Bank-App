@@ -78,8 +78,8 @@ const Signup = () => {
     return (
         <div style={{ display: "flex" }}>
             <div style={{width: "50%", color: "#fff" }}>
-                <div className="bg-image">
-                    <img src={bgImg} style={{ width: "100%", height: "100vh", objectFit: "cover" }} />
+                <div className="bg-image" style={{height: "100vh"}}>
+                    <img src={bgImg} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div style={{ position: "absolute", top: "0", left: "0", padding: "3rem 0 0 5rem" }}>
                     <h1 style={{ fontSize: "2rem", fontWeight: "600" }}><Link to="/" style={{textDecoration: "none", color: "inherit"}}>NairaNest</Link></h1>

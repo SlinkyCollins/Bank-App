@@ -134,7 +134,7 @@ const Login = () => {
     return (
         <Grid container sx={{height: "100vh"}} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>
-                <div className="bg-image">
+                <div className="bg-image" style={{height: "23rem"}}>
                     <img src={banking1} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>

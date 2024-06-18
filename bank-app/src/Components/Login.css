@@ -18,6 +18,9 @@
         height: 32rem !important;
         object-fit: cover !important;
     }
+    .logingridcontainer .logingriditem1 .bg-image img {
+        height: 100% !important;
+    }
 
     .logingridcontainer .logingriditem2 {
         height: 60% !important;
@@ -26,8 +29,10 @@
 
 /* tablets and laptops */
 @media (min-width: 900px) and (max-width: 1024.99px) {
+    .logingridcontainer .logingriditem1 .bg-image img {
+        height: 100% !important;
+    }
     .logingridcontainer .logingriditem1 .bg-image  {
-        width: 100% !important;
         height: 100vh !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
@@ -59,8 +64,10 @@
 
 /* large laptops */
 @media (min-width: 1025px) and (max-width: 1215.99px) {
-    .logingridcontainer .logingriditem1 .bg-image {
-        width: 100% !important;
+    .logingridcontainer .logingriditem1 .bg-image img {
+        height: 100% !important;
+    }
+    .logingridcontainer .logingriditem1 .bg-image  {
         height: 100vh !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
@@ -96,8 +103,10 @@
 
 /* 4k screens */
 @media (min-width: 1216px) {
-    .logingridcontainer .logingriditem1 .bg-image {
-        width: 100% !important;
+    .logingridcontainer .logingriditem1 .bg-image img {
+        height: 100% !important;
+    }
+    .logingridcontainer .logingriditem1 .bg-image  {
         height: 100vh !important;
     }
     .logingridcontainer .logingriditem1 .logoWrapper {
