@@ -1,3 +1,150 @@
+
+/* small devices and tablets */
+@media (min-width: 500px) and (max-width: 899.99px) {
+    .signupgridcontainer .signupgriditem1 .signup-header {
+        font-size: 3rem !important;
+        font-weight: 600;
+    }
+
+    .signupgridcontainer .signupgriditem1 .signup-paragraph {
+        font-size: 1.5rem !important;
+        line-height: 2.5rem !important;
+    }
+    .signupgridcontainer .signupgriditem1 .nairanest-signup-logo {
+        font-size: 2.5rem !important;
+        margin-bottom: 8rem !important;
+    }
+    .signupgridcontainer .signupgriditem1 .bg-image {
+        height: 32rem !important;
+        object-fit: cover !important;
+    }
+    .signupgridcontainer .signupgriditem1 .bg-image img {
+        height: 100% !important;
+    }
+
+    .signupgridcontainer .signupgriditem2 {
+        height: 60% !important;
+    }
+}
+
+/* tablets and laptops */
+@media (min-width: 900px) and (max-width: 1024.99px) {
+    .signupgridcontainer .signupgriditem1 .bg-image img {
+        height: 100% !important;
+    }
+    .signupgridcontainer .signupgriditem1 .bg-image  {
+        height: 100vh !important;
+    }
+    .signupgridcontainer .signupgriditem1 .logoWrapper {
+        width: 50% !important;   
+    }
+
+    .signupgridcontainer .signupgriditem1 .nairanest-signup-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper {
+       position: absolute !important;
+       top: 50% !important;
+       left: 0 !important;
+       transform: translate(0%, 80%) !important;
+       padding: 2rem !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-header {
+        font-size: 2.4rem !important;
+        font-weight: 600 !important;  
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-paragraph {
+       margin-top: 2rem !important;
+    }
+}
+
+/* large laptops */
+@media (min-width: 1025px) and (max-width: 1215.99px) {
+    .signupgridcontainer .signupgriditem1 .bg-image img {
+        height: 100% !important;
+    }
+    .signupgridcontainer .signupgriditem1 .bg-image  {
+        height: 100vh !important;
+    }
+    .signupgridcontainer .signupgriditem1 .logoWrapper {
+        padding: 3rem 0 0 3rem !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .nairanest-signup-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-100%, 200%) !important;
+        padding: 0 0 0 3rem !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-header {
+       font-size: 2.6rem !important;
+       font-weight: 600 !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-paragraph {
+       font-size: 1.1rem !important;
+       margin-top: 1.5rem !important;
+       width: 90% !important;
+       line-height: 1.5rem !important;
+    }
+}
+
+
+/* 4k screens */
+@media (min-width: 1216px) {
+    .signupgridcontainer .signupgriditem1 .bg-image img {
+        height: 100% !important;
+    }
+    .signupgridcontainer .signupgriditem1 .bg-image  {
+        height: 100vh !important;
+    }
+    .signupgridcontainer .signupgriditem1 .logoWrapper {
+        padding: 3rem 0 0 5rem !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .nairanest-signup-logo {
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper {
+        position: absolute !important;
+        top: 50% !important;
+        left: 0 !important;
+        transform: translate(0%, 180%) !important;
+        padding: 0 0 0 5rem !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-header {
+       font-size: 2.6rem !important;
+       font-weight: 600 !important;
+    }
+
+    .signupgridcontainer .signupgriditem1 .logoWrapper .signupTextWrapper .signup-paragraph {
+       font-size: 1.1rem !important;
+       margin-top: 1.5rem !important;
+       width: 90% !important;
+       line-height: 1.5rem !important;
+    }   
+}
+
+
+
+
+
+
+
 /* .signup-container {
     display: flex;
     flex-direction: column;
