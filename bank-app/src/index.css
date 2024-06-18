@@ -122,18 +122,33 @@ body {
 
 .bg-image {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url("../src/assets/banking1.jpg");
+    background-size: cover;
+    background-position: top center;
+    opacity: 0.25;
+  }
 }
 
-.bg-image::after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-size: cover;
-  background-color: rgba(77, 187, 109, 0.9);
+.logoWrapper {
+  position: relative;
+  text-align: center;
 }
+
+/* .bg-image::after{
+  
+} */
 
 .link:hover {
   text-decoration: underline;
