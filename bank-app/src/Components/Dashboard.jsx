@@ -57,7 +57,7 @@ const Dashboard = () => {
     const fetchUserDetails = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/host/dashboard", {
+        const response = await axios.get("https://bank-app-6lyo.onrender.com/host/dashboard", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
