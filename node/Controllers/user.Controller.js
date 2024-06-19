@@ -9,25 +9,25 @@ const welcomeUser = (req, res) => {
     console.log('Welcome to the home page');
 }
 
-const registerUser = async(req, res) => {
-    // res.send("Welcome to the register user page");
-    let saltRound = 10
-    const {firstName, lastName, email, password} = req.body
-    const plainTextPassword = password;
-    const hashedPassword = bcrypt.hashSync(plainTextPassword, saltRound)
-    console.log(req.body);
-    let user = new userModel({firstName, lastName, email, password: hashedPassword})
-    user.save()
-    .then((result) => {
-        console.log(result);
-        console.log("User signed up and saved successfully");
-        res.status(200).json({Message: "Registration successful"});
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({Message: "Registration failed"});
-    });
-}
+// const registerUser = async(req, res) => {
+//     // res.send("Welcome to the register user page");
+//     let saltRound = 10
+//     const {firstName, lastName, email, password} = req.body
+//     const plainTextPassword = password;
+//     const hashedPassword = bcrypt.hashSync(plainTextPassword, saltRound)
+//     console.log(req.body);
+//     let user = new userModel({firstName, lastName, email, password: hashedPassword})
+//     user.save()
+//     .then((result) => {
+//         console.log(result);
+//         console.log("User signed up and saved successfully");
+//         res.status(200).json({Message: "Registration successful"});
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         res.status(500).json({Message: "Registration failed"});
+//     });
+// }
 
 // const loginUser = async(req, res) => {
 //     // res.send("Welcome to the login user page");
@@ -68,6 +68,39 @@ const registerUser = async(req, res) => {
 //         console.log("Login successful");
 //     }
 // }
+
+const registerUser = async(req, res) => {
+    const {firstName, lastName, email, password} = req.body;
+
+
+    try {
+
+        // Check if user already exists
+        const existingUser = await userModel.findOne({ email });
+
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists" });
+        }
+
+        // Hash password
+        const saltRound = 10;
+        const hashedPassword = bcrypt.hashSync(password, saltRound);
+
+        // Create new user
+        const newUser = new userModel({ firstName, lastName, email, password: hashedPassword });
+        
+        // Save new user
+        const result = await newUser.save();
+        console.log("User signed up and saved successfully");
+        console.log(result);
+        res.status(200).json({ message: "Registration successful", user: result });
+    } catch (error) {
+        console.error("Error during registration:", error);
+
+        // Handle unexpected errors
+        res.status(500).json({ message: "Registration failed. Please try again later.", error: error.message });
+    }
+}
 
 
 const loginAttempts = {}; // Keep track of login attempts by IP address

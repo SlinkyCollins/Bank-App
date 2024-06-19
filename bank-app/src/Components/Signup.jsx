@@ -61,15 +61,26 @@ const Signup = () => {
             axios.post(URL, values)
                 .then((response) => {
                     console.log(response);
-                    setTimeout(() => {
-                        toast.success('Signed up successfully')
-                    }, 500);
                     console.log("User saved successfully");
+                    toast.success('Signed up successfully');
                     navigate("/login");
                 })
-                .catch((err) => {
-                    console.log(err);
-                    toast.error("User already exists, please try again");
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.status === 409) {
+                            toast.error("User already exists. Please use a different email or try logging in.");
+                        } else if (error.response.status === 500) {
+                            toast.error("Registration failed. Please try again later.");
+                        } else {
+                            toast.error("An error occurred. Please try again later.");
+                        }
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        toast.error("Network error. Please check your connection and try again.");
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        toast.error("An unexpected error occurred. Please try again.");
+                    }
                 })
                 .finally(() => {
                     setSubmitting(false); //  End submission
