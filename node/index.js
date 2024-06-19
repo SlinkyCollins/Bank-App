@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use("/host", userRouter)
 
+app.get('/', function(req, res) {
+    res.send("hello world!");
+});
+
 app.listen(port, ()=>{
     mongoose.connect(uri)
     .then(()=>{
