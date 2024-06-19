@@ -4,6 +4,14 @@ const bcrypt = require("bcrypt")
 require("dotenv").config()
 let secret = process.env.SECRET
 
+const cloudinary = require("cloudinary");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const welcomeUser = (req, res) => {
     res.send("Welcome to the home page")
     console.log('Welcome to the home page');
