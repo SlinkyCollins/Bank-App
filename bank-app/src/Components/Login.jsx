@@ -16,15 +16,24 @@ import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
 import "../Components/Login.css"
 import banking1 from "../assets/banking1.jpg";
+import FullPageLoader from './FullPageLoader';
 
 
 const Login = () => {
+    const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const [isLockedOut, setIsLockedOut] = useState(false);
     const [lockoutTimer, setLockoutTimer] = useState(0);
     const [lockoutMessage, setLockoutMessage] = useState('');
     const [warningMessage, setWarningMessage] = useState('');
+
+    useEffect(() => {
+        // Simulate a network request
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }, []);
     
     
     useEffect(() => {
@@ -131,6 +140,9 @@ const Login = () => {
                 });
         },
     });
+    if (loading) {
+        return <FullPageLoader />;
+      }
     return (
         <Grid container sx={{height: "100vh"}} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>

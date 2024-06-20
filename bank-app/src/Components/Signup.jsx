@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Visibility from '@mui/icons-material/Visibility';
@@ -14,10 +14,19 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { LoadingButton } from '@mui/lab';
 import bgImg from "../assets/bg-img.jpg";
 import "../Components/Signup.css"
+import FullPageLoader from './FullPageLoader';
 
 
 const Signup = () => {
+    const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        // Simulate a network request
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }, []);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -87,6 +96,9 @@ const Signup = () => {
                 });
         }
     });
+    if (loading) {
+        return <FullPageLoader />;
+      }
     return (
         <Grid container sx={{height: "100vh"}} className='signupgridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='signupgriditem1'>

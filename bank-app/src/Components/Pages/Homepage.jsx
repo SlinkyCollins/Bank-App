@@ -4,7 +4,9 @@ import { createTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import './Homepage.css'; // Import your custom CSS file
-import Logo from "../Pages/logo.png"; 
+import Logo from "../Pages/logo.png";
+import FullPageLoader from '../FullPageLoader';
+import { useEffect, useState } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -33,39 +35,51 @@ const theme = createTheme({
 });
 
 const Homepage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a network request
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return <FullPageLoader />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-          <div  style={{ display: "flex", flexDirection: "column", marginRight: "2rem"}}>
-            <Link to="/"><img src={Logo} style={{width: "7rem", borderRadius: "50%", cursor: "pointer"}} /></Link>
+          <div style={{ display: "flex", flexDirection: "column", marginRight: "2rem" }}>
+            <Link to="/"><img src={Logo} style={{ width: "7rem", borderRadius: "50%", cursor: "pointer" }} /></Link>
           </div>
-          <Typography variant="h6" component="div" sx={{marginRight: "1rem", fontSize: ".9rem", cursor: "pointer"}}>
+          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
             HOME
           </Typography>
-          <Typography variant="h6" component="div" sx={{marginRight: "1rem", fontSize: ".9rem", cursor: "pointer"}}>
+          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
             ABOUT US
           </Typography>
-          <Typography variant="h6" component="div" sx={{marginRight: "1rem", fontSize: ".9rem", cursor: "pointer"}}>
+          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
             SERVICES
           </Typography>
-          <Typography variant="h6" component="div" sx={{marginRight: "1rem",fontSize: ".9rem", cursor: "pointer"}}>
+          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
             CONTACT
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1,fontSize: ".9rem", display: "flex", alignItems: "center" , cursor: "pointer"}}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontSize: ".9rem", display: "flex", alignItems: "center", cursor: "pointer" }}>
             FEATURES
-            <KeyboardArrowDownIcon 
-            fontSize='medium'
-            color='default'
-             />
+            <KeyboardArrowDownIcon
+              fontSize='medium'
+              color='default'
+            />
           </Typography>
-          <div style={{display: "flex", alignItems: "center", gap: "1rem"}}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <Link to="/login">
-              <Button color="inherit" variant='outlined' style={{fontWeight: "600"}}>Login</Button>
+              <Button color="inherit" variant='outlined' style={{ fontWeight: "600" }}>Login</Button>
             </Link>
             <Link to="/signup">
-              <Button color="primary" variant='contained' style={{fontWeight: "600"}}>Sign Up</Button>
+              <Button color="primary" variant='contained' style={{ fontWeight: "600" }}>Sign Up</Button>
             </Link>
           </div>
         </Toolbar>

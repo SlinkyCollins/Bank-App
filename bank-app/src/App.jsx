@@ -5,10 +5,23 @@ import Dashboard from './Components/Dashboard';
 import { Toaster } from "react-hot-toast";
 import Homepage from './Components/Pages/Homepage';
 import Login from './Components/Login';
+import FullPageLoader from './Components/FullPageLoader';
+import { useEffect, useState } from 'react';
 
 
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Simulate a network request
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return <FullPageLoader />;
+  }
   console.log("App component rendered");
   let token = localStorage.getItem("token")
   return (
