@@ -2,6 +2,7 @@ const userModel = require("../Models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const crypto = require('crypto');
 require("dotenv").config();
 let secret = process.env.SECRET;
 
@@ -162,7 +163,7 @@ const registerUser = async (req, res) => {
 
     console.log(result);
     res.status(200).json({ message: "Registration successful", user: result });
-    
+
   } catch (error) {
     console.error("Error during registration:", error);
 
@@ -311,10 +312,102 @@ const dashboard = async (req, res) => {
   }
 };
 
+
+
+const sendResetMail = async (email, resetUrl) => {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.USER_EMAIL, // Dev's Email address
+        pass: process.env.USER_PASS, // Dev's App Password
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+  
+    const emailText = `Hello,\n\nYou requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email.\n\nBest,\nThe NairaNest Team`;
+  
+    const mailOptions = {
+      from: process.env.USER_EMAIL, // Sender address
+      to: email, // List of receivers
+      subject: "Password Reset Request", // Subject line
+      text: emailText, // Plain text body
+    };
+  
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("Email sent successfully");
+    } catch (err) {
+      console.error("Error sending mail: " + err);
+    }
+  };
+  
+  const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await userModel.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Generate reset token
+      const resetToken = crypto.randomBytes(32).toString('hex');
+      const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
+      user.resetPasswordToken = resetTokenHash;
+      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  
+      await user.save();
+  
+      // Send reset email
+      const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+      await sendResetMail(email, resetUrl);
+  
+      res.status(200).json({ message: 'Password reset email sent' });
+    } catch (error) {
+      console.error('Error sending reset email:', error);
+      res.status(500).json({ message: 'Error sending reset email' });
+    }
+  };
+  
+  const resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+  
+    try {
+      const resetTokenHash = crypto.createHash('sha256').update(token).digest('hex');
+      const user = await userModel.findOne({
+        resetPasswordToken: resetTokenHash,
+        resetPasswordExpires: { $gt: Date.now() },
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired token' });
+      }
+  
+      user.password = bcrypt.hashSync(newPassword, 10);
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+  
+      await user.save();
+      res.status(200).json({ message: 'Password reset successful' });
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      res.status(500).json({ message: 'Error resetting password' });
+    }
+  };
+  
+
 module.exports = {
   welcomeUser,
   registerUser,
   loginUser,
   dashboard,
   sendMail,
+  forgotPassword,
+  resetPassword,
+  sendResetMail,
 };

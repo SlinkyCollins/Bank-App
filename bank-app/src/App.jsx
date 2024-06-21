@@ -7,6 +7,8 @@ import Homepage from './Components/Pages/Homepage';
 import Login from './Components/Login';
 import FullPageLoader from './Components/FullPageLoader';
 import { useEffect, useState } from 'react';
+import ResetPassword from './Components/ResetPassword';
+import ForgotPassword from './Components/ForgotPassword';
 
 
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate to="/login"/>}/>
       </Routes>  
     </>
