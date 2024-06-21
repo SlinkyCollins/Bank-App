@@ -81,7 +81,7 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const URL = "http://localhost:5000/host/login";
+    const URL = "https://bank-app-6lyo.onrender.com/host/login";
     const formik = useFormik({
         initialValues: {
             email: "",

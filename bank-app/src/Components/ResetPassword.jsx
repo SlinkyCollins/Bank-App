@@ -9,7 +9,7 @@ import "./ResetForms.css";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const { token } = useParams();
-  const URL = "http://localhost:5000/host/reset-password";
+  const URL = "https://bank-app-6lyo.onrender.com/host/reset-password";
 //   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

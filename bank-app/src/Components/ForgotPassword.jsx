@@ -5,7 +5,7 @@ import "./ResetForms.css";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const URL = "http://localhost:5000/host/forgot-password";
+    const URL = "https://bank-app-6lyo.onrender.com/host/forgot-password";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
