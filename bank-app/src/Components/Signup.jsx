@@ -35,7 +35,7 @@ const Signup = () => {
     };
 
     const navigate = useNavigate();
-    const URL = 'http://localhost:5000/host/register';
+    const URL = 'https://bank-app-6lyo.onrender.com/host/register';
     const formik = useFormik({
         initialValues: {
             firstName: '',

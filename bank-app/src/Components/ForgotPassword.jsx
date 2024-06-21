@@ -17,7 +17,7 @@ const ForgotPassword = () => {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.message); // Log the error message if it exists
-                toast.error(error.response.data.message); // Display the error message to the user
+                toast.error("Error sending reset email"); // Display the error message to the user
             } else {
                 console.log(error); // Log the entire error object for debugging
                 toast.error("An unexpected error occurred. Please try again later.");

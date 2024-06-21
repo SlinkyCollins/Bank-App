@@ -1,4 +1,4 @@
-/* Add this CSS to your main CSS file
+Add this CSS to your main CSS file
 form {
     display: flex;
     flex-direction: column;
@@ -24,4 +24,4 @@ button {
 
 button:hover {
     background-color: #28a745;
-} */
+}

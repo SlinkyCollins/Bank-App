@@ -373,6 +373,38 @@ const sendResetMail = async (email, resetUrl) => {
       res.status(500).json({ message: 'Error sending reset email' });
     }
   };
+
+  const sendResetConfirmationEmail = async (email) => {
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.USER_EMAIL,
+            pass: process.env.USER_PASS,
+        },
+        tls: {
+            rejectUnauthorized: false,
+        },
+    });
+
+    const emailText = `Hello,\n\nYour password has been successfully reset. If you did not initiate this change, please contact support immediately.\n\nBest,\nThe NairaNest Team`
+
+    const mailOptions = {
+        from: process.env.USER_EMAIL,
+        to: email,
+        subject: "Password Reset Successful",
+        text: emailText,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log("Confirmation email sent successfully");
+    } catch (err) {
+        console.error("Error sending confirmation email: " + err);
+    }
+  };
   
   const resetPassword = async (req, res) => {
     const { token, newPassword } = req.body;
@@ -393,7 +425,11 @@ const sendResetMail = async (email, resetUrl) => {
       user.resetPasswordExpires = undefined;
   
       await user.save();
+
+      await sendResetConfirmationEmail(user.email);  // Send confirmation email
+      
       res.status(200).json({ message: 'Password reset successful' });
+
     } catch (error) {
       console.error('Error resetting password:', error);
       res.status(500).json({ message: 'Error resetting password' });
@@ -410,4 +446,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   sendResetMail,
+  sendResetConfirmationEmail,
 };
