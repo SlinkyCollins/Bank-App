@@ -73,7 +73,7 @@ const Dashboard = () => {
         toast.dismiss(); 
         toast.error("Session Expired. Please log in again.");
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/login", { replace: true }); // Redirect to login page and replace history
       }
     };
 
@@ -120,7 +120,7 @@ const Dashboard = () => {
       console.clear();
 
       // Navigate to the signin page
-      navigate("/login");
+      navigate("/login", { replace: true });
     } catch (error) {
       // Dismiss the loading toast
       toast.dismiss(loadingToastId);

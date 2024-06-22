@@ -1,5 +1,5 @@
 import './App.css'
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Signup from './Components/Signup';
 import Dashboard from './Components/Dashboard';
 import { Toaster } from "react-hot-toast";
@@ -16,18 +16,27 @@ import ResetSuccess from './Components/resetSucess';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+ 
   useEffect(() => {
     // Simulate a network request
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+
+    // Check token expiration
+    const token = localStorage.getItem('token');
+    if (!token) {
+      localStorage.removeItem('token');
+      navigate('/login', { replace: true });
+    }
+  }, [navigate]);
 
   if (loading) {
     return <FullPageLoader />;
   }
   console.log("App component rendered");
-  let token = localStorage.getItem("token")
+  // let token = localStorage.getItem("token")
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -40,7 +49,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
-        <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate to="/login"/>}/>
+        {/* <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate replace to="/login"/>}/> */}
       </Routes>  
     </>
   )
