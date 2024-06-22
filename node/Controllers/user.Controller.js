@@ -314,15 +314,16 @@ const dashboard = async (req, res) => {
 
 
 
-const sendResetMail = async (email, resetUrl) => {
+
+  const sendResetMail = async (email, resetUrl) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: process.env.USER_EMAIL, // Dev's Email address
-        pass: process.env.USER_PASS, // Dev's App Password
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASS,
       },
       tls: {
         rejectUnauthorized: false,
@@ -332,10 +333,10 @@ const sendResetMail = async (email, resetUrl) => {
     const emailText = `Hello,\n\nYou requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email.\n\nBest,\nThe NairaNest Team`;
   
     const mailOptions = {
-      from: process.env.USER_EMAIL, // Sender address
-      to: email, // List of receivers
-      subject: "Password Reset Request", // Subject line
-      text: emailText, // Plain text body
+      from: process.env.USER_EMAIL,
+      to: email,
+      subject: "Password Reset Request",
+      text: emailText,
     };
   
     try {
@@ -355,7 +356,6 @@ const sendResetMail = async (email, resetUrl) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      // Generate reset token
       const resetToken = crypto.randomBytes(32).toString('hex');
       const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
       user.resetPasswordToken = resetTokenHash;
@@ -363,8 +363,7 @@ const sendResetMail = async (email, resetUrl) => {
   
       await user.save();
   
-      // Send reset email
-      const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+      const resetUrl = `https://bank-app-livid-seven.vercel.app/reset-password/${resetToken}`; // Ensure this points to your deployed frontend
       await sendResetMail(email, resetUrl);
   
       res.status(200).json({ message: 'Password reset email sent' });

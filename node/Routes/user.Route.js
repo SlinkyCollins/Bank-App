@@ -9,7 +9,7 @@ router.post("/sendresetmail", sendResetMail);
 router.post("/sendmail", sendMail);
 router.post("/sendresetconfirmationemail", sendResetConfirmationEmail)
 router.post("/forgot-password", forgotPassword)
-router.post("/reset-password:token", resetPassword) // Ensure this is a POST request
+router.post("/reset-password", resetPassword) // Ensure this is a POST request
 router.get("/dashboard", dashboard);
 
 module.exports = router;

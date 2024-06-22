@@ -7,7 +7,7 @@ import "./ResetForms.css";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const { token } = useParams();
-  const URL = "https://bank-app-6lyo.onrender.com/host/reset-password";
+  const URL = "https://bank-app-6lyo.onrender.com/host/reset-password"; // Update this to your deployed backend URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
