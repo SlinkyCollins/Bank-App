@@ -58,32 +58,40 @@ const ForgotPassword = () => {
         //     </div>
         // </div>
 
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0"}}>
-            <div className="form-container">
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0 1rem" }}>
+            <div className="form-container" style={{padding: "32px 55px 20px 55px", width: "100%", maxWidth: "600px"}}>
                 <div className="logo-container">
-                    Forgot Password?
+                    <h1 style={{ color: "#2dbe60", fontSize: "1.65rem" }}>Forgot your password?</h1>
+                    <p style={{color: "#78838f", fontSize: ".9rem", fontWeight: "500", margin: "1rem 0 .4rem"}}>Your password will be reset by email.</p>
                 </div>
 
+
                 <form onSubmit={handleSubmit} className="form">
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                    <div className="form-group" style={{margin: ".5rem 0 1rem 0"}}>
+                        <label htmlFor="email" style={{fontSize: ".9rem", fontWeight: "500", color: "#78838f"}}>Enter your email address</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
+                            placeholder=""
                             required />
                     </div>
 
-                    <button className="form-submit-btn" type="submit">Send Email</button>
+                    <button className="form-submit-btn" type="submit">Submit</button>
+                    <Link 
+                    to="/login"
+                    style=
+                    {{ 
+                    textDecoration: "none",
+                    color: "inherit" 
+                    }}>
+                    <button 
+                    className="form-submit-btn2" 
+                    >
+                        Back to log in 
+                    </button>
+                    </Link>
                 </form>
-
-                <p className="signup-link">
-                    Don&apos;t have an account?
-                    <span className="signup-link link">
-                        <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}> Sign up now</Link>
-                    </span>
-                </p>
             </div>
         </div>
     );

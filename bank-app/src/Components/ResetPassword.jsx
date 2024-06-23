@@ -3,14 +3,26 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import "./ResetForms.css";
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
     const { token } = useParams();
     const navigate = useNavigate();
     const URL = "https://bank-app-6lyo.onrender.com/host/reset-password"; // Update this to your deployed backend URL
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    }
+
+    const toggleConfirmPasswordVisibility = () => {
+        setConfirmPasswordVisible(!confirmPasswordVisible);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,28 +62,30 @@ const ResetPassword = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="form">
-                    <div className="form-group">
+                    <div className="form-group" style={{position: "relative"}}>
                         <label htmlFor="password">Password</label>
                         <input
-                            type="password"
+                            type={passwordVisible ? "text" : "password"}
                             id="password"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             placeholder="Enter your new password"
                             required
                         />
+                        <span onClick={togglePasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "6px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{passwordVisible ? <VisibilityOff/>  : <Visibility/>}</span>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group" style={{position: "relative"}}>
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <input
-                            type="password"
+                            type={passwordVisible ? "text" : "password"}
                             id="confirmPassword"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             placeholder="Confirm your new password"
                             required
                         />
+                        <span onClick={toggleConfirmPasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "6px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{passwordVisible ? <VisibilityOff/> : <Visibility/>}</span>
                     </div>
 
                     <button className="form-submit-btn" type="submit">Reset Password</button>
