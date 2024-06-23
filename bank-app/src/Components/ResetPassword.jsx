@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import "./ResetForms.css";
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { token } = useParams();
+    const navigate = useNavigate();
     const URL = "https://bank-app-6lyo.onrender.com/host/reset-password"; // Update this to your deployed backend URL
 
     const handleSubmit = async (e) => {
@@ -26,7 +28,7 @@ const ResetPassword = () => {
             if (response.data && response.data.message === "Password reset successful") {
                 // Redirect to login page after 2 seconds
                 setTimeout(() => {
-                    window.location.href = 'https://bank-app-livid-seven.vercel.app/login'; // Redirect using window.location
+                navigate("/reset-success");
                 }, 2000);
             }
         } catch (error) {

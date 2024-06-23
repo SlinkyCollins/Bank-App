@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import ResetPassword from './Components/ResetPassword';
 import ForgotPassword from './Components/ForgotPassword';
 import ResetSuccess from './Components/resetSucess';
+import NotFound from './Components/NotFound';
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="*" element={<NotFound/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
