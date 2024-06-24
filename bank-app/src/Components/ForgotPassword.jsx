@@ -40,24 +40,6 @@ const ForgotPassword = () => {
 
     return (
 
-        // <div>
-        //     <form onSubmit={handleSubmit}>
-        //         <h2>Forgot Password</h2>
-        //         <input
-        //             type="email"
-        //             value={email}
-        //             onChange={(e) => setEmail(e.target.value)}
-        //             placeholder="Enter your email"
-        //             required
-        //         />
-        //         <button type="submit">Send Reset Link</button>
-        //     </form>
-
-        //     <div>
-        //         <img src="/src/assets/forgotpassword.gif" alt="" />
-        //     </div>
-        // </div>
-
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0 1rem" }}>
             <div className="form-container" style={{padding: "32px 55px 20px 55px", width: "100%", maxWidth: "600px"}}>
                 <div className="logo-container">

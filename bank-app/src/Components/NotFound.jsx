@@ -1,78 +1,57 @@
-import "./NotFound.css"
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  text-align: center;
+`;
+
+const Message = styled.h1`
+  font-size: 3rem;
+  color: #333;
+  margin: 20px 0;
+`;
+
+const SubMessage = styled.p`
+  font-size: 1.5rem;
+  color: #666;
+  margin-bottom: 20px;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 const NotFound = () => {
+  const navigate = useNavigate();
+
+  const handleHomeRedirect = () => {
+    navigate('/', { replace: true });
+  };
+
   return (
-    <div>
-        <div>
-            <p>The page you&#39;re looking for is not found</p>
-        </div>
-      <div className="main_wrapper">
-  <div className="main">
-    <div className="antenna">
-      <div className="antenna_shadow"></div>
-      <div className="a1"></div>
-      <div className="a1d"></div>
-      <div className="a2"></div>
-      <div className="a2d"></div>
-      <div className="a_base"></div>
-    </div>
-    <div className="tv">
-      <div className="cruve">
-        <svg
-          viewBox="0 0 189.929 189.929"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          className="curve_svg"
-        >
-          <path
-            d="M70.343,70.343c-30.554,30.553-44.806,72.7-39.102,115.635l-29.738,3.951C-5.442,137.659,11.917,86.34,49.129,49.13
-        C86.34,11.918,137.664-5.445,189.928,1.502l-3.95,29.738C143.041,25.54,100.895,39.789,70.343,70.343z"
-          ></path>
-        </svg>
-      </div>
-      <div className="display_div">
-        <div className="screen_out">
-          <div className="screen_out1">
-            <div className="screen">
-              <span className="notfound_text"> NOT FOUND</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="lines">
-        <div className="line1"></div>
-        <div className="line2"></div>
-        <div className="line3"></div>
-      </div>
-      <div className="buttons_div">
-        <div className="b1"><div></div></div>
-        <div className="b2"></div>
-        <div className="speakers">
-          <div className="g1">
-            <div className="g11"></div>
-            <div className="g12"></div>
-            <div className="g13"></div>
-          </div>
-          <div className="g"></div>
-          <div className="g"></div>
-        </div>
-      </div>
-    </div>
-    <div className="bottom">
-      <div className="base1"></div>
-      <div className="base2"></div>
-      <div className="base3"></div>
-    </div>
-  </div>
-  <div className="text_404">
-    <div className="text_4041">4</div>
-    <div className="text_4042">0</div>
-    <div className="text_4043">4</div>
-  </div>
-</div>
+    <Container>
+      <Message>404 - Not Found</Message>
+      <SubMessage>Sorry, the page you&#39;re looking for doesn&#39;t exist.</SubMessage>
+      <Button onClick={handleHomeRedirect}>Go to Homepage</Button>
+    </Container>
+  );
+};
 
-    </div>
-  )
-}
-
-export default NotFound
+export default NotFound;

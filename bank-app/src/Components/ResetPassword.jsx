@@ -38,10 +38,10 @@ const ResetPassword = () => {
             toast.success("Password reset successful");
             console.log(response.data.message);
             if (response.data && response.data.message === "Password reset successful") {
-                // Redirect to login page after 2 seconds
+                // Redirect to login page after 3 seconds
                 setTimeout(() => {
-                navigate("/reset-success");
-                }, 2000);
+                navigate("/reset-success", { replace: true });
+                }, 3000);
             }
         } catch (error) {
             if (error.response) {
@@ -57,38 +57,42 @@ const ResetPassword = () => {
 
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0" }}>
             <div className="form-container">
-                <div className="logo-container">
+                <div className="logo-container" style={{color: "#2dbe60"}}>
                     Reset Password
                 </div>
 
                 <form onSubmit={handleSubmit} className="form">
-                    <div className="form-group" style={{position: "relative"}}>
+                    <div className="form-group" style={{margin: "0 0 1rem"}}>
                         <label htmlFor="password">Password</label>
-                        <input
-                            type={passwordVisible ? "text" : "password"}
-                            id="password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            placeholder="Enter your new password"
-                            required
-                        />
-                        <span onClick={togglePasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "6px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{passwordVisible ? <VisibilityOff/>  : <Visibility/>}</span>
+                        <div style={{position: "relative"}}>
+                            <input
+                                type={passwordVisible ? "text" : "password"}
+                                id="password"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                placeholder="Enter your new password"
+                                required
+                            />
+                            <span onClick={togglePasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "15px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{passwordVisible ? <VisibilityOff style={{color: "#3b3939"}}/>  : <Visibility style={{color: "#3b3939"}}/>}</span>
+                        </div>
                     </div>
 
-                    <div className="form-group" style={{position: "relative"}}>
+                    <div className="form-group" style={{margin: "0 0 .5rem"}}>
                         <label htmlFor="confirmPassword">Confirm Password</label>
-                        <input
-                            type={passwordVisible ? "text" : "password"}
-                            id="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm your new password"
-                            required
-                        />
-                        <span onClick={toggleConfirmPasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "6px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{passwordVisible ? <VisibilityOff/> : <Visibility/>}</span>
+                        <div style={{position: "relative"}}>
+                            <input
+                                type={confirmPasswordVisible ? "text" : "password"}
+                                id="confirmPassword"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Confirm your new password"
+                                required
+                            />
+                            <span onClick={toggleConfirmPasswordVisibility} style={{position: "absolute", top: "0", right: "0", color: "#000", padding: "15px 15px 0px 0px", cursor: "pointer", fontSize: "1.3rem"}} title="Toggle password">{confirmPasswordVisible ? <VisibilityOff style={{color: "#3b3939"}}/> : <Visibility style={{color: "#3b3939"}}/>}</span>
+                        </div>
                     </div>
 
-                    <button className="form-submit-btn" type="submit">Reset Password</button>
+                    <button className="form-submit-btn" type="submit">Done!</button>
                 </form>
             </div>
         </div>

@@ -1,19 +1,56 @@
-// ResetSuccess.jsx
+import { FaCheckCircle } from 'react-icons/fa';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  text-align: center;
+`;
 
-import { Link } from 'react-router-dom';
+const Icon = styled(FaCheckCircle)`
+  color: #4caf50;
+  font-size: 5rem;
+`;
+
+const Message = styled.h2`
+  font-size: 2rem;
+  color: #333;
+  margin: 20px 0;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
 
 const ResetSuccess = () => {
+  const navigate = useNavigate();
+
+  const handleLoginRedirect = () => {
+    navigate('/login', { replace: true });
+  };
+
   return (
-    <div style={{ textAlign: 'center', padding: '2rem' }}>
-      <h2>Password Reset Successful</h2>
-      <p>Your password has been reset successfully. You can now log in with your new password.</p>
-      <Link to="/login">
-        <button style={{ padding: '0.5rem 1rem', backgroundColor: '#2dbe60', color: '#fff', border: 'none', borderRadius: '4px' }}>
-          Go to Login
-        </button>
-      </Link>
-    </div>
+    <Container>
+      <Icon />
+      <Message>Your Password has been Reset Successfully!</Message>
+      <Button onClick={handleLoginRedirect}>Go to Login</Button>
+    </Container>
   );
 };
 

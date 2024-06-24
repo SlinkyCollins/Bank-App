@@ -335,7 +335,7 @@ const dashboard = async (req, res) => {
     const mailOptions = {
       from: process.env.USER_EMAIL,
       to: email,
-      subject: "Password Reset Request",
+      subject: "Request for a Password Reset",
       text: emailText,
     };
   
@@ -391,7 +391,7 @@ const dashboard = async (req, res) => {
     const emailText = `Hello,\n\nYour password has been successfully reset. If you did not initiate this change, please contact support immediately.\n\nBest,\nThe NairaNest Team`
 
     const mailOptions = {
-        from: process.env.USER_EMAIL,
+        from: "no-reply",
         to: email,
         subject: "Password Reset Successful",
         text: emailText,
