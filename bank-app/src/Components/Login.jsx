@@ -17,6 +17,8 @@ import { useEffect } from 'react';
 import "../Components/Login.css"
 import banking1 from "../assets/banking1.jpg";
 import FullPageLoader from './FullPageLoader';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 const Login = () => {
@@ -31,11 +33,11 @@ const Login = () => {
     useEffect(() => {
         // Simulate a network request
         setTimeout(() => {
-          setLoading(false);
+            setLoading(false);
         }, 1000);
-      }, []);
-    
-    
+    }, []);
+
+
     useEffect(() => {
         const email = localStorage.getItem('email');
         const rememberMe = localStorage.getItem('rememberMe') === 'true';
@@ -56,10 +58,10 @@ const Login = () => {
         return () => clearTimeout(timer);
     }, [lockoutTimer]);
 
-    useEffect(()=> {
-        if(lockoutMessage) {
+    useEffect(() => {
+        if (lockoutMessage) {
             // Set a timer to clear the lockoutMessage after 30 seconds
-            const timer = setTimeout(()=> {
+            const timer = setTimeout(() => {
                 setLockoutMessage('');
             }, 30000);
 
@@ -124,7 +126,7 @@ const Login = () => {
                     } else if (err.response && err.response.status === 403) {
                         setWarningMessage(err.response.data.warning); // set warning message
                         toast.error("Invalid credentials, please try again");
-                    }    else if (err.response && err.response.status === 429) {
+                    } else if (err.response && err.response.status === 429) {
                         const retryAfter = Math.floor(err.response.data.retryAfter / 1000); // convert milliseconds to seconds
                         setIsLockedOut(true);
                         setLockoutTimer(retryAfter);
@@ -142,12 +144,21 @@ const Login = () => {
     });
     if (loading) {
         return <FullPageLoader />;
-      }
+    }
     return (
-        <Grid container sx={{height: "100vh"}} className='logingridcontainer'>
+        <Grid container sx={{ height: "100vh" }} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>
-                <div className="bg-image" style={{height: "23rem"}}>
-                    <img src={banking1} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div className="bg-image" style={{ height: "23rem" }}>
+                    <LazyLoadImage
+                        effect="blur"
+                        src={banking1} // Replace with your image source
+                        width="100%"
+                        height="100%"
+                        style=
+                        {{ 
+                            objectFit: "cover"
+                        }}
+                    />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
@@ -160,7 +171,7 @@ const Login = () => {
                 </Box>
             </Grid>
 
-            <Grid className='logingriditem2' item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f6', minHeight: "60%"}}>
+            <Grid className='logingriditem2' item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f6', minHeight: "60%" }}>
                 <Box sx={{ width: '90%', maxWidth: 500 }}>
                     <h1 style={{ fontSize: "1.5rem", marginBottom: "1rem", fontWeight: "500" }}>Log In</h1>
                     {lockoutMessage && <div style={{ color: 'red', marginBottom: '1rem' }}>{lockoutMessage}</div>}  {/* Display lockout message */}

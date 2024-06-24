@@ -15,6 +15,8 @@ import { LoadingButton } from '@mui/lab';
 import bgImg from "../assets/bg-img.jpg";
 import "../Components/Signup.css"
 import FullPageLoader from './FullPageLoader';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 const Signup = () => {
@@ -103,7 +105,16 @@ const Signup = () => {
         <Grid container sx={{height: "100vh"}} className='signupgridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='signupgriditem1'>
                 <div className="bg-image" style={{height: "23rem"}}>
-                    <img src={bgImg} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <LazyLoadImage
+                     height="100%"
+                     src={bgImg} 
+                     effect="blur"
+                     width="100%"
+                     style=
+                     {{ 
+                        objectFit: "cover"
+                     }}
+                     />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", width: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
