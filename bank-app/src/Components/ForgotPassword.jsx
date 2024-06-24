@@ -4,10 +4,14 @@ import toast from "react-hot-toast"
 import "./ResetForms.css";
 import FullPageLoader from "./FullPageLoader";
 import { Link } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(true);
+    const [loadingBtn, setLoadingBtn] = useState(false);
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
     const URL = "https://bank-app-6lyo.onrender.com/host/forgot-password";
 
     useEffect(() => {
@@ -18,19 +22,26 @@ const ForgotPassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoadingBtn(true);
 
         try {
             const response = await axios.post(URL, { email });
             console.log(response.data.message);
             toast.success("Password reset email sent");
+            navigate("/checkEmail", { state: {email} });
         } catch (error) {
             if (error.response.status === 404) {
                 console.log(error.response.data.message); // Log the error message if it exists
                 toast.error("User is not found"); // Display the error message to the user
-            } else {
+            } else if (error.request)  {
+                console.log(error.request); 
+                toast.error("Network error. Please check your connection.");
+            } else  {
                 console.log(error); // Log the entire error object for debugging
                 toast.error("An unexpected error occurred. Please try again later.");
             }
+        } finally {
+            setLoadingBtn(false);
         }
     };
 
@@ -59,7 +70,14 @@ const ForgotPassword = () => {
                             required />
                     </div>
 
-                    <button className="form-submit-btn" type="submit">Submit</button>
+                    <LoadingButton 
+                        className="form-submit-btn" 
+                        type="submit"
+                        disabled={loadingBtn}
+                    >
+                        {loadingBtn ? "Processing..." : "Submit"}
+                    </LoadingButton>
+
                     <Link 
                     to="/login"
                     style=
