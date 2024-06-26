@@ -18,20 +18,21 @@ import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-
 const Signup = () => {
     const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState("Sign Up");
+    
+    let timeoutId;
 
     useEffect(() => {
         // Simulate a network request
         setTimeout(() => {
-          setLoading(false);
+            setLoading(false);
         }, 1000);
-      }, []);
+    }, []);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
@@ -68,6 +69,11 @@ const Signup = () => {
                 return;
             }
             setSubmitting(true); // start submission
+            setLoadingMessage("Loading...");
+
+            timeoutId = setTimeout(() => {
+                setLoadingMessage("Please Wait...");
+            }, 10000); // 10 seconds
 
             axios.post(URL, values)
                 .then((response) => {
@@ -75,8 +81,10 @@ const Signup = () => {
                     console.log("User saved successfully");
                     toast.success('Signed up successfully');
                     navigate("/login");
+                    clearTimeout(timeoutId);
                 })
                 .catch((error) => {
+                    clearTimeout(timeoutId);
                     if (error.response) {
                         if (error.response.status === 409) {
                             toast.error("User already exists. Please use a different email or try logging in.");
@@ -94,27 +102,36 @@ const Signup = () => {
                     }
                 })
                 .finally(() => {
-                    setSubmitting(false); //  End submission
+                    setSubmitting(false); // End submission
+                    setLoadingMessage("Sign Up");
                 });
         }
     });
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timeoutId);
+        }
+    }, []);
+
     if (loading) {
         return <FullPageLoader />;
-      }
+    }
+
     return (
-        <Grid container sx={{height: "100vh"}} className='signupgridcontainer'>
+        <Grid container sx={{ height: "100vh" }} className='signupgridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='signupgriditem1'>
-                <div className="bg-image" style={{height: "23rem"}}>
+                <div className="bg-image" style={{ height: "23rem" }}>
                     <LazyLoadImage
-                     height="100%"
-                     src={bgImg} 
-                     effect="blur"
-                     width="100%"
-                     style=
-                     {{ 
-                        objectFit: "cover"
-                     }}
-                     />
+                        height="100%"
+                        src={bgImg}
+                        effect="blur"
+                        width="100%"
+                        style=
+                        {{
+                            objectFit: "cover"
+                        }}
+                    />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", width: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
@@ -127,9 +144,9 @@ const Signup = () => {
                 </Box>
             </Grid>
 
-            <Grid className='signupgriditem2' item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f6', minHeight: "60%", padding: "2rem 0"}}>
+            <Grid className='signupgriditem2' item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f6', minHeight: "60%", padding: "2rem 0" }}>
                 <Box sx={{ width: '90%', maxWidth: 500 }}>
-                <h1 style={{ fontSize: "1.7rem", marginBottom: "1rem" }}>Sign Up</h1>
+                    <h1 style={{ fontSize: "1.7rem", marginBottom: "1rem" }}>Sign Up</h1>
                     <Box
                         onSubmit={formik.handleSubmit}
                         component="form"
@@ -138,110 +155,121 @@ const Signup = () => {
                             maxWidth: '100%',
                         }}
                     >
-                        <TextField
-                            fullWidth
-                            id="firstName"
-                            name="firstName"
-                            label="First Name"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.firstName}
-                            variant="outlined"
-                            margin="normal"
-                            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-                            helperText={formik.touched.firstName && formik.errors.firstName ? (
-                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.firstName}</span>
-                            ) : null}
-                        />
+                        <Grid container spacing={2} >
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    id="firstName"
+                                    name="firstName"
+                                    label="First Name"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.firstName}
+                                    variant="outlined"
+                                    margin="dense"
+                                    error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                                    helperText={formik.touched.firstName && formik.errors.firstName ? (
+                                        <span><ErrorOutlineIcon fontSize='10px' style={{ marginTop: "-2px" }} /> {formik.errors.firstName}</span>
+                                    ) : null}
+                                />
+                            </Grid>
 
 
-                        <TextField
-                            fullWidth
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
-                            onChange={formik.handleChange}
-                            value={formik.values.lastName}
-                            onBlur={formik.handleBlur}
-                            variant="outlined"
-                            margin="normal"
-                            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-                            helperText={formik.touched.lastName && formik.errors.lastName ? (
-                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.lastName}</span>
-                            ) : null}
-                        />
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.lastName}
+                                    onBlur={formik.handleBlur}
+                                    variant="outlined"
+                                    margin="dense"
+                                    error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                                    helperText={formik.touched.lastName && formik.errors.lastName ? (
+                                        <span><ErrorOutlineIcon fontSize='10px' style={{ marginTop: "-2px" }} /> {formik.errors.lastName}</span>
+                                    ) : null}
+                                />
+                            </Grid>
 
-                        <TextField
-                            fullWidth
-                            id="email"
-                            label="Email"
-                            name="email"
-                            variant="outlined"
-                            margin="normal"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email ? (
-                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.email}</span>
-                            ) : null}
-                            
-                        />
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    id="email"
+                                    label="Email"
+                                    name="email"
+                                    variant="outlined"
+                                    margin="dense"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.email && Boolean(formik.errors.email)}
+                                    helperText={formik.touched.email && formik.errors.email ? (
+                                        <span><ErrorOutlineIcon fontSize='10px' style={{ marginTop: "-2px" }} /> {formik.errors.email}</span>
+                                    ) : null}
 
-                        <TextField
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type={showPassword ? "text" : "password"}
-                            variant="outlined"
-                            margin="normal"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label='toggle password visibility'
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                )
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    id="password"
+                                    name="password"
+                                    label="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    variant="outlined"
+                                    margin="dense"
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label='toggle password visibility'
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.password && Boolean(formik.errors.password)}
+                                    helperText={formik.touched.password && formik.errors.password ? (
+                                        <span><ErrorOutlineIcon fontSize='10px' style={{ marginTop: "-2px" }} /> {formik.errors.password}</span>
+                                    ) : null}
+
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <LoadingButton
+                            loading={formik.isSubmitting}
+                            loadingIndicator={loadingMessage}
+                            disabled={!formik.isValid || formik.isSubmitting}
+                            style={{
+                                backgroundColor: "#2dbe60",
+                                width: "100%",
+                                margin: "1rem 0",
+                                padding: ".8rem 0",
+                                fontWeight: "700"
                             }}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password ? (
-                                <span><ErrorOutlineIcon fontSize='10px' style={{marginTop: "-2px"}} /> {formik.errors.password}</span>
-                            ) : null}
-                            
-                        />
-
-                        <LoadingButton 
-                        loading={formik.isSubmitting} 
-                        disabled={!formik.isValid}
-                        style=
-                        {{ backgroundColor: "#2dbe60",
-                         width: "100%",
-                          margin: "1rem 0",
-                          padding: ".8rem 0",
-                          fontWeight: "700"
-                        }} 
-                        variant="contained" 
-                        type='submit'
+                            variant="contained"
+                            type='submit'
                         >
-                        Sign Up
+                            {loadingMessage}
                         </LoadingButton>
 
                     </Box>
-                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{textDecoration: "none", color: "inherit"}}><span style={{ color: "#2dbe60" }}  className='link'>Login</span></Link></p>
+                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}><span style={{ color: "#2dbe60" }} className='link'>Login</span></Link></p>
                 </Box>
             </Grid>
         </Grid>
     )
 }
 
-export default Signup
+export default Signup;

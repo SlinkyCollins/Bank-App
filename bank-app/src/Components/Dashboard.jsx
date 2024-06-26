@@ -212,3 +212,105 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// Dashboard.js
+// import React from 'react';
+// import { Container, Grid, Paper, Typography, Box, Button } from '@mui/material';
+
+// const Dashboard = () => {
+//   return (
+//     <Container>
+//       <Typography variant="h4" gutterBottom>
+//         Dashboard
+//       </Typography>
+//       <Grid container spacing={3}>
+//         <Grid item xs={12} md={4}>
+//           <Paper>
+//             <Box p={2}>
+//               <Typography variant="h6">Account Balance</Typography>
+//               <Typography variant="h4">$5,000.00</Typography>
+//             </Box>
+//           </Paper>
+//         </Grid>
+//         <Grid item xs={12} md={8}>
+//           <Paper>
+//             <Box p={2}>
+//               <Typography variant="h6">Recent Transactions</Typography>
+//               <ul>
+//                 <li>Transaction 1: -$100.00</li>
+//                 <li>Transaction 2: +$500.00</li>
+//               </ul>
+//             </Box>
+//           </Paper>
+//         </Grid>
+//       </Grid>
+//       <Box mt={4}>
+//         <Button variant="contained" color="primary">Transfer Funds</Button>
+//         <Button variant="contained" color="secondary" style={{ marginLeft: 10 }}>Pay Bills</Button>
+//       </Box>
+//     </Container>
+//   );
+// }
+
+// export default Dashboard;
+
+
+
+
+// Dashboard.js
+// import React from 'react';
+// import { Container, Typography, Paper, Box, Grid, Button } from '@mui/material';
+
+// const Dashboard = () => {
+//   return (
+//     <Container>
+//       <Typography variant="h4" gutterBottom>
+//         Dashboard
+//       </Typography>
+//       <Grid container spacing={3}>
+//         <Grid item xs={12} md={4}>
+//           <Paper>
+//             <Box p={2}>
+//               <Typography variant="h6">Account Balance</Typography>
+//               <Typography variant="h4">$5,000.00</Typography>
+//             </Box>
+//           </Paper>
+//         </Grid>
+//         <Grid item xs={12} md={8}>
+//           <Paper>
+//             <Box p={2}>
+//               <Typography variant="h6">Recent Transactions</Typography>
+//               <ul>
+//                 <li>Transaction 1: -$100.00</li>
+//                 <li>Transaction 2: +$500.00</li>
+//               </ul>
+//             </Box>
+//           </Paper>
+//         </Grid>
+//       </Grid>
+//       <Box mt={4}>
+//         <Button variant="contained" color="primary">Transfer Funds</Button>
+//         <Button variant="contained" color="secondary" style={{ marginLeft: 10 }}>Pay Bills</Button>
+//       </Box>
+//     </Container>
+//   );
+// }
+
+// export default Dashboard;
+
+
+{/* <Grid container>
+<Grid item xs={12} sm={6} md={3}>
+  <Paper>1</Paper>
+</Grid>
+<Grid item xs={12} sm={6} md={3}>
+  <Paper>2</Paper>
+</Grid>
+<Grid item xs={12} sm={6} md={3}>
+  <Paper>3</Paper>
+</Grid>
+<Grid item xs={12} sm={6} md={3}>
+  <Paper>4</Paper>
+</Grid>
+</Grid>
+</Container> */}
