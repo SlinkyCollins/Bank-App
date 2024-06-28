@@ -1,7 +1,6 @@
 import './App.css'
 import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from './Components/Signup';
-import Dashboard from './Components/Dashboard';
 import { Toaster } from "react-hot-toast";
 import Homepage from './Components/Pages/Homepage';
 import Login from './Components/Login';
@@ -12,6 +11,8 @@ import ForgotPassword from './Components/ForgotPassword';
 import ResetSuccess from './Components/resetSucess';
 import NotFound from './Components/NotFound';
 import EmailCheck from './Components/EmailCheck';
+// import ResDrawer from './Components/ResponsiveDrawer';
+import Dashboard from './Components/NairaNestDashboard';
 
 
 
@@ -38,12 +39,13 @@ function App() {
         <Route path="/home" element={<Navigate to="/"/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="*" element={<NotFound/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        {/* <Route path="/drawerr" element={<ResDrawer/>}/> */}
         <Route path="/checkEmail" element={<EmailCheck/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate replace to="/login"/>}/>
       </Routes>  
     </>

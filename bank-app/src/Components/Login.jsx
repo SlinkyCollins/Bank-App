@@ -29,6 +29,9 @@ const Login = () => {
     const [lockoutTimer, setLockoutTimer] = useState(0);
     const [lockoutMessage, setLockoutMessage] = useState('');
     const [warningMessage, setWarningMessage] = useState('');
+    const [loadingMessage, setLoadingMessage] = useState("Login");
+
+    let timeoutId;
 
     useEffect(() => {
         // Simulate a network request
@@ -95,11 +98,18 @@ const Login = () => {
         }),
         onSubmit: (values, { setSubmitting }) => {
             setSubmitting(true);  // Start submission
+            setLoadingMessage("Loading...");
+
+            timeoutId = setTimeout(() => {
+                setLoadingMessage("Please Wait...");
+            }, 10000); // 10 seconds
 
             axios.post(URL, values)
                 .then((response) => {
+                    clearTimeout(timeoutId);
                     if (response.data && response.data.user) {
                         toast.success("Login successful");
+                        setLoadingMessage("Login");
                         // console.log(response.data.user);
                         let token = response.data.token;
                         localStorage.setItem("token", token);
@@ -117,9 +127,11 @@ const Login = () => {
                         navigate("/dashboard");
                     } else {
                         toast.error("User not found, please sign up");
+                        setLoadingMessage("Login");
                     }
                 })
                 .catch((err) => {
+                    clearTimeout(timeoutId);
                     if (err.response && err.response.status === 404) {
                         setWarningMessage(err.response.data.warning); // set warning message
                         toast.error("User not found, please sign up");
@@ -139,9 +151,17 @@ const Login = () => {
                 })
                 .finally(() => {
                     setSubmitting(false);  // End submission
+                    setLoadingMessage("Login");
                 });
         },
     });
+    
+    useEffect(() => {
+        return () => {
+            clearTimeout(timeoutId);
+        }
+    }, []);
+
     if (loading) {
         return <FullPageLoader />;
     }
@@ -245,10 +265,10 @@ const Login = () => {
                             type='submit'
                             variant="contained"
                             loading={formik.isSubmitting || isLockedOut}
-                            loadingIndicator={isLockedOut ? `Try again in ${lockoutTimer}s` : "Loading..."}
+                            loadingIndicator={isLockedOut ? `Try again in ${lockoutTimer}s` : loadingMessage}
                             disabled={formik.isSubmitting || isLockedOut || !formik.isValid}
                         >
-                            Login
+                           {loadingMessage}
                         </LoadingButton>
 
                     </Box>

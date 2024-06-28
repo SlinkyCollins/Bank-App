@@ -22,7 +22,7 @@ const Signup = () => {
     const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState("Sign Up");
-    
+
     let timeoutId;
 
     useEffect(() => {
@@ -57,7 +57,14 @@ const Signup = () => {
                 .required("Please enter your last name")
                 .max(15, "must be 15 characters or less")
                 .min(3, "must be 3 characters or more"),
-            email: Yup.string().email("Enter in the format: name@example.com").required("Email Address is Required"),
+            email: Yup
+                .string()
+                // .matches(
+                //     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                //     "Invalid email address"
+                // )
+                .email("Enter in the format: name@example.com")
+                .required("Email Address is Required"),
             password: Yup
                 .string()
                 .min(6, "Password must be six or more characters")
