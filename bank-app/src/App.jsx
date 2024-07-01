@@ -13,6 +13,10 @@ import NotFound from './Components/NotFound';
 import EmailCheck from './Components/EmailCheck';
 // import ResDrawer from './Components/ResponsiveDrawer';
 import Dashboard from './Components/NairaNestDashboard';
+import Account from './Components/Account';
+import Transactions from './Components/Transactions';
+import Settings from './Components/Settings';
+import MainDashboard from './Components/MainDashboard';
 
 
 
@@ -45,7 +49,12 @@ function App() {
         <Route path="/checkEmail" element={<EmailCheck/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/dashboard" element={<Dashboard/>}>
+          <Route index element={<MainDashboard/>} />
+          <Route path="account" element={<Account />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
         <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate replace to="/login"/>}/>
       </Routes>  
     </>

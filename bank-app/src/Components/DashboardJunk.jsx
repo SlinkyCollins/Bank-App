@@ -299,3 +299,228 @@
 // </Grid>
 // </Grid>
 // </Container> */}
+
+
+
+
+
+
+
+// Letter avatars
+
+
+// <Avatar {...stringAvatar('Afolabi Ademola')} />
+
+// function stringToColor(string) {
+//     let hash = 0;
+//     let i;
+  
+//     /* eslint-disable no-bitwise */
+//     for (i = 0; i < string.length; i += 1) {
+//       hash = string.charCodeAt(i) + ((hash << 5) - hash);
+//     }
+  
+//     let color = '#';
+  
+//     for (i = 0; i < 3; i += 1) {
+//       const value = (hash >> (i * 8)) & 0xff;
+//       color += `00${value.toString(16)}`.slice(-2);
+//     }
+//     /* eslint-enable no-bitwise */
+  
+//     return color;
+//   }
+
+// function stringAvatar(name) {
+//     return {
+//       sx: {
+//         bgcolor: stringToColor(name),
+//       },
+//       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+//     };
+//   }
+
+
+
+
+
+/// Dashboard ui 
+
+
+// Dashboard.js
+// import React from 'react';
+// import { Container, Typography, Paper, Box, Grid, Button, AppBar, Toolbar, IconButton, Menu, MenuItem, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
+// import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+// import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
+// import ReceiptIcon from '@mui/icons-material/Receipt';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import LogoutIcon from '@mui/icons-material/Logout';
+// import AccountCircle from '@mui/icons-material/AccountCircle';
+// import { useNavigate } from 'react-router-dom';
+
+// const Dashboard = () => {
+//     const [anchorEl, setAnchorEl] = React.useState(null);
+//     const navigate = useNavigate();
+
+//     const handleMenu = (event) => {
+//         setAnchorEl(event.currentTarget);
+//     };
+
+//     const handleClose = () => {
+//         setAnchorEl(null);
+//     };
+
+//     const handleLogout = () => {
+//         localStorage.removeItem("token");
+//         navigate("/login");
+//     };
+
+//     return (
+//         <Container>
+//             <AppBar position="static">
+//                 <Toolbar>
+//                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
+//                         NairaNest Bank
+//                     </Typography>
+//                     <div>
+//                         <IconButton
+//                             edge="end"
+//                             aria-label="account of current user"
+//                             aria-controls="menu-appbar"
+//                             aria-haspopup="true"
+//                             onClick={handleMenu}
+//                             color="inherit"
+//                         >
+//                             <AccountCircle />
+//                         </IconButton>
+//                         <Menu
+//                             id="menu-appbar"
+//                             anchorEl={anchorEl}
+//                             anchorOrigin={{
+//                                 vertical: 'top',
+//                                 horizontal: 'right',
+//                             }}
+//                             keepMounted
+//                             transformOrigin={{
+//                                 vertical: 'top',
+//                                 horizontal: 'right',
+//                             }}
+//                             open={Boolean(anchorEl)}
+//                             onClose={handleClose}
+//                         >
+//                             <MenuItem onClick={handleClose}>Profile</MenuItem>
+//                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+//                         </Menu>
+//                     </div>
+//                 </Toolbar>
+//             </AppBar>
+//             <Box my={4}>
+//                 <Typography variant="h4" gutterBottom>
+//                     Welcome, User!
+//                 </Typography>
+//                 <Grid container spacing={3}>
+//                     <Grid item xs={12} md={4}>
+//                         <Paper>
+//                             <Box p={2}>
+//                                 <Typography variant="h6">Account Balance</Typography>
+//                                 <Typography variant="h4">$5,000.00</Typography>
+//                             </Box>
+//                         </Paper>
+//                     </Grid>
+//                     <Grid item xs={12} md={8}>
+//                         <Paper>
+//                             <Box p={2}>
+//                                 <Typography variant="h6">Recent Transactions</Typography>
+//                                 <List>
+//                                     <ListItem>
+//                                         <ListItemIcon>
+//                                             <ReceiptIcon />
+//                                         </ListItemIcon>
+//                                         <ListItemText primary="Transaction 1: -$100.00" />
+//                                     </ListItem>
+//                                     <ListItem>
+//                                         <ListItemIcon>
+//                                             <ReceiptIcon />
+//                                         </ListItemIcon>
+//                                         <ListItemText primary="Transaction 2: +$500.00" />
+//                                     </ListItem>
+//                                     {/* Add more transactions here */}
+//                                 </List>
+//                             </Box>
+//                         </Paper>
+//                     </Grid>
+//                 </Grid>
+//                 <Box mt={4}>
+//                     <Button variant="contained" color="primary" startIcon={<TransferWithinAStationIcon />}>
+//                         Transfer Funds
+//                     </Button>
+//                     <Button variant="contained" color="secondary" startIcon={<ReceiptIcon />} style={{ marginLeft: 10 }}>
+//                         Pay Bills
+//                     </Button>
+//                 </Box>
+//                 <Box mt={4}>
+//                     <Typography variant="h6">Quick Links</Typography>
+//                     <Divider />
+//                     <List>
+//                         <ListItem button>
+//                             <ListItemIcon>
+//                                 <AccountBalanceIcon />
+//                             </ListItemIcon>
+//                             <ListItemText primary="View Accounts" />
+//                         </ListItem>
+//                         <ListItem button>
+//                             <ListItemIcon>
+//                                 <SettingsIcon />
+//                             </ListItemIcon>
+//                             <ListItemText primary="Settings" />
+//                         </ListItem>
+//                     </List>
+//                 </Box>
+//             </Box>
+//         </Container>
+//     );
+// };
+
+// export default Dashboard;
+
+
+
+// drawerContent
+
+// const drawerContent = (
+    //     <div style={{ backgroundColor: "#1A4631", height: "100%" }}>
+    //         <Toolbar />
+    //         <Divider />
+    //         <Typography
+    //             sx={{ textAlign: "left", pt: 3, pl: 4, pb: 2, color: "#FFD700", fontSize: 20 }}
+    //         >
+    //             NairaNest
+    //         </Typography>
+    //         <List>
+    //             <ListItemButton sx={{ color: "white" }}>
+    //                 <ListItemIcon sx={{ color: "white" }}>
+    //                     <AccountBalanceIcon />
+    //                 </ListItemIcon>
+    //                 <ListItemText primary={"Home"} />
+    //             </ListItemButton>
+    //             <ListItemButton sx={{ color: "white" }}>
+    //                 <ListItemIcon sx={{ color: "white" }}>
+    //                     <AccountBoxIcon />
+    //                 </ListItemIcon>
+    //                 <ListItemText primary={"Accounts"} />
+    //             </ListItemButton>
+    //             <ListItemButton sx={{ color: "white" }}>
+    //                 <ListItemIcon sx={{ color: "white" }}>
+    //                     <ReceiptIcon />
+    //                 </ListItemIcon>
+    //                 <ListItemText primary={"Transactions"} />
+    //             </ListItemButton>
+    //             <ListItemButton sx={{ color: "white" }}>
+    //                 <ListItemIcon sx={{ color: "white" }}>
+    //                     <SettingsIcon />
+    //                 </ListItemIcon>
+    //                 <ListItemText primary={"Settings"} />
+    //             </ListItemButton>
+    //         </List>
+    //     </div>
+    // );
