@@ -1,10 +1,57 @@
-import React from 'react'
+import { Edit } from "@mui/icons-material"
+import { LoadingButton } from '@mui/lab';
+
 
 const Account = () => {
   return (
-    <div>
-      <h1>Account</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero earum ad omnis est, reiciendis ab dolores esse totam natus, quas ipsa aliquam ducimus dolorem exercitationem placeat, delectus facilis porro fuga? Qui quam blanditiis, animi cupiditate dignissimos illo odio sed suscipit enim tempore, ad hic? Est sint, dolore autem tenetur tempora officiis quaerat nisi itaque temporibus voluptates, consequatur, natus ullam veritatis quos suscipit nobis aut repellendus quisquam vero nulla! Saepe fugiat, numquam eligendi nihil iusto non pariatur obcaecati cupiditate. Eos explicabo tenetur non deserunt? Ex nulla eum doloribus aspernatur, deleniti hic veniam expedita. Earum nisi amet officia autem id, temporibus eveniet sequi deleniti nesciunt! Facilis laudantium doloremque placeat omnis voluptas? Quae in corporis cupiditate veniam! Facilis quis vitae maxime iste nobis magni, temporibus cupiditate illum quos reprehenderit odit tempore necessitatibus minima voluptatum iusto expedita obcaecati, impedit, omnis quaerat modi? Inventore voluptate ullam assumenda dolores natus consequuntur, pariatur placeat? Aperiam illo impedit dolores fugiat. Assumenda corporis nulla cupiditate voluptas earum porro maxime iste? Culpa architecto rerum quam eum recusandae, sit et ducimus laudantium, voluptatibus doloribus beatae neque soluta expedita quo dolore minima in eos cupiditate optio assumenda quos totam enim nisi voluptas? Deleniti, rerum velit ex aut ratione natus nesciunt ipsam minima consequatur sapiente voluptatum quos quo ea modi sed perferendis id facere eaque. Ut non tempora iure magni error amet? Veritatis omnis sequi, inventore voluptates perferendis expedita voluptatem libero quam sint, aspernatur eos eum recusandae reprehenderit quidem, quia sapiente assumenda suscipit hic ab incidunt nesciunt beatae velit odio quis! Nobis nihil vitae fuga dicta, beatae dignissimos voluptatibus repudiandae distinctio, aliquid saepe laudantium eius voluptatem recusandae totam fugiat sunt numquam error itaque eveniet cupiditate quod, excepturi tenetur omnis! Aperiam quod voluptas minima eum eius commodi culpa odit impedit distinctio. Modi minima exercitationem culpa rem illum, minus nobis nostrum nulla iure ut alias aperiam provident obcaecati, quidem quos error earum commodi veniam. Repudiandae autem reiciendis natus distinctio ducimus deleniti inventore, iure porro doloremque eum quaerat repellat odio, consectetur quae soluta sequi laboriosam reprehenderit molestias cum. Vel quaerat, aliquam consequatur, possimus et facere temporibus, itaque eveniet illum minima cumque doloribus ad distinctio illo! Dolor nihil sed exercitationem minus. Expedita magni dolorum fugiat impedit. Sapiente facere tempore velit repellat error, esse sed temporibus quasi minus quaerat voluptas provident assumenda amet expedita aliquid. Non corrupti exercitationem ipsa inventore cum sunt vitae, iusto a maxime porro fuga dignissimos, perferendis fugit pariatur minus ratione cumque quod quae labore.</p>
+    <div style={{ margin: "1rem"}}>
+      
+      <div style={{ margin: "0 0 3rem" }}>
+        <h1>Account</h1>
+      </div>
+
+      <form style={{ width: "90%", display: "flex", flexDirection: "column", gap: "2rem", position: "relative" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
+          <label htmlFor="firstName">First Name</label>
+          <input type="text" name="firstname" id="firstName" placeholder="Ademola" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
+          <label htmlFor="lastName">Last Name</label>
+          <input type="text" name="lastname" id="lastName" placeholder="Afolabi" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
+        </div>  
+
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
+          <label htmlFor="email">Email</label>
+          <input type="text" name="email" id="email" placeholder="afolabiademola27@gmail.com" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
+          <label htmlFor="firstName">Password</label>
+          <input type="password" name="firstname" id="firstName" placeholder="Collins5" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem", marginBottom: "5rem" }}>
+          <label htmlFor="firstName">Phone Number</label>
+          <input type="password" name="firstname" id="firstName" placeholder="09037613598" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
+        </div>
+
+        <LoadingButton style={{position: "absolute", bottom: "0", right: "0", fontSize: "1rem", backgroundColor: "#d6d608", padding: "0.5rem 1.5rem", display: "flex", justifyContent: "center", gap: ".5rem" }}>
+          <Edit/>
+          Edit
+        </LoadingButton>
+      </form>
+
+      <div style={{margin: "6rem 0", background: "#2DBE60", padding: "2rem", borderRadius: "10px", width: "90%"}}>
+        <h2>Full Account Details</h2>
+        <div style={{margin: "2rem 0"}}>
+          <p style={{margin: ".8rem 0 0"}}>Full Name: <span>Ademola Afolabi</span></p>
+          <p style={{margin: ".8rem 0 0"}}>Account Number: <span>22554562939</span></p>
+          <p style={{margin: ".8rem 0 0"}}>Email Address: afolabiademola27@gmail.com</p>
+          <p style={{margin: ".8rem 0 0"}}>Phone Number: 09037613598</p>
+          <p style={{margin: ".8rem 0 0"}}>NIN: 94378329829</p>
+        </div>
+      </div>
     </div>
   )
 }
