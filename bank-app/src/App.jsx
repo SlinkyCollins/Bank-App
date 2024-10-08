@@ -17,6 +17,7 @@ import Account from './Components/Account';
 import Transactions from './Components/Transactions';
 import Settings from './Components/Settings';
 import MainDashboard from './Components/MainDashboard';
+import PrivateRoute from './Components/PrivateRoute';
 
 
 
@@ -49,7 +50,14 @@ function App() {
         <Route path="/checkEmail" element={<EmailCheck/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
-        <Route path="/dashboard" element={<Dashboard/>}>
+        <Route 
+        path="/dashboard" 
+        element={
+        <PrivateRoute>
+          <Dashboard/>
+        </PrivateRoute>
+        }
+        >
           <Route index element={<MainDashboard/>} />
           <Route path="account" element={<Account />} />
           <Route path="transactions" element={<Transactions />} />

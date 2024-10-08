@@ -19,6 +19,8 @@ import banking1 from "../assets/banking1.jpg";
 import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useDispatch } from 'react-redux';
+import { login } from '../Redux/userSlice';
 
 
 const Login = () => {
@@ -84,6 +86,7 @@ const Login = () => {
         setRememberMe(event.target.checked);
     }
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const URL = "https://bank-app-6lyo.onrender.com/host/login";
@@ -124,6 +127,7 @@ const Login = () => {
                             localStorage.removeItem("email");
                             localStorage.removeItem("rememberMe");
                         }
+                        dispatch(login(response.data.user)); // Update Redux state
                         navigate("/dashboard");
                     } else {
                         toast.error("User not found, please sign up");

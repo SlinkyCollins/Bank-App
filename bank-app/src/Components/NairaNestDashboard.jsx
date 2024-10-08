@@ -22,36 +22,30 @@ import { useNavigate, NavLink, Outlet, Link } from "react-router-dom";
 import Modal from "./Modal";
 import "./Dashboard.css";
 import { AccountCircle } from "@mui/icons-material";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser, logout, setUser } from '../Redux/userSlice';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const drawWidth = 240;
 
 function Dashboard() {
     const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
+    const user = useSelector((state) => state.user);
 
     const handleToggle = () => {
         setMobileViewOpen(!mobileViewOpen);
     };
 
     const menuItems = [
-        {
-            text: 'Account',
-            icon: <AccountBoxIcon color="secondary" />,
-            path: 'account'
-        },
-        {
-            text: 'Transactions',
-            icon: <ReceiptIcon color="secondary" />,
-            path: 'transactions'
-        },
-        {
-            text: 'Settings',
-            icon: <SettingsIcon color="secondary" />,
-            path: 'settings'
-        }
+        { text: 'Wallet', icon: <AccountBalanceWalletIcon />, path: '/wallet' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: 'account' },
+        { text: 'Transactions', icon: <ReceiptIcon />, path: 'transactions' },
+        { text: 'Settings', icon: <SettingsIcon />, path: 'settings' },
     ];
 
     let navigate = useNavigate();
-    const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
+    // const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -66,7 +60,7 @@ function Dashboard() {
                     },
                 });
                 if (response.data.user) {
-                    setUser(response.data.user);
+                    dispatch(setUser(response.data.user));
                 }
             } catch (error) {
                 console.error("Error fetching user details:", error);
@@ -78,10 +72,11 @@ function Dashboard() {
         };
 
         fetchUserDetails();
-    }, [navigate]);
+    }, [dispatch, navigate]);
 
     const handleLogout = async () => {
         const loadingToastId = toast.loading("Logging out...");
+
 
         try {
             localStorage.removeItem("token");
@@ -95,8 +90,16 @@ function Dashboard() {
                 toast.success("Logged out");
             }, 1000);
 
+            dispatch(logout());
+
+            // Clear user state in Redux
+            dispatch({ type: 'LOGOUT' });
+            dispatch(clearUser());
+            
             console.clear();
+            // Redirect to login
             navigate("/login", { replace: true });
+
 
         } catch (error) {
             toast.dismiss(loadingToastId);
@@ -104,11 +107,13 @@ function Dashboard() {
             console.error("Logout error:", error);
         }
     };
+  
 
     const openModal = () => {
         setShowModal(true);
         setAnchorEl(null);
     };
+
     const closeModal = () => setShowModal(false);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -156,7 +161,7 @@ function Dashboard() {
                             >
                                 {user ? (
                                     <Avatar
-                                        alt=""
+                                        alt={user.firstName}
                                         src=""
                                         sx={{ width: 30, height: 30 }}
                                     />
@@ -282,6 +287,7 @@ function Dashboard() {
                     }}
                 >
                     <Toolbar />
+                    <Typography variant="h4" gutterBottom>Welcome, {user ? user.firstName : 'User'}</Typography>
                     <Outlet />
                     <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
                 </Box>

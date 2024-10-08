@@ -1,38 +1,26 @@
-import { Container, Typography, Button, AppBar, Toolbar, CssBaseline, Box } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
+import { Container, Typography, Button, AppBar, Toolbar, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import './Homepage.css'; // Import your custom CSS file
+import './Homepage.css';
 import Logo from "../Pages/logo.png";
 import FullPageLoader from '../FullPageLoader';
 import { useEffect, useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import image3 from '/src/assets/banking3.jpg';
+import image8 from '/src/assets/banking8.jpg';
+// import image6 from '/src/assets/banking6.jpg';
+// import image11 from '/src/assets/banking11.jpg';
+// import image12 from '/src/assets/banking12.jpg';
+// import image16 from '/src/assets/banking16.jpg';
+// import image20 from '/src/assets/banking20.jpg';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    fontFamily: 'Montserrat, sans-serif',
-    h2: {
-      fontSize: '2rem',
-      '@media (min-width:600px)': {
-        fontSize: '3rem',
-      },
-    },
-    h5: {
-      fontSize: '1rem',
-      '@media (min-width:600px)': {
-        fontSize: '1.5rem',
-      },
-    },
-  },
-});
+
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
@@ -47,60 +35,101 @@ const Homepage = () => {
   if (loading) {
     return <FullPageLoader />;
   }
+
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
       <AppBar position="static">
-        <Toolbar>
-          <div style={{ display: "flex", flexDirection: "column", marginRight: "2rem" }}>
-            <Link to="/"><img src={Logo} style={{ width: "7rem", borderRadius: "50%", cursor: "pointer" }} /></Link>
-          </div>
-          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
-            HOME
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
-            ABOUT US
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
-            SERVICES
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ marginRight: "1rem", fontSize: ".9rem", cursor: "pointer" }}>
-            CONTACT
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontSize: ".9rem", display: "flex", alignItems: "center", cursor: "pointer" }}>
-            FEATURES
-            <KeyboardArrowDownIcon
-              fontSize='medium'
-              color='default'
-            />
-          </Typography>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <Link to="/login">
-              <Button color="inherit" variant='outlined' style={{ fontWeight: "600" }}>Login</Button>
-            </Link>
-            <Link to="/signup">
-              <Button color="primary" variant='contained' style={{ fontWeight: "600" }}>Sign Up</Button>
+        <Toolbar style={{display: "flex", flexDirection: "row",}}>
+          <div style={{ marginRight: "2rem", flex: "1" }}>
+            <Link to="/">
+              <img src={Logo} style={{ width: "7rem", cursor: "pointer" }} alt="NairaNest Logo"/>
             </Link>
           </div>
+          
+           <div style={{}}>
+            <MenuIcon
+                fontSize='large'
+                style={{
+                  margin: "10px"
+                }}
+              />
+           </div>
+          {/* <Link to="/login"><Button variant="outlined" style={{color: "#fff"}}>Login</Button></Link>
+          <Link to="/signup"><Button variant="contained" color="primary">Sign Up</Button></Link> */}
+          {/* <Link to="/send"><Typography variant="h6">SEND</Typography></Link>
+          <Link to="/receive"><Typography variant="h6">RECEIVE</Typography></Link>
+          <Link to="/about"><Typography variant="h6">ABOUT US</Typography></Link>
+          <Link to="/services"><Typography variant="h6">SERVICES</Typography></Link>
+          <Link to="/help"><Typography variant="h6">HELP</Typography></Link>
+          <Link to="/contact"><Typography variant="h6">CONTACT</Typography></Link> */}
         </Toolbar>
       </AppBar>
-      <Container maxWidth="md" style={{ marginTop: '50px' }}>
-        <Box textAlign="center" padding={2}>
-          <Typography variant="h2" gutterBottom>
-            Welcome to NairaNest
-          </Typography>
-          <Typography variant="h5" paragraph>
-            Your trusted partner in managing and growing your finances.
-          </Typography>
-          <Button variant="contained" color="primary" size="large" style={{ margin: '10px' }}>
-            Get Started
-          </Button>
-          <Button variant="outlined" color="secondary" size="large" style={{ margin: '10px' }}>
-            Learn More
-          </Button>
+
+      {/* <Container className="homepage-container">
+        <Box textAlign="center">
+          <Typography variant="h2">Welcome to NairaNest</Typography>
+          <Typography variant="h5">Your trusted partner in managing and growing your finances.</Typography>
+          <Button variant="contained" color="primary">Get Started</Button>
+          <Button variant="outlined" color="secondary">Learn More</Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Container> */}
+
+      <Swiper
+        modules={[Autoplay, Pagination, Navigation]}
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        className="myFirstSwiper"
+      >
+        <SwiperSlide>
+                <div className="slide-container">
+                    <img src={image3} alt="Slide 1" />
+                    <div className="overlay"></div> 
+                    <div className="caption">
+                        <h2>Send & Receive Money</h2>
+                        <p>Quickly and easily send, receive and request money online with NairaNest. Over 180 countries and 120 currencies supported.</p>
+                        <div className="slide-btn-container">
+                          <div className='slide-btn1-wrapper'>
+                            <button className='slide-btn1'>Open a free account</button>
+                          </div>
+                          <div className='slide-btn2-wrapper' style={{position: "relative"}}>
+                            <PlayArrowIcon style={{position: "absolute", top: "0", margin: "12px 0 0 7px"}}/>
+                            <button className='slide-btn2'> See how it works</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+        </SwiperSlide>
+        {/* <SwiperSlide><img src={image2} alt="Slide 2" /></SwiperSlide> */}
+        <SwiperSlide>
+                <div className="slide-container">
+                    <img src={image8} alt="Slide 3" />
+                    <div className="overlay"></div>
+                    <div className="caption">
+                        <h2>Trusted by more than 50,000 businesses worldwide.</h2>
+                        <p>Over 180 countries and 120 currencies supported.</p>
+                        <div className="slide-btn-container">
+                          <div className='slide-btn1-wrapper'>
+                            <button className='slide-btn1'>Get started for free</button>
+                          </div>
+                          <div className='slide-btn3-wrapper' style={{position: "relative"}}>
+                            <PlayCircleIcon style={{position: "absolute", top: "0", margin: "12px 0 0 20px"}}/>
+                            <button className='slide-btn3'>Learn More</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </SwiperSlide>
+
+      </Swiper>
+    </>
   );
 };
 
