@@ -137,12 +137,28 @@
 
 
 
-import React from 'react'
+
+// MainDashboard.jsx
+
+import { useSelector } from 'react-redux';
 
 const MainDashboard = () => {
-  return (
-    <div>MainDashboard</div>
-  )
-}
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const userInfo = useSelector((state) => state.user.userDetails);
 
-export default MainDashboard
+  console.log("User is authenticated:", isAuthenticated);
+  console.log("User info:", userInfo);
+
+  return (
+    <div>
+      {isAuthenticated ? (
+        <p>Welcome, {userInfo?.firstName}</p>
+      ) : (
+        <p>Please log in to access the dashboard.</p>
+      )}
+    </div>
+  );
+};
+
+export default MainDashboard;
+

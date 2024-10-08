@@ -23,7 +23,7 @@ import Modal from "./Modal";
 import "./Dashboard.css";
 import { AccountCircle } from "@mui/icons-material";
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUser, logout, setUser } from '../Redux/userSlice';
+import { logout, setUser } from '../Redux/userSlice';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const drawWidth = 240;
@@ -80,7 +80,6 @@ function Dashboard() {
 
         try {
             localStorage.removeItem("token");
-            localStorage.removeItem("sessionExpired");
 
             setTimeout(() => {
                 toast.dismiss(loadingToastId);
@@ -91,10 +90,7 @@ function Dashboard() {
             }, 1000);
 
             dispatch(logout());
-
-            // Clear user state in Redux
-            dispatch({ type: 'LOGOUT' });
-            dispatch(clearUser());
+       
             
             console.clear();
             // Redirect to login

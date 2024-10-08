@@ -186,7 +186,7 @@ const Login = () => {
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>
                     <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-                        <h1 className='nairanest-login-logo' style={{ fontSize: "1.6rem", marginBottom: "5rem" }}>NairaNest</h1>
+                        <h1 className='nairanest-login-logo' style={{ fontSize: "1.6rem", marginBottom: "5rem", display: "inline-block" }}>NairaNest</h1>
                     </Link>
                     <Box className="loginTextWrapper">
                         <h1 className='login-header' style={{ fontSize: "1.5rem", fontWeight: "600" }}>Welcome back!</h1>

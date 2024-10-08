@@ -18,6 +18,7 @@ import Transactions from './Components/Transactions';
 import Settings from './Components/Settings';
 import MainDashboard from './Components/MainDashboard';
 import PrivateRoute from './Components/PrivateRoute';
+// import { useSelector } from "react-redux"; // Import if you need additional state for checking authentication
 
 
 
@@ -53,7 +54,7 @@ function App() {
         <Route 
         path="/dashboard" 
         element={
-        <PrivateRoute>
+        <PrivateRoute token={token}> 
           <Dashboard/>
         </PrivateRoute>
         }
@@ -63,7 +64,6 @@ function App() {
           <Route path="transactions" element={<Transactions />} />
           <Route path="settings" element={<Settings />} />
         </Route>
-        <Route path="/dashboard" element={token ? <Navigate to="/dashboard"/> : <Navigate replace to="/login"/>}/>
       </Routes>  
     </>
   )

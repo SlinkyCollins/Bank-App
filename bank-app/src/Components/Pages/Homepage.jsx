@@ -97,7 +97,7 @@ const Homepage = () => {
                         <p>Quickly and easily send, receive and request money online with NairaNest. Over 180 countries and 120 currencies supported.</p>
                         <div className="slide-btn-container">
                           <div className='slide-btn1-wrapper'>
-                            <button className='slide-btn1'>Open a free account</button>
+                            <Link to="/signup"><button className='slide-btn1'>Open a free account</button></Link>
                           </div>
                           <div className='slide-btn2-wrapper' style={{position: "relative"}}>
                             <PlayArrowIcon style={{position: "absolute", top: "0", margin: "12px 0 0 7px"}}/>
@@ -117,7 +117,7 @@ const Homepage = () => {
                         <p>Over 180 countries and 120 currencies supported.</p>
                         <div className="slide-btn-container">
                           <div className='slide-btn1-wrapper'>
-                            <button className='slide-btn1'>Get started for free</button>
+                          <Link to="/signup"><button className='slide-btn1'>Get started for free</button></Link>
                           </div>
                           <div className='slide-btn3-wrapper' style={{position: "relative"}}>
                             <PlayCircleIcon style={{position: "absolute", top: "0", margin: "12px 0 0 20px"}}/>
