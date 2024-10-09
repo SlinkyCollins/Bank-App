@@ -363,7 +363,7 @@ const dashboard = async (req, res) => {
   
       await user.save();
   
-      const resetUrl = `https://bank-app-livid-seven.vercel.app/reset-password/${resetToken}`; // Ensure this points to your deployed frontend
+      const resetUrl = `https://nairanest.vercel.app/reset-password/${resetToken}`; // Ensure this points to your deployed frontend
       await sendResetMail(email, resetUrl);
   
       res.status(200).json({ message: 'Password reset email sent' });
