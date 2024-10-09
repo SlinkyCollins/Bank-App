@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const tokenInLocalStorage = localStorage.getItem('token');
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    isAuthenticated: false,
-    userDetails: null,
+    isAuthenticated: !!localStorage.getItem('token'),
+    userDetails: tokenInLocalStorage ? { token: tokenInLocalStorage } : null, // assign token if exists
   },
   reducers: {
     setUser(state, action) {

@@ -10,6 +10,8 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import image3 from '/src/assets/banking3.jpg';
 import image8 from '/src/assets/banking8.jpg';
 // import image6 from '/src/assets/banking6.jpg';
@@ -90,7 +92,17 @@ const Homepage = () => {
       >
         <SwiperSlide>
                 <div className="slide-container">
-                    <img src={image3} alt="Slide 1" />
+                      <LazyLoadImage 
+                        effect="blur"
+                        width="100%"
+                        height="100%"
+                        src={image3} 
+                        alt="Slide 1" 
+                        style=
+                        {{ 
+                            objectFit: "cover"
+                        }}
+                      />
                     <div className="overlay"></div> 
                     <div className="caption">
                         <h2>Send & Receive Money</h2>
@@ -110,7 +122,17 @@ const Homepage = () => {
         {/* <SwiperSlide><img src={image2} alt="Slide 2" /></SwiperSlide> */}
         <SwiperSlide>
                 <div className="slide-container">
-                    <img src={image8} alt="Slide 3" />
+                    <LazyLoadImage 
+                        effect="blur"
+                        width="100%"
+                        height="100%"
+                        src={image8}
+                        alt="Slide 3" 
+                        style=
+                        {{ 
+                            objectFit: "cover"
+                        }}
+                      />
                     <div className="overlay"></div>
                     <div className="caption">
                         <h2>Trusted by more than 50,000 businesses worldwide.</h2>

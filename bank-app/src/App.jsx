@@ -36,7 +36,7 @@ function App() {
     return <FullPageLoader />;
   }
   console.log("App component rendered");
-  let token = localStorage.getItem("token")
+  // let token = localStorage.getItem("token")
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -54,7 +54,7 @@ function App() {
         <Route 
         path="/dashboard" 
         element={
-        <PrivateRoute token={token}> 
+        <PrivateRoute> 
           <Dashboard/>
         </PrivateRoute>
         }
