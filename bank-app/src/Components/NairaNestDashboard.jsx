@@ -2,7 +2,7 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
+// import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -24,20 +24,29 @@ import "./Dashboard.css";
 import { AccountCircle } from "@mui/icons-material";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUser } from '../Redux/userSlice';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+// import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+// import { useLocation } from "react-router-dom";
+import { green } from '@mui/material/colors';
+import HomeIcon from '@mui/icons-material/Home';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const drawWidth = 240;
+const drawWidth = 260;
 
 function Dashboard() {
+    // const location = useLocation();
+
     const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.userDetails);
+    // console.log('dashboard user', user);
 
     const handleToggle = () => {
         setMobileViewOpen(!mobileViewOpen);
     };
 
     const menuItems = [
-        { text: 'Wallet', icon: <AccountBalanceWalletIcon />, path: '/wallet' },
+        { text: 'Dashboard', icon: <HomeIcon />, path: '' },
+        // { text: 'Wallet', icon: <AccountBalanceWalletIcon />, path: 'wallet' },
         { text: 'Profile', icon: <AccountBoxIcon />, path: 'account' },
         { text: 'Transactions', icon: <ReceiptIcon />, path: 'transactions' },
         { text: 'Settings', icon: <SettingsIcon />, path: 'settings' },
@@ -45,7 +54,6 @@ function Dashboard() {
 
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -90,8 +98,8 @@ function Dashboard() {
             }, 1000);
 
             dispatch(logout());
-       
-            
+
+
             console.clear();
             // Redirect to login
             navigate("/login", { replace: true });
@@ -103,7 +111,7 @@ function Dashboard() {
             console.error("Logout error:", error);
         }
     };
-  
+
 
     const openModal = () => {
         setShowModal(true);
@@ -132,6 +140,7 @@ function Dashboard() {
                         width: { sm: `calc(100% - ${drawWidth}px)` },
                         ml: { sm: `${drawWidth}px` },
                         backgroundColor: "#2DBE60",
+                        padding: "5px"
                     }}
                 >
                     <Toolbar>
@@ -144,9 +153,25 @@ function Dashboard() {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" sx={{ flexGrow: "1" }}>
-                            <Link to="/dashboard" style={{ textDecoration: "none", color: "inherit" }}> Dashboard</Link>
+                            Dashboard
+                            {/* Hi, {user ? user?.firstName : 'User'} */}
                         </Typography>
-                        <div style={{ marginLeft: 'auto' }}>
+                        {/* <NotificationsIcon
+                            style={{fontSize: "20px", cursor: "pointer"}}
+                        /> */}
+                        <div style={{display: "flex"}}>
+                            <div>
+                            {user ? (
+                                    <Avatar
+                                        alt={user?.firstName}
+                                        src="https://picsum.photos/300/200"
+                                        sx={{ width: 30, height: 30, bgcolor: green[400], margin: "3px 5px 0 0", cursor: "pointer" }}
+                                        />
+                                ) : (
+                                    <AccountCircle />
+                                )}
+                            </div>
+                            <div>
                             <IconButton
                                 edge="end"
                                 aria-label="account of current user"
@@ -155,15 +180,8 @@ function Dashboard() {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                {user ? (
-                                    <Avatar
-                                        alt={user.firstName}
-                                        src=""
-                                        sx={{ width: 30, height: 30 }}
-                                    />
-                                ) : (
-                                    <AccountCircle />
-                                )}
+                                <Typography>{user?.firstName}</Typography>
+                                <KeyboardArrowDownIcon style={{fontSize: "20px"}}/>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -180,9 +198,10 @@ function Dashboard() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={handleClose} disableRipple><Link to="/dashboard/account" style={{textDecoration: "none", color: "inherit"}}>Profile</Link></MenuItem>
                                 <MenuItem onClick={openModal}>Logout</MenuItem>
                             </Menu>
+                            </div>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -206,14 +225,16 @@ function Dashboard() {
                         }}
                     >
                         <div style={{ backgroundColor: "#1A4631", height: "100%" }}>
-                            <Toolbar />
-                            <Divider />
+                            {/* <Toolbar /> */}
+                            {/* <Divider /> */}
                             <Typography
-                                sx={{ textAlign: "left", pt: 3, pl: 4, pb: 2, color: "#FFD700", fontSize: 20 }}
+                                sx={{ textAlign: "left", pt: 5, pl: 4.5, pb: 3, color: "#FFD700", fontSize: 25 }}
                             >
                                 NairaNest
                             </Typography>
-                            <List>
+                            <List
+                                sx={{paddingX: "1rem"}}
+                            >
                                 {menuItems.map(item => (
                                     <NavLink
                                         to={item.path}
@@ -245,14 +266,16 @@ function Dashboard() {
                         open
                     >
                         <div style={{ backgroundColor: "#1A4631", height: "100%" }}>
-                            <Toolbar />
-                            <Divider />
+                            {/* <Toolbar /> */}
+                            {/* <Divider /> */}
                             <Typography
-                                sx={{ textAlign: "left", pt: 3, pl: 4, pb: 2, color: "#FFD700", fontSize: 20 }}
+                                sx={{ textAlign: "left", pt: 4, pl: 4.5, pb: 4, color: "#FFD700", fontSize: 20 }}
                             >
                                 NairaNest
                             </Typography>
-                            <List>
+                            <List 
+                                sx={{paddingX: "1rem"}}
+                            >
                                 {menuItems.map(item => (
                                     <NavLink
                                         to={item.path}
@@ -279,11 +302,10 @@ function Dashboard() {
                         flexGrow: 1,
                         p: 3,
                         width: { sm: `calc(100% - ${drawWidth}px)` },
-                        backgroundColor: "#F5F5F5",
+                        backgroundColor: "#EBF3F9",
                     }}
                 >
-                    <Toolbar />
-                    <Typography variant="h4" gutterBottom>Welcome, {user ? user.firstName : 'User'}</Typography>
+                    {/* <Toolbar /> */}
                     <Outlet />
                     <Modal show={showModal} onClose={closeModal} onConfirm={handleLogout} />
                 </Box>

@@ -8,7 +8,7 @@ const Account = () => {
   return (
     <div style={{ margin: "1rem"}}>
       
-      <div style={{ margin: "0 0 3rem" }}>
+      <div style={{ margin: "4rem 0 3rem" }}>
         <h1>Account</h1>
       </div>
 
