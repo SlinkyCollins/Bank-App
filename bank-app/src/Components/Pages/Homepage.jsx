@@ -1,10 +1,9 @@
-import { Container, Typography, Button, AppBar, Toolbar, Box } from '@mui/material';
+import { Container, Typography, Button, AppBar, Toolbar, Box, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
 import Logo from "../Pages/logo.png";
 import FullPageLoader from '../FullPageLoader';
 import { useEffect, useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -20,12 +19,15 @@ import image8 from '/src/assets/banking8.jpg';
 // import image16 from '/src/assets/banking16.jpg';
 // import image20 from '/src/assets/banking20.jpg';
 
-
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import HamburgerMenu from '../HamburgerMenu';
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
+  // const [isMenuOpen, setMenuOpen] = useState(false);
+
+  // const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     // Simulate a network request
@@ -41,20 +43,27 @@ const Homepage = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar style={{display: "flex", flexDirection: "row",}}>
+      <Toolbar style={{ display: "flex", flexDirection: "row" }}>
           <div style={{ marginRight: "2rem", flex: "1" }}>
             <Link to="/">
               <img src={Logo} style={{ width: "7rem", cursor: "pointer" }} alt="NairaNest Logo"/>
             </Link>
           </div>
           
+          <div>     
+            <HamburgerMenu/>
+          </div>
            <div style={{}}>
-            <MenuIcon
+            {/* <MenuIcon
                 fontSize='large'
                 style={{
                   margin: "10px"
                 }}
-              />
+              /> */}
+
+{/* <IconButton onClick={toggleMenu} color="inherit">
+            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </IconButton> */}
            </div>
           {/* <Link to="/login"><Button variant="outlined" style={{color: "#fff"}}>Login</Button></Link>
           <Link to="/signup"><Button variant="contained" color="primary">Sign Up</Button></Link> */}
@@ -75,6 +84,18 @@ const Homepage = () => {
           <Button variant="outlined" color="secondary">Learn More</Button>
         </Box>
       </Container> */}
+
+
+{/* {isMenuOpen && (
+        <div className="menu-overlay">
+          <nav className="menu-content">
+            <Link to="/about" onClick={toggleMenu}>About Us</Link>
+            <Link to="/services" onClick={toggleMenu}>Services</Link>
+            <Link to="/contact" onClick={toggleMenu}>Contact</Link>
+            <Link to="/help" onClick={toggleMenu}>Help</Link>
+          </nav>
+        </div>
+      )} */}
 
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
@@ -119,7 +140,6 @@ const Homepage = () => {
                     </div>
                 </div>
         </SwiperSlide>
-        {/* <SwiperSlide><img src={image2} alt="Slide 2" /></SwiperSlide> */}
         <SwiperSlide>
                 <div className="slide-container">
                     <LazyLoadImage 

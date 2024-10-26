@@ -29,6 +29,7 @@ import { logout, setUser } from '../Redux/userSlice';
 import { green } from '@mui/material/colors';
 import HomeIcon from '@mui/icons-material/Home';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const drawWidth = 260;
@@ -159,48 +160,48 @@ function Dashboard() {
                         {/* <NotificationsIcon
                             style={{fontSize: "20px", cursor: "pointer"}}
                         /> */}
-                        <div style={{display: "flex"}}>
+                        <div style={{ display: "flex" }}>
                             <div>
-                            {user ? (
+                                {user ? (
                                     <Avatar
                                         alt={user?.firstName}
                                         src="https://picsum.photos/300/200"
                                         sx={{ width: 30, height: 30, bgcolor: green[400], margin: "3px 5px 0 0", cursor: "pointer" }}
-                                        />
+                                    />
                                 ) : (
                                     <AccountCircle />
                                 )}
                             </div>
                             <div>
-                            <IconButton
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <Typography>{user?.firstName}</Typography>
-                                <KeyboardArrowDownIcon style={{fontSize: "20px"}}/>
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose} disableRipple><Link to="/dashboard/account" style={{textDecoration: "none", color: "inherit"}}>Profile</Link></MenuItem>
-                                <MenuItem onClick={openModal}>Logout</MenuItem>
-                            </Menu>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
+                                >
+                                    <Typography>{user?.firstName}</Typography>
+                                    <KeyboardArrowDownIcon style={{ fontSize: "20px" }} />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose} disableRipple><Link to="/dashboard/account" style={{ textDecoration: "none", color: "inherit" }}>Profile</Link></MenuItem>
+                                    <MenuItem onClick={openModal}>Logout</MenuItem>
+                                </Menu>
                             </div>
                         </div>
                     </Toolbar>
@@ -233,7 +234,7 @@ function Dashboard() {
                                 NairaNest
                             </Typography>
                             <List
-                                sx={{paddingX: "1rem"}}
+                                sx={{ paddingX: "1rem" }}
                             >
                                 {menuItems.map(item => (
                                     <NavLink
@@ -273,8 +274,8 @@ function Dashboard() {
                             >
                                 NairaNest
                             </Typography>
-                            <List 
-                                sx={{paddingX: "1rem"}}
+                            <List
+                                sx={{ paddingX: "1rem" }}
                             >
                                 {menuItems.map(item => (
                                     <NavLink
@@ -292,6 +293,10 @@ function Dashboard() {
                                         </ListItemButton>
                                     </NavLink>
                                 ))}
+                                <ListItemButton onClick={openModal} sx={{ color: "#fff" }}>
+                                    <ListItemIcon sx={{ color: "inherit" }}><LogoutIcon /></ListItemIcon>
+                                    <ListItemText primary="Logout" />
+                                </ListItemButton>
                             </List>
                         </div>
                     </Drawer>
