@@ -13,15 +13,14 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import image3 from '/src/assets/banking3.jpg';
 import image8 from '/src/assets/banking8.jpg';
-// import image6 from '/src/assets/banking6.jpg';
-// import image11 from '/src/assets/banking11.jpg';
-// import image12 from '/src/assets/banking12.jpg';
-// import image16 from '/src/assets/banking16.jpg';
-// import image20 from '/src/assets/banking20.jpg';
-
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import HamburgerMenu from '../HamburgerMenu';
+import { FaRegHandPointer } from "react-icons/fa6";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import LockIcon from '@mui/icons-material/Lock';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
@@ -171,6 +170,173 @@ const Homepage = () => {
             </SwiperSlide>
 
       </Swiper>
+
+      <section>
+        <div style={{padding: "3.5rem .5rem 3rem .5rem"}}>
+          <h1 style={{fontSize: "2rem", textAlign: "center", marginBottom: ".6rem", fontWeight: "500"}}>Why should you choose NairaNest?</h1>
+          <p style={{lineHeight: "30px", textAlign: "center", fontWeight: "300", letterSpacing: ".2px"}}>Here&#39;s Top 4 reasons why you need a NairaNest account to manage your money.</p>
+        </div>
+        
+        <div style={{padding: "0 1rem 0 1rem", display: "flex", flexDirection: "column", gap: "4rem"}}>
+          <div>
+            <div style={{margin: "0 0 1rem"}}>
+              <FaRegHandPointer style={{color: "#1976d2", fontSize: "2.5rem"}} />
+            </div>
+            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Easy to use</h1>
+            <p style={{marginBottom: "1rem"}}>Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a>Learn more &gt; </a>
+          </div>
+
+          <div>
+            <div style={{margin: "0 0 1rem"}}>
+              <RocketLaunchIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>
+            </div>
+            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Faster Payments</h1>
+            <p style={{marginBottom: "1rem"}}>Persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a>Learn more &gt; </a>
+          </div>
+
+          <div>
+            <div style={{margin: "0 0 1rem"}}>
+              <AttachMoneyIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>                        
+            </div>
+            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Lower Fees</h1>
+            <p style={{marginBottom: "1rem"}}>Essent lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a>Learn more &gt; </a>
+          </div>
+
+          <div>
+            <div style={{margin: "0 0 1rem"}}>
+              <LockIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>  
+            </div>                      
+            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>100% secure</h1>
+            <p style={{marginBottom: "1rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a>Learn more &gt; </a>
+          </div>
+        </div>
+      </section>
+
+
+      <section style={{backgroundColor: "#f1f5f6", margin: "3.5rem 0 3.5rem", padding: "3.5rem 1rem 3rem 1rem"}}>
+        <div>
+          <h1 style={{fontWeight: "500", width: "70%", fontSize: "2.1rem", marginBottom: "1rem"}}>Payment Solutions for everyone.</h1>
+          <p style={{color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem", marginBottom: "1rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. lisque persius interesset his et, in quot quidam mea essent possim iriure.</p>
+          <a style={{color: "#1976d2", fontSize: "1rem"}}>Find more solution &gt; </a>
+        </div>
+
+        <div>
+          <div>
+            <img src="" alt="" />
+            <p>Freelancer</p>
+          </div>
+          <div>
+            <img src="" alt="" />
+            <p>Online Shopping</p>
+          </div>
+          <div>
+            <img src="" alt="" />
+            <p>Online Sellers</p>
+          </div>
+          <div>
+            <img src="" alt="" />
+            <p>Affliate Marketing</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section style={{textAlign: "center"}}>
+        <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What can you do with NairaNest?</h1>
+        <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 2rem"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+        <div style={{margin: "1rem 0"}}>
+          <div>
+            <p>Send Money</p>
+          </div>
+          <div>
+            <p>Receive Money</p>
+          </div>
+          <div>
+            <p>Pay a friend</p>
+          </div>
+          <div>
+            <p>Online Shopping</p>
+          </div>
+        </div>
+
+        <a>See more you can do &gt;</a>
+      </section>
+
+
+
+      <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 3rem", padding: "3.5rem 1rem 3rem 1rem"}}>
+        <div>
+          <iframe></iframe>
+        </div>
+        <div>
+            <h1 style={{fontWeight: "500", width: "70%", fontSize: "2.1rem", marginBottom: "1rem"}}>How does it work?</h1>
+            <p style={{color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris essent possim iriure. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+            <div style={{color: "#646765", fontWeight: "400", fontSize: "1.1rem", margin: "1.5rem 0"}}>
+              <p><span style={{color: "#000"}}>✔</span> Sign Up Account</p>
+              <p><span style={{color: "#000"}}>✔</span> Receive & Send Payments from worldwide</p>
+              <p><span style={{color: "#000"}}>✔</span> Your funds will be transferred to your local bank account</p>
+            </div>
+
+            <Button variant='outlined'>Open a Free Account</Button>
+        </div>
+      </section>
+
+      <section style={{textAlign: "center"}}>
+        <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What people are saying about NairaNest</h1>
+        <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 1.8rem"}}>A payments experience people love to talk about</p>
+        <Swiper style={{margin: "1rem 0"}}></Swiper>
+        <a>See more people review &gt;</a>
+      </section>
+
+
+      <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 3rem", padding: "3rem 1rem 3rem 1rem", textAlign: "center"}}>
+        <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>Get the app</h1>
+        <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 1.3rem"}}>Download our app for the fastest, most convenient way to send & get Payment.</p>
+        <div style={{margin: "1rem 0 0", display: "flex", flexDirection: "column", gap: ".5rem"}}>
+          <div>
+            <img src="/src/assets/app-store.png" alt="" />
+          </div>
+          <div>
+            <img src="/src/assets/google-play-store.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+
+      <footer style={{padding: "3rem 1rem 3rem 1rem"}}>
+        <div style={{display: "flex", flexDirection: "column", gap: ".7rem"}}>
+          <a>About us</a>
+          <a>Support</a>
+          <a>Help</a>
+          <a>Careers</a>
+          <a>Affliate</a>
+          <a>Fees</a>
+        </div>
+
+        <div>
+          <img src="" alt="" />
+          <img src="" alt="" />
+          <img src="" alt="" />
+          <img src="" alt="" />
+        </div>
+
+        <hr/>
+
+        <div style={{margin: "1rem 0 0"}}>
+          <p>Copyright © 2024 NairaNest. All Rights Reserved.</p>
+          <div style={{margin: "1rem 0 0", display: "flex", flexDirection: "column", gap: ".7rem"}}>
+            <p>Security</p>
+            <p>Terms</p>
+            <p>Privacy</p>
+          </div>
+        </div>
+      </footer>
     </>
   );
 };
