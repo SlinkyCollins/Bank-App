@@ -20,6 +20,14 @@ import { FaHandPointer } from "react-icons/fa";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LockIcon from '@mui/icons-material/Lock';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import freelancer from "/src/assets/freelancer.jpg";
+import shopping from "/src/assets/onlineShopping.jpg";
+import seller from "/src/assets/onlineSellers.jpg";
+import affiliateMarketing from "/src/assets/affiliateMarketing.jpg";
+import { FaShareSquare } from "react-icons/fa";
+import { FaRegCheckSquare } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
+import { FaShoppingBag } from "react-icons/fa";
 
 
 const Homepage = () => {
@@ -226,25 +234,25 @@ const Homepage = () => {
 
         <div style={{padding: "3rem 0", display: "flex", flexDirection: "column", gap: "1.6rem"}}>
           <div style={{position: "relative"}}>
-            <img src="/src/assets/anyone-freelancer.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <img src={freelancer} alt="" style={{width: "100%", borderRadius: "5px"}} />
             <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
               <p style={{fontSize: "1rem", color: "#fff"}}>Freelancer</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
-            <img src="/src/assets/anyone-online-shopping.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <img src={shopping} alt="" style={{width: "100%", borderRadius: "5px"}} />
             <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
               <p style={{fontSize: "1rem", color: "#fff"}}>Online Shopping</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
-            <img src="/src/assets/anyone-online-sellers.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <img src={seller} alt="" style={{width: "100%", borderRadius: "5px"}} />
             <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
               <p style={{fontSize: "1rem", color: "#fff"}}>Online Sellers</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
-            <img src="/src/assets/anyone-affiliate-marketing.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <img src={affiliateMarketing} alt="" style={{width: "100%", borderRadius: "5px"}} />
             <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
               <p style={{fontSize: "1rem", color: "#fff"}}>Affliate Marketing</p>
             </div>
@@ -256,23 +264,45 @@ const Homepage = () => {
       <section style={{textAlign: "center"}}>
         <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What can you do with NairaNest?</h1>
         <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 2rem"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <div style={{margin: "2rem 0", display: "flex", flexDirection: "column", gap: "1rem"}}>
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s"}}>
+            <div style={{padding: "2rem"}}>
+              <FaShareSquare style={{fontSize: "4rem", color: "#1976d2"}}/>
+            </div>
+            <div style={{background: "#f1f5f6", padding: "1rem"}}>
+              <p>Send Money</p>
+            </div>
+          </div>
 
-        <div style={{margin: "1rem 0"}}>
-          <div>
-            <p>Send Money</p>
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s"}}>
+            <div style={{padding: "2rem"}}>
+              <FaRegCheckSquare style={{fontSize: "4rem", color: "#1976d2"}}/>
+            </div>
+            <div style={{background: "#f1f5f6", padding: "1rem"}}>
+              <p>Receive Money</p>
+            </div>
           </div>
-          <div>
-            <p>Receive Money</p>
+
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s"}}>
+            <div style={{padding: "2rem"}}>
+              <FaUserFriends style={{fontSize: "4rem", color: "#1976d2"}}/>
+            </div>
+            <div style={{background: "#f1f5f6", padding: "1rem"}}>
+              <p>Pay a friend</p>
+            </div>
           </div>
-          <div>
-            <p>Pay a friend</p>
-          </div>
-          <div>
-            <p>Online Shopping</p>
+
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s"}}>
+            <div style={{padding: "2rem"}}>
+              <FaShoppingBag style={{fontSize: "4rem", color: "#1976d2"}}/>
+            </div>
+            <div style={{background: "#f1f5f6", padding: "1rem"}}>
+              <p>Online Shopping</p>
+            </div>
           </div>
         </div>
 
-        <a>See more you can do &gt;</a>
+        <a style={{color: "#1976d2", fontSize: "1.1rem"}}>See more you can do &gt;</a>
       </section>
 
 
