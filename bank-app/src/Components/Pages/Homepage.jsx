@@ -16,7 +16,7 @@ import image8 from '/src/assets/banking8.jpg';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import HamburgerMenu from '../HamburgerMenu';
-import { FaRegHandPointer } from "react-icons/fa6";
+import { FaHandPointer } from "react-icons/fa";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LockIcon from '@mui/icons-material/Lock';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
@@ -172,74 +172,82 @@ const Homepage = () => {
       </Swiper>
 
       <section>
-        <div style={{padding: "3.5rem .5rem 3rem .5rem"}}>
-          <h1 style={{fontSize: "2rem", textAlign: "center", marginBottom: ".6rem", fontWeight: "500"}}>Why should you choose NairaNest?</h1>
-          <p style={{lineHeight: "30px", textAlign: "center", fontWeight: "300", letterSpacing: ".2px"}}>Here&#39;s Top 4 reasons why you need a NairaNest account to manage your money.</p>
+        <div style={{padding: "3.5rem .5rem 3.5rem .5rem"}}>
+          <h1 style={{fontSize: "2rem", textAlign: "center", marginBottom: ".7rem", fontWeight: "500"}}>Why should you choose NairaNest?</h1>
+          <p style={{lineHeight: "30px", fontSize: "1.2rem", textAlign: "center", fontWeight: "300", letterSpacing: ".2px", color: "#646765"}}>Here&#39;s Top 4 reasons why you need a NairaNest account to manage your money.</p>
         </div>
         
-        <div style={{padding: "0 1rem 0 1rem", display: "flex", flexDirection: "column", gap: "4rem"}}>
+        <div style={{padding: "0 1rem 0 1rem", display: "flex", flexDirection: "column", gap: "3rem"}}>
           <div>
             <div style={{margin: "0 0 1rem"}}>
-              <FaRegHandPointer style={{color: "#1976d2", fontSize: "2.5rem"}} />
+              <FaHandPointer style={{color: "#1976d2", fontSize: "2.8rem"}} />
             </div>
-            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Easy to use</h1>
-            <p style={{marginBottom: "1rem"}}>Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
-            <a>Learn more &gt; </a>
+            <h1 style={{fontWeight: "500", marginBottom: ".8rem"}}>Easy to use</h1>
+            <p style={{marginBottom: "1rem", color: "#646765"}}>Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a style={{color: "#1976d2"}}>Learn more &gt; </a>
           </div>
 
           <div>
             <div style={{margin: "0 0 1rem"}}>
-              <RocketLaunchIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>
+              <RocketLaunchIcon style={{color: "#1976d2", fontSize: "2.8rem"}}/>
             </div>
-            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Faster Payments</h1>
-            <p style={{marginBottom: "1rem"}}>Persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
-            <a>Learn more &gt; </a>
+            <h1 style={{fontWeight: "500", marginBottom: ".8rem"}}>Faster Payments</h1>
+            <p style={{marginBottom: "1rem", color: "#646765"}}>Persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a style={{color: "#1976d2"}}>Learn more &gt; </a>
           </div>
 
           <div>
             <div style={{margin: "0 0 1rem"}}>
-              <AttachMoneyIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>                        
+              <AttachMoneyIcon style={{color: "#1976d2", fontSize: "2.8rem"}}/>                        
             </div>
-            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>Lower Fees</h1>
-            <p style={{marginBottom: "1rem"}}>Essent lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
-            <a>Learn more &gt; </a>
+            <h1 style={{fontWeight: "500", marginBottom: ".8rem"}}>Lower Fees</h1>
+            <p style={{marginBottom: "1rem", color: "#646765"}}>Essent lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a style={{color: "#1976d2"}}>Learn more &gt; </a>
           </div>
 
           <div>
             <div style={{margin: "0 0 1rem"}}>
-              <LockIcon style={{color: "#1976d2", fontSize: "2.5rem"}}/>  
+              <LockIcon style={{color: "#1976d2", fontSize: "2.8rem"}}/>  
             </div>                      
-            <h1 style={{fontWeight: "500", marginBottom: "1rem"}}>100% secure</h1>
-            <p style={{marginBottom: "1rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
-            <a>Learn more &gt; </a>
+            <h1 style={{fontWeight: "500", marginBottom: ".8rem"}}>100% secure</h1>
+            <p style={{marginBottom: "1rem", color: "#646765"}}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure.</p>
+            <a style={{color: "#1976d2"}}>Learn more &gt; </a>
           </div>
         </div>
       </section>
 
 
-      <section style={{backgroundColor: "#f1f5f6", margin: "3.5rem 0 3.5rem", padding: "3.5rem 1rem 3rem 1rem"}}>
+      <section style={{backgroundColor: "#f1f5f6", margin: "3.5rem 0 3.5rem", padding: "3.5rem 1rem 0 1rem"}}>
         <div>
-          <h1 style={{fontWeight: "500", width: "70%", fontSize: "2.1rem", marginBottom: "1rem"}}>Payment Solutions for everyone.</h1>
+          <h1 style={{fontWeight: "500", width: "70%", fontSize: "2.04rem", marginBottom: "1rem"}}>Payment Solutions for everyone.</h1>
           <p style={{color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem", marginBottom: "1rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. lisque persius interesset his et, in quot quidam mea essent possim iriure.</p>
-          <a style={{color: "#1976d2", fontSize: "1rem"}}>Find more solution &gt; </a>
+          <a style={{color: "#1976d2", fontSize: "1.1rem"}}>Find more solution &gt; </a>
         </div>
 
-        <div>
-          <div>
-            <img src="" alt="" />
-            <p>Freelancer</p>
+        <div style={{padding: "3rem 0", display: "flex", flexDirection: "column", gap: "1.6rem"}}>
+          <div style={{position: "relative"}}>
+            <img src="/src/assets/anyone-freelancer.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
+              <p style={{fontSize: "1rem", color: "#fff"}}>Freelancer</p>
+            </div>
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>Online Shopping</p>
+          <div style={{position: "relative"}}>
+            <img src="/src/assets/anyone-online-shopping.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
+              <p style={{fontSize: "1rem", color: "#fff"}}>Online Shopping</p>
+            </div>
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>Online Sellers</p>
+          <div style={{position: "relative"}}>
+            <img src="/src/assets/anyone-online-sellers.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
+              <p style={{fontSize: "1rem", color: "#fff"}}>Online Sellers</p>
+            </div>
           </div>
-          <div>
-            <img src="" alt="" />
-            <p>Affliate Marketing</p>
+          <div style={{position: "relative"}}>
+            <img src="/src/assets/anyone-affiliate-marketing.jpg" alt="" style={{width: "100%", borderRadius: "5px"}} />
+            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
+              <p style={{fontSize: "1rem", color: "#fff"}}>Affliate Marketing</p>
+            </div>
           </div>
         </div>
       </section>
