@@ -1,4 +1,4 @@
-import { Container, Typography, Button, AppBar, Toolbar, Box, IconButton } from '@mui/material';
+import { Button, AppBar, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
 import Logo from "../Pages/logo.png";
@@ -28,13 +28,16 @@ import { FaShareSquare } from "react-icons/fa";
 import { FaRegCheckSquare } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
+import appStore from "/src/assets/app-store.png";
+import googlePlay from "/src/assets/google-play-store.png";
+import { FaFacebookF } from "react-icons/fa";
+import { Google, Twitter } from '@mui/icons-material';
+import { YouTube } from '@mui/icons-material';
+import ScrollToTopButton from '../ScrollToTopButton';
 
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
-  // const [isMenuOpen, setMenuOpen] = useState(false);
-
-  // const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     // Simulate a network request
@@ -60,49 +63,8 @@ const Homepage = () => {
           <div>     
             <HamburgerMenu/>
           </div>
-           <div style={{}}>
-            {/* <MenuIcon
-                fontSize='large'
-                style={{
-                  margin: "10px"
-                }}
-              /> */}
-
-{/* <IconButton onClick={toggleMenu} color="inherit">
-            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </IconButton> */}
-           </div>
-          {/* <Link to="/login"><Button variant="outlined" style={{color: "#fff"}}>Login</Button></Link>
-          <Link to="/signup"><Button variant="contained" color="primary">Sign Up</Button></Link> */}
-          {/* <Link to="/send"><Typography variant="h6">SEND</Typography></Link>
-          <Link to="/receive"><Typography variant="h6">RECEIVE</Typography></Link>
-          <Link to="/about"><Typography variant="h6">ABOUT US</Typography></Link>
-          <Link to="/services"><Typography variant="h6">SERVICES</Typography></Link>
-          <Link to="/help"><Typography variant="h6">HELP</Typography></Link>
-          <Link to="/contact"><Typography variant="h6">CONTACT</Typography></Link> */}
         </Toolbar>
       </AppBar>
-
-      {/* <Container className="homepage-container">
-        <Box textAlign="center">
-          <Typography variant="h2">Welcome to NairaNest</Typography>
-          <Typography variant="h5">Your trusted partner in managing and growing your finances.</Typography>
-          <Button variant="contained" color="primary">Get Started</Button>
-          <Button variant="outlined" color="secondary">Learn More</Button>
-        </Box>
-      </Container> */}
-
-
-{/* {isMenuOpen && (
-        <div className="menu-overlay">
-          <nav className="menu-content">
-            <Link to="/about" onClick={toggleMenu}>About Us</Link>
-            <Link to="/services" onClick={toggleMenu}>Services</Link>
-            <Link to="/contact" onClick={toggleMenu}>Contact</Link>
-            <Link to="/help" onClick={toggleMenu}>Help</Link>
-          </nav>
-        </div>
-      )} */}
 
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
@@ -161,9 +123,9 @@ const Homepage = () => {
                         }}
                       />
                     <div className="overlay"></div>
-                    <div className="caption">
-                        <h2>Trusted by more than 50,000 businesses worldwide.</h2>
-                        <p>Over 180 countries and 120 currencies supported.</p>
+                    <div className="caption"> 
+                        <h2>Your trusted partner in managing and growing your finances.</h2>
+                        <p>Trusted by more than 50,000 businesses worldwide.</p>
                         <div className="slide-btn-container">
                           <div className='slide-btn1-wrapper'>
                           <Link to="/signup"><button className='slide-btn1'>Get started for free</button></Link>
@@ -264,7 +226,7 @@ const Homepage = () => {
       <section style={{textAlign: "center"}}>
         <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What can you do with NairaNest?</h1>
         <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 2rem"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div style={{margin: "2rem 0", display: "flex", flexDirection: "column", gap: "1rem"}}>
+        <div style={{margin: "2rem 0", display: "flex", flexDirection: "column"}}>
           <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s"}}>
             <div style={{padding: "2rem"}}>
               <FaShareSquare style={{fontSize: "4rem", color: "#1976d2"}}/>
@@ -321,7 +283,7 @@ const Homepage = () => {
               <p><span style={{color: "#000"}}>✔</span> Your funds will be transferred to your local bank account</p>
             </div>
 
-            <Button variant='outlined'>Open a Free Account</Button>
+            <Button variant='outlined' sx={{textTransform: "capitalize", fontWeight: "600", padding: ".8rem"}}>Open a Free Account</Button>
         </div>
       </section>
 
@@ -329,19 +291,26 @@ const Homepage = () => {
         <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What people are saying about NairaNest</h1>
         <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 1.8rem"}}>A payments experience people love to talk about</p>
         <Swiper style={{margin: "1rem 0"}}></Swiper>
-        <a>See more people review &gt;</a>
+        <a style={{color: "#1976d2", fontSize: "1.1rem"}}>See more people review &gt;</a>
       </section>
 
 
-      <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 3rem", padding: "3rem 1rem 3rem 1rem", textAlign: "center"}}>
-        <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>Get the app</h1>
-        <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 1.3rem"}}>Download our app for the fastest, most convenient way to send & get Payment.</p>
-        <div style={{margin: "1rem 0 0", display: "flex", flexDirection: "column", gap: ".5rem"}}>
+      <section>
+        <h1>Awesome Customer Support</h1>
+        <p>Have you any query? Don&#39;t worry. We have great people ready to help you whenever you need it.</p>
+        <button>Find Out More</button>
+      </section>
+
+
+      <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 1rem", padding: "3rem .1rem 3rem .1rem", textAlign: "center"}}>
+        <h1 style={{fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500"}}>Get the app</h1>
+        <p style={{lineHeight: "35px", fontWeight: "330", letterSpacing: ".2px", color: "#646765", padding: "0 1.3rem", fontSize: "1.24rem"}}>Download our app for the fastest, most convenient way to send & get Payment.</p>
+        <div style={{margin: "1.5rem 0 0", display: "flex", flexDirection: "column", gap: ".5rem"}}>
           <div>
-            <img src="/src/assets/app-store.png" alt="" />
+            <img src={appStore} alt="" />
           </div>
           <div>
-            <img src="/src/assets/google-play-store.png" alt="" />
+            <img src={googlePlay} alt="" />
           </div>
         </div>
       </section>
@@ -357,11 +326,11 @@ const Homepage = () => {
           <a>Fees</a>
         </div>
 
-        <div>
-          <img src="" alt="" />
-          <img src="" alt="" />
-          <img src="" alt="" />
-          <img src="" alt="" />
+        <div style={{margin: "1rem 0 .5rem", display: "flex", flexDirection: "row", gap: ".6rem"}}>
+          <FaFacebookF style={{color: "#4d555a", fontSize: "1.5rem"}} />
+          <Twitter style={{color: "#4d555a", fontSize: "1.5rem"}} />
+          <Google style={{color: "#4d555a", fontSize: "1.5rem"}} />
+          <YouTube style={{color: "#4d555a", fontSize: "1.5rem"}} />
         </div>
 
         <hr/>
@@ -375,6 +344,7 @@ const Homepage = () => {
           </div>
         </div>
       </footer>
+      <ScrollToTopButton />
     </>
   );
 };

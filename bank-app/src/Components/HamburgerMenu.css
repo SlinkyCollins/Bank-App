@@ -80,25 +80,3 @@
 .active-link {
   color: orange;
 }
-
-
-.dropdown-content {
-  display: none;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.9);
-  margin-left: 1rem;
-  padding: 0.5rem;
-}
-
-.dropdown:hover .dropdown-content {
-  display: flex;
-}
-
-.dropdown-content a {
-  font-size: 1.4rem;
-  color: #818181;
-}
-
-.dropdown-content a:hover {
-  color: #fff;
-}

@@ -49,33 +49,8 @@ const HamburgerMenu = () => {
               className={pathname === "/client" ? "active-link" : ""}
               onClick={toggleMenu}
             >
-              Client
+              Contact Us
             </NavLink>
-          </li>
-          <li className="dropdown">
-            <span>Features</span>
-            <ul className="dropdown-content">
-              <li>
-                <NavLink to="/features/dashboard" onClick={toggleMenu}>
-                  Dashboard
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/features/income" onClick={toggleMenu}>
-                  Income
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/features/vans" onClick={toggleMenu}>
-                  Vans
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/features/reviews" onClick={toggleMenu}>
-                  Reviews
-                </NavLink>
-              </li>
-            </ul>
           </li>
           <li>
             <NavLink
