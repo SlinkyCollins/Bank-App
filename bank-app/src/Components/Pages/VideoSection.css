@@ -1,0 +1,42 @@
+.pulse-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  animation: animate 3s linear infinite;
+}
+
+.pulse-button span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1976D2;
+  margin: 0 0 0 3px;
+  height: 100%;
+  cursor: pointer;
+}
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7) , 0 0 0 0 rgba(255, 255, 255, 0.7)
+  }
+  40% {box-shadow: 0 0 0 50px rgba(255, 255, 255, 0) , 0 0 0 0 rgba(255, 255, 255, 0.7)
+  }
+  80% {box-shadow: 0 0 0 50px rgba(255, 255, 255, 0) , 0 0 0 30px rgba(255, 255, 255, 0)
+  }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0) , 0 0 0 30px rgba(255, 255, 255, 0)
+  }
+}
+

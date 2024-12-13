@@ -160,3 +160,45 @@
     transform: scale(1.1); 
     background-color: rgba(0, 0, 0, 0.75); 
 }
+
+.parallax-section {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  padding: 6rem 1rem 6rem;
+  margin: 3rem 0 0;
+  background-image: url("/src/assets/workers.jpg");
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.parallax-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:rgb(25, 118, 210, 0.87); 
+  z-index: 1;
+}
+
+.parallax-section h1,
+.parallax-section p,
+.parallax-section button {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* To Turn off parallax effects for mobile */
+
+/* @media only screen and (max-device-width: 1366px) {
+  .parallax-section {
+    background-attachment: scroll;
+  }
+} */

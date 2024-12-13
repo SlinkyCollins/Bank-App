@@ -1,4 +1,4 @@
-import { Button, AppBar, Toolbar } from '@mui/material';
+import {AppBar, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
 import Logo from "../Pages/logo.png";
@@ -34,6 +34,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { Google, Twitter } from '@mui/icons-material';
 import { YouTube } from '@mui/icons-material';
 import ScrollToTopButton from '../ScrollToTopButton';
+import VideoSection from './VideoSection';
+import { ImCheckmark } from "react-icons/im";
 
 
 const Homepage = () => {
@@ -124,8 +126,8 @@ const Homepage = () => {
                       />
                     <div className="overlay"></div>
                     <div className="caption"> 
-                        <h2>Your trusted partner in managing and growing your finances.</h2>
-                        <p>Trusted by more than 50,000 businesses worldwide.</p>
+                        <h2>Trusted by more than 50,000 businesses worldwide.</h2>
+                        <p>Over 180 countries and 120 currencies supported.</p>
                         <div className="slide-btn-container">
                           <div className='slide-btn1-wrapper'>
                           <Link to="/signup"><button className='slide-btn1'>Get started for free</button></Link>
@@ -197,26 +199,26 @@ const Homepage = () => {
         <div style={{padding: "3rem 0", display: "flex", flexDirection: "column", gap: "1.6rem"}}>
           <div style={{position: "relative"}}>
             <img src={freelancer} alt="" style={{width: "100%", borderRadius: "5px"}} />
-            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
-              <p style={{fontSize: "1rem", color: "#fff"}}>Freelancer</p>
+            <div style={{position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px"}}>
+              <p style={{fontSize: "1.3rem", color: "#fff", textAlign: "center"}}>Freelancer</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
             <img src={shopping} alt="" style={{width: "100%", borderRadius: "5px"}} />
-            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
-              <p style={{fontSize: "1rem", color: "#fff"}}>Online Shopping</p>
+            <div style={{position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px"}}>
+              <p style={{fontSize: "1.3rem", color: "#fff", textAlign: "center"}}>Online Shopping</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
             <img src={seller} alt="" style={{width: "100%", borderRadius: "5px"}} />
-            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
-              <p style={{fontSize: "1rem", color: "#fff"}}>Online Sellers</p>
+            <div style={{position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px"}}>
+              <p style={{fontSize: "1.3rem", color: "#fff", textAlign: "center"}}>Online Sellers</p>
             </div>
           </div>
           <div style={{position: "relative"}}>
             <img src={affiliateMarketing} alt="" style={{width: "100%", borderRadius: "5px"}} />
-            <div style={{position: "absolute", bottom: "5px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem"}}>
-              <p style={{fontSize: "1rem", color: "#fff"}}>Affliate Marketing</p>
+            <div style={{position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px"}}>
+              <p style={{fontSize: "1.3rem", color: "#fff", textAlign: "center"}}>Affliate Marketing</p>
             </div>
           </div>
         </div>
@@ -268,41 +270,52 @@ const Homepage = () => {
       </section>
 
 
+        {/* <video src='/src/assets/banking-video.mp4' width='500' height='500' autoPlay controls></video> */}
+
+        {/* <iframe width="200"
+          height="315"
+          src="https://www.youtube.com/embed/KjqtDep5mT0?si=pLhKBOwJSLrRfiTe"
+          title="YouTube video player"></iframe> */}
+
+        {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/7e90gBu4pas?si=G3PZM18fgmqMGbeX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
+
 
       <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 3rem", padding: "3.5rem 1rem 3rem 1rem"}}>
         <div>
-          <iframe></iframe>
-        </div>
-        <div>
-            <h1 style={{fontWeight: "500", width: "70%", fontSize: "2.1rem", marginBottom: "1rem"}}>How does it work?</h1>
-            <p style={{color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris essent possim iriure. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          <div>
+            <VideoSection/>
+          </div>
+          <div style={{padding: "0 0 0 1rem"}}>
+              <h1 style={{fontWeight: "500", width: "70%", fontSize: "2rem", margin: "2.5rem 0 1rem"}}>How does it work?</h1>
+              <p style={{color: "#646765", lineHeight: "1.7rem", fontWeight: "400", fontSize: "1.1rem"}}>Quidam lisque persius interesset his et, in quot quidam persequeris essent possim iriure. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
-            <div style={{color: "#646765", fontWeight: "400", fontSize: "1.1rem", margin: "1.5rem 0"}}>
-              <p><span style={{color: "#000"}}>✔</span> Sign Up Account</p>
-              <p><span style={{color: "#000"}}>✔</span> Receive & Send Payments from worldwide</p>
-              <p><span style={{color: "#000"}}>✔</span> Your funds will be transferred to your local bank account</p>
-            </div>
+              <div style={{color: "#646765", fontWeight: "400", fontSize: "1.1rem", margin: "1.5rem 0"}}>
+                <p><ImCheckmark style={{color: "#4C4D4D"}}/> &nbsp;Sign Up Account</p>
+                <p style={{marginTop: "1rem", lineHeight: "30px"}}><ImCheckmark style={{color: "#4C4D4D"}}/> &nbsp;Receive & Send Payments from worldwide</p>
+                <p style={{marginTop: "1rem", lineHeight: "30px"}}><ImCheckmark style={{color: "#4C4D4D"}}/> &nbsp;Your funds will be transferred to your local bank account</p>
+              </div>
 
-            <Button variant='outlined' sx={{textTransform: "capitalize", fontWeight: "600", padding: ".8rem"}}>Open a Free Account</Button>
+              <button style={{fontWeight: "600", padding: ".8rem", border: "1px solid #1976D2", color: "#1976D2", fontSize: "1rem"}}>Open a Free Account</button>
+          </div>
         </div>
       </section>
 
       <section style={{textAlign: "center"}}>
-        <h1 style={{fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500"}}>What people are saying about NairaNest</h1>
-        <p style={{lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 1.8rem"}}>A payments experience people love to talk about</p>
+        <h1 style={{fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500"}}>What people are saying about NairaNest</h1>
+        <p style={{lineHeight: "30px", fontSize: "1.1rem", fontWeight: "300", letterSpacing: ".2px", color: "#646765", padding: "0 1.8rem"}}>A payments experience people love to talk about</p>
         <Swiper style={{margin: "1rem 0"}}></Swiper>
         <a style={{color: "#1976d2", fontSize: "1.1rem"}}>See more people review &gt;</a>
       </section>
 
 
-      <section>
-        <h1>Awesome Customer Support</h1>
-        <p>Have you any query? Don&#39;t worry. We have great people ready to help you whenever you need it.</p>
-        <button>Find Out More</button>
+      <section className="parallax-section">
+        <h1 style={{fontSize: "2.2rem", fontWeight: "500"}}>Awesome Customer Support</h1>
+        <p style={{fontSize: "1.3rem", fontWeight: "300", lineHeight: "30px", margin: "1rem 0 1.5rem"}}>Have you any query? Don&#39;t worry. We have great people ready to help you whenever you need it.</p>
+        <button style={{backgroundColor: "#fff", color: "#1976D2", fontSize: "1rem", fontWeight: "600", padding: "1rem 2rem"}}>Find out more</button>
       </section>
 
 
-      <section style={{backgroundColor: "#f1f5f6", margin: "3rem 0 1rem", padding: "3rem .1rem 3rem .1rem", textAlign: "center"}}>
+      <section style={{backgroundColor: "#f1f5f6", margin: "0 0 1rem", padding: "3rem .1rem 3rem .1rem", textAlign: "center"}}>
         <h1 style={{fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500"}}>Get the app</h1>
         <p style={{lineHeight: "35px", fontWeight: "330", letterSpacing: ".2px", color: "#646765", padding: "0 1.3rem", fontSize: "1.24rem"}}>Download our app for the fastest, most convenient way to send & get Payment.</p>
         <div style={{margin: "1.5rem 0 0", display: "flex", flexDirection: "column", gap: ".5rem"}}>
