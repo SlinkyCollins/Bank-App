@@ -301,7 +301,7 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section>
+      <section style={{margin: "3.5rem 0 0"}}>
         <TestimonialSection/>
       </section>
 

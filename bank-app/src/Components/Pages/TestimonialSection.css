@@ -1,19 +1,26 @@
 .custom-prev,
 .custom-next {
   position: absolute;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
+  background-color: #fff;
+  color: #000;
   border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
   z-index: 1000;
-  visibility: hidden; /* Hidden by default */
-  opacity: 0; /* Fully transparent initially */
+  visibility: hidden;
+  opacity: 0;
   transition: opacity 0.3s ease;
+  box-shadow: #00000026 0px 2px 5px 0px;
+  user-select: none;
+  appearance: button;
 }
 
 .custom-prev {
@@ -26,49 +33,39 @@
 
 .custom-prev:hover,
 .custom-next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #cccccc;
+  color: white;
 }
 
-
-/* Show buttons on hover */
 .swiper:hover .custom-prev,
 .swiper:hover .custom-next {
   visibility: visible;
-  opacity: 1; /* Fade in */
+  opacity: 1;
 }
-
-
-/* Optional hover effect for buttons */
-.custom-prev:hover,
-.custom-next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-
 
 .custom-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .custom-dots .swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    opacity: 1;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .custom-dots .swiper-pagination-bullet-active {
-    background-color: #1976d2;
-    transform: scale(1.2);
-  }
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 2.5rem;
+}
 
+.custom-dots .swiper-pagination-bullet {
+  width: 11px;
+  height: 11px;
+  margin: 0 5px;
+  background: transparent;
+  border: 2px solid #cccccc;
+  border-radius: 50%;
+  opacity: 1;
+  transition: background-color 0.3s ease;
+}
 
-  @media (max-width: 768px) {
+.custom-dots .swiper-pagination-bullet-active {
+  background-color: #cccccc;
+}
+
+/* responsiveness should be for pc not mobile */
+/* @media (max-width: 768px) {
     .custom-prev,
     .custom-next {
       width: 30px;
@@ -79,6 +76,4 @@
       width: 10px;
       height: 10px;
     }
-  }
-  
-  
+  } */
