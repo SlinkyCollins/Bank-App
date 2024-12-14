@@ -36,6 +36,7 @@ import { YouTube } from '@mui/icons-material';
 import ScrollToTopButton from '../ScrollToTopButton';
 import VideoSection from './VideoSection';
 import { ImCheckmark } from "react-icons/im";
+import TestimonialSection from './TestimonialSection';
 
 
 const Homepage = () => {
@@ -300,11 +301,8 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section style={{textAlign: "center"}}>
-        <h1 style={{fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500"}}>What people are saying about NairaNest</h1>
-        <p style={{lineHeight: "30px", fontSize: "1.1rem", fontWeight: "300", letterSpacing: ".2px", color: "#646765", padding: "0 1.8rem"}}>A payments experience people love to talk about</p>
-        <Swiper style={{margin: "1rem 0"}}></Swiper>
-        <a style={{color: "#1976d2", fontSize: "1.1rem"}}>See more people review &gt;</a>
+      <section>
+        <TestimonialSection/>
       </section>
 
 
