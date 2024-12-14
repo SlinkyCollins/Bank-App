@@ -311,7 +311,7 @@ const Homepage = () => {
       <section className="parallax-section">
         <h1 style={{fontSize: "2.2rem", fontWeight: "500"}}>Awesome Customer Support</h1>
         <p style={{fontSize: "1.3rem", fontWeight: "300", lineHeight: "30px", margin: "1rem 0 1.5rem"}}>Have you any query? Don&#39;t worry. We have great people ready to help you whenever you need it.</p>
-        <button style={{backgroundColor: "#fff", color: "#1976D2", fontSize: "1rem", fontWeight: "600", padding: "1rem 2rem"}}>Find out more</button>
+        <button style={{backgroundColor: "#fff", color: "#1976D2", fontSize: "1rem", fontWeight: "600", padding: "1rem"}}>Find out more</button>
       </section>
 
 

@@ -3,6 +3,8 @@ import { Modal } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { IoPlay } from "react-icons/io5";
 import "./VideoSection.css";
+import thumbnailImg from "/src/assets/banking2.jpg";
+
 
 const VideoSection = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +26,7 @@ const VideoSection = () => {
           }}
         >
           <img
-            src="/src/assets/banking2.jpg"
+            src={thumbnailImg}
             alt="Video Thumbnail"
             style={{ width: "100%", borderRadius: "5px" }}
           />
