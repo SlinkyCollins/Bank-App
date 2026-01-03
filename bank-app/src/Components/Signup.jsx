@@ -80,7 +80,7 @@ const Signup = () => {
 
             timeoutId = setTimeout(() => {
                 setLoadingMessage("Please Wait...");
-            }, 10000); // 10 seconds
+            }, 400); // 400 milliseconds
 
             axios.post(URL, values)
                 .then((response) => {

@@ -92,12 +92,11 @@ function Dashboard() {
 
             setTimeout(() => {
                 toast.dismiss(loadingToastId);
-            }, 800);
+            }, 400);
 
             setTimeout(() => {
                 toast.success("Logged out");
-            }, 1000);
-
+            }, 400);
             dispatch(logout());
 
 

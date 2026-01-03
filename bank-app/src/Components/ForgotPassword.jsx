@@ -54,7 +54,7 @@ const ForgotPassword = () => {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0 1rem" }}>
             <div className="form-container" style={{padding: "32px 55px 20px 55px", width: "100%", maxWidth: "600px"}}>
                 <div className="logo-container">
-                    <h1 style={{ color: "#2dbe60", fontSize: "1.65rem" }}>Forgot your password?</h1>
+                    <h1 style={{ color: "#4a90e2", fontSize: "1.65rem" }}>Forgot your password?</h1>
                     <p style={{color: "#78838f", fontSize: ".9rem", fontWeight: "500", margin: "1rem 0 .4rem"}}>Your password will be reset by email.</p>
                 </div>
 

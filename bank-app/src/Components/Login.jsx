@@ -105,7 +105,7 @@ const Login = () => {
 
             timeoutId = setTimeout(() => {
                 setLoadingMessage("Please Wait...");
-            }, 1000); // 1 second
+            }, 400); // 400 milliseconds
 
             axios.post(URL, values)
                 .then((response) => {
