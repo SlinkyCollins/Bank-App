@@ -1,7 +1,7 @@
 import { AppBar, Toolbar } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
 import './Homepage.css';
-import Logo from "../Pages/logo.png";
+import Logo from "/src/assets/logo.png";
 import FullPageLoader from '../FullPageLoader';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';

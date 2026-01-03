@@ -21,6 +21,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/userSlice';
+import Logo from "/src/assets/logo.png";
 
 
 const Login = () => {
@@ -159,7 +160,7 @@ const Login = () => {
                 });
         },
     });
-    
+
     useEffect(() => {
         return () => {
             clearTimeout(timeoutId);
@@ -179,14 +180,14 @@ const Login = () => {
                         width="100%"
                         height="100%"
                         style=
-                        {{ 
+                        {{
                             objectFit: "cover"
                         }}
                     />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", maxWidth: "100%", padding: "3rem 2rem 0 2rem" }}>
-                    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-                        <h1 className='nairanest-login-logo' style={{ fontSize: "1.6rem", marginBottom: "5rem", display: "inline-block" }}>NairaNest</h1>
+                    <Link to="/">
+                        <img src={Logo} className='nairanest-login-logo' style={{ width: "7rem", cursor: "pointer" }} alt="NairaNest Logo" />
                     </Link>
                     <Box className="loginTextWrapper">
                         <h1 className='login-header' style={{ fontSize: "1.5rem", fontWeight: "600" }}>Welcome back!</h1>
@@ -272,7 +273,7 @@ const Login = () => {
                             loadingIndicator={isLockedOut ? `Try again in ${lockoutTimer}s` : loadingMessage}
                             disabled={formik.isSubmitting || isLockedOut || !formik.isValid}
                         >
-                           {loadingMessage}
+                            {loadingMessage}
                         </LoadingButton>
 
                     </Box>

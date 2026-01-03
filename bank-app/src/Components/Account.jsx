@@ -1,65 +1,62 @@
-import { Edit } from "@mui/icons-material"
-import { LoadingButton } from '@mui/lab';
+import React from 'react';
+import { Box, Card, CardContent, Grid, TextField, Typography, Avatar, Button, Divider } from "@mui/material";
+import { Edit } from "@mui/icons-material";
 import { useSelector } from 'react-redux';
-
 
 const Account = () => {
   const userInfo = useSelector((state) => state.user.userDetails);
+
   return (
-    <div style={{ margin: "1rem"}}>
-      
-      <div style={{ margin: "4rem 0 3rem" }}>
-        <h1>Account</h1>
-      </div>
+    <Box sx={{ maxWidth: '800px', margin: '0 auto' }}>
+      <Typography variant="h5" sx={{ mb: 3, fontWeight: 700, color: '#34495e' }}>
+        Profile Settings
+      </Typography>
 
-      <form style={{ width: "90%", display: "flex", flexDirection: "column", gap: "2rem", position: "relative" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
-          <label htmlFor="firstName">First Name</label>
-          <input type="text" name="firstname" id="firstName" placeholder={userInfo?.firstName} style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>
+      <Grid container spacing={3}>
+        {/* Left Col: Avatar */}
+        <Grid item xs={12} md={4}>
+            <Card sx={{ borderRadius: 4, textAlign: 'center', p: 3 }}>
+                <Avatar 
+                    src="https://picsum.photos/300/200" 
+                    sx={{ width: 100, height: 100, margin: '0 auto 1rem' }} 
+                />
+                <Typography variant="h6">{userInfo?.firstName} {userInfo?.lastName}</Typography>
+                <Typography variant="body2" color="textSecondary">Standard User</Typography>
+            </Card>
+        </Grid>
 
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
-          <label htmlFor="lastName">Last Name</label>
-          <input type="text" name="lastname" id="lastName" placeholder={userInfo?.lastName} style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>  
-
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
-          <label htmlFor="email">Email</label>
-          <input type="text" name="email" id="email" placeholder={userInfo?.email} style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
-          <label htmlFor="firstName">Password</label>
-          <input type="password" name="firstname" id="firstName" placeholder={userInfo?.password} style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem" }}>
-          <label htmlFor="firstName">Phone Number</label>
-          <input type="password" name="firstname" id="firstName" placeholder="09037613598" style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: ".5rem", marginBottom: "5rem" }}>
-          <label htmlFor="firstName">ID</label>
-          <input type="text" name="firstname" id="firstName" placeholder={userInfo?._id} style={{ width: "100%", padding: "1rem 1rem", fontSize: "1rem", fontWeight: "600" }} disabled />
-        </div>
-
-        <LoadingButton style={{position: "absolute", bottom: "0", right: "0", fontSize: "1rem", backgroundColor: "#d6d608", padding: "0.5rem 1.5rem", display: "flex", justifyContent: "center", gap: ".5rem" }}>
-          <Edit/>
-          Edit
-        </LoadingButton>
-      </form>
-
-      <div style={{margin: "6rem 0", background: "#2DBE60", padding: "2rem", borderRadius: "10px", width: "90%"}}>
-        <h2>Full Account Details</h2>
-        <div style={{margin: "2rem 0"}}>
-          <p style={{margin: ".8rem 0 0"}}>Full Name: <span>Ademola Afolabi</span></p>
-          <p style={{margin: ".8rem 0 0"}}>Account Number: <span>22554562939</span></p>
-          <p style={{margin: ".8rem 0 0"}}>Email Address: afolabiademola27@gmail.com</p>
-          <p style={{margin: ".8rem 0 0"}}>Phone Number: 09037613598</p>
-          <p style={{margin: ".8rem 0 0"}}>NIN: 94378329829</p>
-        </div>
-      </div>
-    </div>
+        {/* Right Col: Details */}
+        <Grid item xs={12} md={8}>
+            <Card sx={{ borderRadius: 4 }}>
+                <CardContent sx={{ p: 4 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="First Name" defaultValue={userInfo?.firstName || "Ademola"} disabled variant="outlined" />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Last Name" defaultValue={userInfo?.lastName || "Afolabi"} disabled variant="outlined" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField fullWidth label="Email" defaultValue={userInfo?.email || "user@example.com"} disabled variant="outlined" />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Phone" defaultValue="09037613598" disabled variant="outlined" />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Account Number" defaultValue="22554562939" disabled variant="outlined" />
+                        </Grid>
+                    </Grid>
+                    
+                    <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button variant="contained" startIcon={<Edit />} sx={{ bgcolor: '#4a90e2', borderRadius: '20px' }}>
+                            Edit Profile
+                        </Button>
+                    </Box>
+                </CardContent>
+            </Card>
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
 

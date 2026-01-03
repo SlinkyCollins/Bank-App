@@ -17,6 +17,7 @@ import "../Components/Signup.css"
 import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import Logo from "/src/assets/logo.png";
 
 const Signup = () => {
     const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const Signup = () => {
     };
 
     const navigate = useNavigate();
-    const URL = `${import.meta.env.VITE_API_BASE_URL}/host/register`; 
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/host/register`;
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -141,8 +142,8 @@ const Signup = () => {
                     />
                 </div>
                 <Box className="logoWrapper" sx={{ position: "absolute", textAlign: "left", top: "0", left: "0", right: "0", width: "100%", padding: "3rem 2rem 0 2rem" }}>
-                    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-                        <h1 className='nairanest-signup-logo' style={{ fontSize: "1.6rem", marginBottom: "5rem" }}>NairaNest</h1>
+                    <Link to="/">
+                        <img src={Logo} className='nairanest-signup-logo'  style={{ width: "7rem", cursor: "pointer" }} alt="NairaNest Logo" />
                     </Link>
                     <Box className="signupTextWrapper">
                         <h1 className='signup-header' style={{ fontSize: "1.5rem", fontWeight: "600" }}>Get Verified!</h1>
