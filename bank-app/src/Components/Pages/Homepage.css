@@ -1,50 +1,49 @@
 .app-bar {
-    background-color: #4a90e2;
-  }
-  
+  background-color: #4a90e2;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.myFirstSwiper {
+  width: 100%;
+  height: 90vh;
+  background-color: black;
+}
+
+.myFirstSwiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
   button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 15px 25px;
   }
+}
 
-  .myFirstSwiper {
-    width: 100%;
-    height: 90vh;
-    background-color: black;
+@media (min-width: 1024px) {
+  button {
+    padding: 20px 30px;
   }
-  
-  .myFirstSwiper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  @media (min-width: 600px) {
-    button {
-      padding: 15px 25px;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    button {
-      padding: 20px 30px;
-    }
-  }
+}
 
+.logo-container {
+  margin-right: 2rem;
+  flex: 1;
+}
 
-
-
-
-  /* Carousel.css */
+/* Carousel.css */
 .slide-container {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
-
 
 /* Full dark overlay */
 .overlay {
@@ -65,7 +64,7 @@
   color: white;
   text-align: center;
   padding: 20px;
-  z-index: 2; 
+  z-index: 2;
   width: 100%;
 }
 
@@ -84,7 +83,6 @@
   line-height: 35px;
   margin: 0 0 30px;
 }
-
 
 .caption button {
   font-size: 1rem;
@@ -138,15 +136,15 @@
 
 .slide-btn2-wrapper {
   margin: 10px 0;
-  transition: color ease-in 0.3s
+  transition: color ease-in 0.3s;
 }
 
 .slide-btn2-wrapper:hover {
   color: #1976d2;
 }
 
-
-.prev-slide, .next-slide {
+.prev-slide,
+.next-slide {
   position: absolute;
   top: 45%;
   background-color: #fff;
@@ -176,21 +174,17 @@
   right: 12px;
 }
 
-
 .prev-slide:hover,
 .next-slide:hover {
   background-color: #cccccc;
   color: white;
 }
 
-
 .myFirstSwiper:hover .prev-slide,
 .myFirstSwiper:hover .next-slide {
   visibility: visible;
   opacity: 1;
 }
-
-
 
 .swiper-dots {
   display: flex;
@@ -245,13 +239,13 @@
 }
 
 .parallax-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color:rgb(25, 118, 210, 0.87); 
+  background-color: rgb(25, 118, 210, 0.87);
   z-index: 1;
 }
 
@@ -262,7 +256,6 @@
   z-index: 2;
 }
 
-
 /* To Turn off parallax effects for mobile */
 
 /* @media only screen and (max-device-width: 1366px) {
@@ -270,3 +263,361 @@
     background-attachment: scroll;
   }
 } */
+
+/* Navigation Styles */
+.desktop-nav {
+  display: none;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #e0e0e0;
+}
+
+.mobile-nav {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/* How it works section */
+.how-it-works {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.how-it-works > div:last-child {
+  padding-left: 1rem;
+}
+
+/* Reason cards */
+.reason-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem 0;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reason-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer - mobile baseline (stacked with spacing) */
+.site-footer {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer .footer-links,
+.site-footer .footer-social,
+.site-footer .footer-legal {
+  width: 100%;
+}
+
+.site-footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.site-footer .footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.site-footer .footer-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #e6e6e6;
+}
+
+.site-footer .footer-legal {
+  text-align: center;
+}
+
+.site-footer .footer-legal-links {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Payment solutions */
+.payment-solutions {
+  padding: 4rem 2rem !important;
+}
+
+.payment-solutions .payment-cards img {
+  border-radius: 5px;
+}
+.payment-solutions .ps-header {
+  text-align: center !important;
+}
+
+.payment-solutions .ps-header h1 {
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.features-section {
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.how-it-works-section {
+  background-color: #f1f5f6;
+  margin: 3rem 0 3rem;
+  padding: 3.5rem 1rem 3rem 1rem;
+}
+
+.app-stores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.reasons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem 0 1rem;
+}
+
+/* Responsive improvements */
+@media (min-width: 768px) {
+  .app-stores {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .how-it-works-section {
+    padding: 5.5rem 1.5rem 5rem 1.5rem;
+  }
+
+  .features-section {
+    padding: 6rem 0;
+    text-align: center;
+  }
+
+  .payment-solutions {
+    padding: 6rem 4rem !important;
+  }
+
+  .logo-container {
+    margin: 0;
+    flex: none;
+  }
+
+  .myFirstSwiper {
+    height: 80vh;
+  }
+
+  .caption h2 {
+    font-size: 2.5rem;
+    line-height: 50px;
+  }
+
+  .caption p {
+    font-size: 1.5rem;
+  }
+
+  .slide-btn1,
+  .slide-btn2,
+  .slide-btn3 {
+    font-size: 1.2rem;
+  }
+
+  /* Why choose section */
+  section:nth-of-type(1) h1 {
+    font-size: 2.5rem;
+  }
+
+  section:nth-of-type(1) p {
+    font-size: 1.4rem;
+  }
+
+  .reasons-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 3rem 1rem 3rem 1rem;
+  }
+
+  .reason-card {
+    width: 100%;
+    max-width: 800px;
+    justify-self: center;
+    margin: 0;
+  }
+
+  /* Payment solutions section */
+  section:nth-of-type(2) h1 {
+    font-size: 2.5rem;
+    width: 50%;
+  }
+
+  section:nth-of-type(2) p {
+    font-size: 1.3rem;
+  }
+
+  .payment-solutions .payment-cards {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .payment-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+
+  .payment-cards img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* What can you do section */
+  section:nth-of-type(3) h1 {
+    font-size: 2.5rem;
+  }
+
+  section:nth-of-type(3) p {
+    font-size: 1.3rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* How it works section */
+  .how-it-works {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .how-it-works > div:last-child {
+    padding-left: 0;
+  }
+
+  section:nth-of-type(4) h1 {
+    font-size: 2.5rem;
+  }
+
+  section:nth-of-type(4) p {
+    font-size: 1.3rem;
+  }
+
+  /* Testimonials */
+  section:nth-of-type(5) h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Parallax */
+  .parallax-section h1 {
+    font-size: 3rem;
+  }
+
+  .parallax-section p {
+    font-size: 1.5rem;
+  }
+
+  /* Get the app */
+  section:nth-of-type(6) h1 {
+    font-size: 2.5rem;
+  }
+
+  section:nth-of-type(6) p {
+    font-size: 1.4rem;
+  }
+
+  .app-stores {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 4rem 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .site-footer .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 30%;
+    align-items: flex-start;
+  }
+
+  .site-footer .footer-social {
+    margin: 0.25rem 0;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    width: 30%;
+    justify-content: center;
+  }
+
+  .site-footer .footer-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #e6e6e6;
+    margin: 0.75rem 0;
+    display: none;
+  }
+
+  .site-footer .footer-legal {
+    margin-top: 0.5rem;
+    width: 30%;
+    text-align: right;
+  }
+
+  .site-footer .footer-legal-links {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+}

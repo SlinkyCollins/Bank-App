@@ -29,7 +29,7 @@ function App() {
     // Simulate a network request
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 400);
   }, []);
 
   if (loading) {

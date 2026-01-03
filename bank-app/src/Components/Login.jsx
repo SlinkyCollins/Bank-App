@@ -39,7 +39,7 @@ const Login = () => {
         // Simulate a network request
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 400);
     }, []);
 
 
@@ -105,7 +105,7 @@ const Login = () => {
 
             timeoutId = setTimeout(() => {
                 setLoadingMessage("Please Wait...");
-            }, 10000); // 10 seconds
+            }, 1000); // 1 second
 
             axios.post(URL, values)
                 .then((response) => {
@@ -256,11 +256,11 @@ const Login = () => {
                                 label="Remember Me"
                                 value="Remember Me"
                             />
-                            <Link to="/forgot-password" style={{ color: "#2dbe60", fontSize: ".9rem", textDecoration: "none" }}>Forgot Password?</Link>
+                            <Link to="/forgot-password" style={{ color: "#4a90e2", fontSize: ".9rem", textDecoration: "none" }}>Forgot Password?</Link>
                         </Box>
                         <LoadingButton
                             style={{
-                                backgroundColor: isLockedOut ? "#ccc" : "#2dbe60",
+                                backgroundColor: isLockedOut ? "#ccc" : "#4a90e2",
                                 width: "100%",
                                 marginBottom: "1rem",
                                 padding: ".8rem 0",
@@ -276,7 +276,7 @@ const Login = () => {
                         </LoadingButton>
 
                     </Box>
-                    <p style={{ color: "#92a4af", textAlign: "center", fontSize: ".9rem" }}>Don&#39;t have an account? <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}><span style={{ color: "#2dbe60" }} className='link' >Sign Up</span></Link></p>
+                    <p style={{ color: "#92a4af", textAlign: "center", fontSize: ".9rem" }}>Don&#39;t have an account? <Link to="/signup" style={{ textDecoration: "none", color: "inherit" }}><span style={{ color: "#4a90e2" }} className='link' >Sign Up</span></Link></p>
                 </Box>
             </Grid>
         </Grid>

@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1000)
+        }, 400)
     }, [])
 
     const handleSubmit = async (e) => {

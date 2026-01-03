@@ -1,3 +1,9 @@
+.testimonial-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem .5rem;
+}
+
 .custom-prev,
 .custom-next {
   position: absolute;
@@ -82,3 +88,10 @@
       height: 10px;
     }
   } */
+
+
+  @media (min-width: 768px) {
+    .testimonial-section {
+      padding: 3rem 1rem;
+    }
+  }

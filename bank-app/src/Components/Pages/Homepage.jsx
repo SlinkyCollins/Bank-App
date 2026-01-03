@@ -1,5 +1,5 @@
 import { AppBar, Toolbar } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Homepage.css';
 import Logo from "../Pages/logo.png";
 import FullPageLoader from '../FullPageLoader';
@@ -46,7 +46,7 @@ const Homepage = () => {
     // Simulate a network request
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 400);
   }, []);
 
   if (loading) {
@@ -55,15 +55,24 @@ const Homepage = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: "2rem", flex: "1" }}>
+          <div className="logo-container">
             <Link to="/">
               <img src={Logo} style={{ width: "7rem", cursor: "pointer" }} alt="NairaNest Logo" />
             </Link>
           </div>
 
-          <div>
+          <div className="desktop-nav">
+            <NavLink to="/" className="nav-link">About</NavLink>
+            <NavLink to="/services" className="nav-link">Services</NavLink>
+            <NavLink to="/client" className="nav-link">Client</NavLink>
+            <NavLink to="/contact" className="nav-link">Contact Us</NavLink>
+            <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
+            <NavLink to="/login" className="nav-link">Log In</NavLink>
+          </div>
+
+          <div className="mobile-nav">
             <HamburgerMenu />
           </div>
         </Toolbar>
@@ -151,14 +160,14 @@ const Homepage = () => {
       </Swiper>
       <div className="swiper-dots"></div>
 
-      <section>
+      <section className="why-choose-us">
         <div style={{ padding: "3.5rem .5rem 3.5rem .5rem" }}>
           <h1 style={{ fontSize: "2rem", textAlign: "center", marginBottom: ".7rem", fontWeight: "500" }}>Why should you choose NairaNest?</h1>
           <p style={{ lineHeight: "30px", fontSize: "1.2rem", textAlign: "center", fontWeight: "300", letterSpacing: ".2px", color: "#646765" }}>Here&#39;s Top 4 reasons why you need a NairaNest account to manage your money.</p>
         </div>
 
-        <div style={{ padding: "0 1rem 0 1rem", display: "flex", flexDirection: "column", gap: "3rem" }}>
-          <div>
+        <div className="reasons-container">
+          <div className="reason-card">
             <div style={{ margin: "0 0 1rem" }}>
               <FaHandPointer style={{ color: "#1976d2", fontSize: "2.8rem" }} />
             </div>
@@ -167,7 +176,7 @@ const Homepage = () => {
             <a style={{ color: "#1976d2" }}>Learn more &gt; </a>
           </div>
 
-          <div>
+          <div className="reason-card">
             <div style={{ margin: "0 0 1rem" }}>
               <RocketLaunchIcon style={{ color: "#1976d2", fontSize: "2.8rem" }} />
             </div>
@@ -176,7 +185,7 @@ const Homepage = () => {
             <a style={{ color: "#1976d2" }}>Learn more &gt; </a>
           </div>
 
-          <div>
+          <div className="reason-card">
             <div style={{ margin: "0 0 1rem" }}>
               <AttachMoneyIcon style={{ color: "#1976d2", fontSize: "2.8rem" }} />
             </div>
@@ -185,7 +194,7 @@ const Homepage = () => {
             <a style={{ color: "#1976d2" }}>Learn more &gt; </a>
           </div>
 
-          <div>
+          <div className="reason-card">
             <div style={{ margin: "0 0 1rem" }}>
               <LockIcon style={{ color: "#1976d2", fontSize: "2.8rem" }} />
             </div>
@@ -197,34 +206,34 @@ const Homepage = () => {
       </section>
 
 
-      <section style={{ backgroundColor: "#f1f5f6", margin: "3.5rem 0 3.5rem", padding: "3.5rem 1rem 0 1rem" }}>
-        <div>
-          <h1 style={{ fontWeight: "500", width: "70%", fontSize: "2.04rem", marginBottom: "1rem" }}>Payment Solutions for everyone.</h1>
-          <p style={{ color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem", marginBottom: "1rem" }}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. lisque persius interesset his et, in quot quidam mea essent possim iriure.</p>
+      <section style={{ backgroundColor: "#f1f5f6", margin: "3.5rem 0 3.5rem", padding: "3.5rem 1rem 0 1rem" }} className="payment-solutions">
+        <div className="ps-header">
+          <h1 style={{ fontWeight: "500", fontSize: "2.04rem", marginBottom: "1rem" }}>Payment Solutions for everyone.</h1>
+          <p style={{ color: "#646765", lineHeight: "2rem", fontWeight: "400", fontSize: "1.2rem", marginBottom: "1rem" }}>Quidam lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Lisque persius interesset.</p>
           <a style={{ color: "#1976d2", fontSize: "1.1rem" }}>Find more solution &gt; </a>
         </div>
 
-        <div style={{ padding: "3rem 0", display: "flex", flexDirection: "column", gap: "1.6rem" }}>
+        <div style={{ padding: "3rem 0", display: "flex", flexDirection: "column", gap: "1.6rem" }} className="payment-cards">
           <div style={{ position: "relative" }}>
-            <img src={freelancer} alt="" style={{ width: "100%", borderRadius: "5px" }} />
+            <img src={freelancer} alt="" style={{ width: "100%", height: "100%", maxHeight: "600px", borderRadius: "5px", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px" }}>
               <p style={{ fontSize: "1.3rem", color: "#fff", textAlign: "center" }}>Freelancer</p>
             </div>
           </div>
           <div style={{ position: "relative" }}>
-            <img src={shopping} alt="" style={{ width: "100%", borderRadius: "5px" }} />
+            <img src={shopping} alt="" style={{ width: "100%", height: "100%", maxHeight: "600px", borderRadius: "5px", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px" }}>
               <p style={{ fontSize: "1.3rem", color: "#fff", textAlign: "center" }}>Online Shopping</p>
             </div>
           </div>
           <div style={{ position: "relative" }}>
-            <img src={seller} alt="" style={{ width: "100%", borderRadius: "5px" }} />
+            <img src={seller} alt="" style={{ width: "100%", height: "100%", maxHeight: "600px", borderRadius: "5px", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px" }}>
               <p style={{ fontSize: "1.3rem", color: "#fff", textAlign: "center" }}>Online Sellers</p>
             </div>
           </div>
           <div style={{ position: "relative" }}>
-            <img src={affiliateMarketing} alt="" style={{ width: "100%", borderRadius: "5px" }} />
+            <img src={affiliateMarketing} alt="" style={{ width: "100%", height: "100%", maxHeight: "600px", borderRadius: "5px", objectFit: "cover" }} />
             <div style={{ position: "absolute", bottom: "4px", background: "rgba(0, 0, 0, 0.5)", width: "100%", padding: "1rem 1rem", borderRadius: "5px" }}>
               <p style={{ fontSize: "1.3rem", color: "#fff", textAlign: "center" }}>Affliate Marketing</p>
             </div>
@@ -233,11 +242,11 @@ const Homepage = () => {
       </section>
 
 
-      <section style={{ textAlign: "center" }}>
+      <section className="features-section">
         <h1 style={{ fontSize: "2rem", marginBottom: ".6rem", fontWeight: "500" }}>What can you do with NairaNest?</h1>
         <p style={{ lineHeight: "30px", fontWeight: "400", letterSpacing: ".2px", color: "#646765", padding: "0 2rem" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <div style={{ margin: "2rem 0", display: "flex", flexDirection: "column" }}>
-          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s" }}>
+        <div style={{ margin: "2rem 0", display: "flex", flexDirection: "column", padding: "0 2rem" }} className="features-grid">
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s", maxWidth: "800px", width: "100%", alignSelf: "center" }}>
             <div style={{ padding: "2rem" }}>
               <FaShareSquare style={{ fontSize: "4rem", color: "#1976d2" }} />
             </div>
@@ -246,7 +255,7 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s" }}>
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s", maxWidth: "800px", width: "100%", alignSelf: "center" }}>
             <div style={{ padding: "2rem" }}>
               <FaRegCheckSquare style={{ fontSize: "4rem", color: "#1976d2" }} />
             </div>
@@ -255,7 +264,7 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s" }}>
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s", maxWidth: "800px", width: "100%", alignSelf: "center" }}>
             <div style={{ padding: "2rem" }}>
               <FaUserFriends style={{ fontSize: "4rem", color: "#1976d2" }} />
             </div>
@@ -264,7 +273,7 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s" }}>
+          <div style={{ margin: "1rem", borderRadius: "5px 5px 0 0", boxShadow: "0 0 4px 0 rgba(0,0,0,0.2)", transition: "0.3s", maxWidth: "800px", width: "100%", alignSelf: "center" }}>
             <div style={{ padding: "2rem" }}>
               <FaShoppingBag style={{ fontSize: "4rem", color: "#1976d2" }} />
             </div>
@@ -288,8 +297,8 @@ const Homepage = () => {
       {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/7e90gBu4pas?si=G3PZM18fgmqMGbeX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
 
 
-      <section style={{ backgroundColor: "#f1f5f6", margin: "3rem 0 3rem", padding: "3.5rem 1rem 3rem 1rem" }}>
-        <div>
+      <section className="how-it-works-section">
+        <div className="how-it-works">
           <div>
             <VideoSection />
           </div>
@@ -323,7 +332,7 @@ const Homepage = () => {
       <section style={{ backgroundColor: "#f1f5f6", margin: "0 0 1rem", padding: "3rem .1rem 3rem .1rem", textAlign: "center" }}>
         <h1 style={{ fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500" }}>Get the app</h1>
         <p style={{ lineHeight: "35px", fontWeight: "330", letterSpacing: ".2px", color: "#646765", padding: "0 1.3rem", fontSize: "1.24rem" }}>Download our app for the fastest, most convenient way to send & get Payment.</p>
-        <div style={{ margin: "1.5rem 0 0", display: "flex", flexDirection: "column", gap: ".5rem" }}>
+        <div className="app-stores">
           <div>
             <img src={appStore} alt="" />
           </div>
@@ -334,8 +343,8 @@ const Homepage = () => {
       </section>
 
 
-      <footer style={{ padding: "3rem 1rem 3rem 1rem" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: ".7rem" }}>
+      <footer className="site-footer">
+        <div className="footer-links">
           <a>About us</a>
           <a>Support</a>
           <a>Help</a>
@@ -344,18 +353,18 @@ const Homepage = () => {
           <a>Fees</a>
         </div>
 
-        <div style={{ margin: "1rem 0 .5rem", display: "flex", flexDirection: "row", gap: ".6rem" }}>
+        <div className="footer-social">
           <FaFacebookF style={{ color: "#4d555a", fontSize: "1.5rem" }} />
           <Twitter style={{ color: "#4d555a", fontSize: "1.5rem" }} />
           <Google style={{ color: "#4d555a", fontSize: "1.5rem" }} />
           <YouTube style={{ color: "#4d555a", fontSize: "1.5rem" }} />
         </div>
 
-        <hr />
+        <hr className="footer-divider" />
 
-        <div style={{ margin: "1rem 0 0" }}>
+        <div className="footer-legal">
           <p>Copyright © 2024 NairaNest. All Rights Reserved.</p>
-          <div style={{ margin: "1rem 0 0", display: "flex", flexDirection: "column", gap: ".7rem" }}>
+          <div className="footer-legal-links">
             <p>Security</p>
             <p>Terms</p>
             <p>Privacy</p>

@@ -4,13 +4,13 @@ import { ClipLoader } from 'react-spinners';
 const override = css`
     display: block;
     margin: 0 auto;
-    border-color: red;
+    border-color: #4a90e2;
 `;
 
 const Loader = ({ loading }) => {
   return (
     <div className="loader">
-        <ClipLoader cssOverride={override} size={150} color={"#123abc"} loading={loading} />
+        <ClipLoader cssOverride={override} size={150} color={"#4a90e2"} loading={loading} />
     </div>
   )
 }

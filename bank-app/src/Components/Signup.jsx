@@ -29,7 +29,7 @@ const Signup = () => {
         // Simulate a network request
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 400);
     }, []);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -259,7 +259,7 @@ const Signup = () => {
                             loadingIndicator={loadingMessage}
                             disabled={!formik.isValid || formik.isSubmitting}
                             style={{
-                                backgroundColor: "#2dbe60",
+                                backgroundColor: "#4a90e2",
                                 width: "100%",
                                 margin: "1rem 0",
                                 padding: ".8rem 0",
@@ -272,7 +272,7 @@ const Signup = () => {
                         </LoadingButton>
 
                     </Box>
-                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}><span style={{ color: "#2dbe60" }} className='link'>Login</span></Link></p>
+                    <p style={{ color: "#92a4af", textAlign: "center" }}>Already have an account? <Link to="/login" style={{ textDecoration: "none", color: "inherit" }}><span style={{ color: "#4a90e2" }} className='link'>Login</span></Link></p>
                 </Box>
             </Grid>
         </Grid>

@@ -10,7 +10,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 const TestimonialSection = () => {
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="testimonial-section">
       <h1 style={{ fontSize: "2.2rem", marginBottom: ".6rem", fontWeight: "500" }}>
         What people are saying about NairaNest
       </h1>
