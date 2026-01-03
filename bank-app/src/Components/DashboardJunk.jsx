@@ -25,7 +25,7 @@
 //   // const classes = useStyles()
 
 //   useEffect(() => {
-//     // let URL = "http://localhost:5000/host/dashboard";
+//     // let URL = `${import.meta.env.VITE_API_BASE_URL}/host/register`; 
 //     // let token = localStorage.getItem("token");
 //     // axios
 //     //   .get(URL, {

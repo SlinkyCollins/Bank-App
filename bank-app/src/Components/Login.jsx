@@ -89,7 +89,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const URL = "https://bank-app-6lyo.onrender.com/host/login";
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/host/login`;
     const formik = useFormik({
         initialValues: {
             email: "",

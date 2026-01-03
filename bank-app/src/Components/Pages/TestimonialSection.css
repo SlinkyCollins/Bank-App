@@ -19,7 +19,6 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   box-shadow: #00000026 0px 2px 5px 0px;
-  user-select: none;
   appearance: button;
 }
 
@@ -35,6 +34,12 @@
 .custom-next:hover {
   background-color: #cccccc;
   color: white;
+}
+
+.swiper2 {
+  padding: 1.5rem 1rem;
+  position: relative;
+  user-select: none;
 }
 
 .swiper:hover .custom-prev,

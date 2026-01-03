@@ -47,8 +47,7 @@ const TestimonialSection = () => {
           768: { slidesPerView: 2 }, // For tablets, show 2 slides
           1024: { slidesPerView: 3 }, // For larger screens, show 2 or 3 slides
         }}
-        className="swiper"
-        style={{ padding: "1.5rem 1rem", position: "relative" }}
+        className="swiper2"
       >
         <SwiperSlide>
           <div style={testimonialCardStyle}>

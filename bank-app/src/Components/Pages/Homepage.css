@@ -146,7 +146,75 @@
 }
 
 
-.swiper-button-next,
+.prev-slide, .next-slide {
+  position: absolute;
+  top: 45%;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: #00000026 0px 2px 5px 0px;
+  appearance: button;
+}
+
+.prev-slide {
+  left: 12px;
+}
+
+.next-slide {
+  right: 12px;
+}
+
+
+.prev-slide:hover,
+.next-slide:hover {
+  background-color: #cccccc;
+  color: white;
+}
+
+
+.myFirstSwiper:hover .prev-slide,
+.myFirstSwiper:hover .next-slide {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+.swiper-dots {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 2.5rem;
+}
+
+.swiper-dots .swiper-pagination-bullet {
+  width: 11px;
+  height: 11px;
+  margin: 0 5px;
+  background: transparent;
+  border: 2px solid #cccccc;
+  border-radius: 50%;
+  opacity: 1;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-dots .swiper-pagination-bullet-active {
+  background-color: #cccccc;
+}
+
+/*Default classnames for the swiper next and previous buttons */
+/* .swiper-button-next,
 .swiper-button-prev {
     background-color: rgba(0, 0, 0, 0.5); 
     padding: 30px; 
@@ -159,7 +227,7 @@
 .swiper-button-prev:hover {
     transform: scale(1.1); 
     background-color: rgba(0, 0, 0, 0.75); 
-}
+} */
 
 .parallax-section {
   color: #fff;

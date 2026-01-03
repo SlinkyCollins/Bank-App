@@ -14,7 +14,8 @@ const ResetPassword = () => {
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
     const { token } = useParams();
     const navigate = useNavigate();
-    const URL = "https://bank-app-6lyo.onrender.com/host/reset-password"; // Update this to your deployed backend URL
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/host/reset-password`;
+    
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
