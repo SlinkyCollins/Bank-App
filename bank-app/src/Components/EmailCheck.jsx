@@ -45,7 +45,7 @@ const EmailCheck = () => {
     return (
         <Container>
             <div>
-                <MdOutlineMarkEmailUnread style={{fontSize: "3.5rem", color: "#2dbe60"}}/>
+                <MdOutlineMarkEmailUnread style={{fontSize: "3.5rem", color: "#4a90e2"}}/>
             </div>
             <Message>Check your email</Message>
             <p style={{color: "#78838f", margin: "1rem 0 5rem"}}>We&apos;ve sent instructions on how to reset your password to <span style={{color: "#000", fontWeight: "600"}}>{email}.</span> </p>

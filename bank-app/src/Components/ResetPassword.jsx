@@ -58,7 +58,7 @@ const ResetPassword = () => {
 
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", margin: "0" }}>
             <div className="form-container">
-                <div className="logo-container" style={{color: "#2dbe60"}}>
+                <div className="logo-container" style={{color: "#4a90e2"}}>
                     Reset Password
                 </div>
 

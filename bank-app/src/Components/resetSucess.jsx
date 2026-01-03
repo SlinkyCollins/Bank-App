@@ -27,14 +27,14 @@ const Button = styled.button`
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  background-color: #4caf50;
+  background-color: #4a90e2;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #4589e0;
   }
 `;
 
