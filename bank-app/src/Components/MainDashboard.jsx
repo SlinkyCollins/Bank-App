@@ -149,7 +149,7 @@ const MainDashboard = () => {
             {/* FIX: Reduced spacing to 1 (8px) on mobile to prevent negative margin overflow */}
             <Grid container spacing={{ xs: 1, sm: 2 }} sx={{ mb: 3 }}>
               {actions.map((action, index) => (
-                <Grid item xs={6} sm={3} key={index}>
+                <Grid item xs={12} sm={6} key={index}>
                   <Card className="action-card" sx={{ borderRadius: 3, textAlign: 'center', cursor: 'pointer', boxShadow: 'none', bgcolor: 'white', border: '1px solid #f0f2f5', height: '100%', '&:hover': { transform: 'translateY(-3px)' } }}>
                     <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                       <Box sx={{ width: 45, height: 45, borderRadius: '50%', bgcolor: action.bg, color: action.color, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px' }}>
@@ -163,7 +163,7 @@ const MainDashboard = () => {
             </Grid>
 
             {/* 4. Statistics Chart */}
-            <Card sx={{ borderRadius: 4, boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+            <Card className="statistics-card" sx={{ borderRadius: 4, boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
                   <Typography variant="h6" fontWeight={600}>Analytics</Typography>
@@ -182,7 +182,7 @@ const MainDashboard = () => {
         <Grid item xs={12} md={4}>
           <Box sx={{ p: { xs: 1, md: 3 }, pt: 0, pl: { md: 0 } }}>
             {/* 5. Transactions */}
-            <Card sx={{ borderRadius: 4, height: '100%', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+            <Card className="transactions-card" sx={{ borderRadius: 4, height: '100%', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                   <Typography variant="h6" fontWeight={600}>Transactions</Typography>

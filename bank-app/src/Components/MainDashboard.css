@@ -1,10 +1,7 @@
-/* MainDashboard.css */
-
 /* MASTER FIX: Force container to never exceed viewport */
 .main-dashboard-container {
   width: 100%;
-  max-width: 100vw; 
-  overflow-x: hidden !important; /* Force hidden overflow */
+  max-width: 100vw;
   box-sizing: border-box;
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -40,6 +37,78 @@
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 320px) and (max-width: 355.99px) {
+  .balance-card {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .action-card {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .statistics-card {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .transactions-card {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 356px) and (max-width: 375.99px) {
+  .balance-card {
+    width: 100%;
+    max-width: 285px;
+  }
+
+  .action-card {
+    width: 100%;
+    max-width: 97%;
+  }
+
+  .statistics-card {
+    width: 100%;
+    max-width: 97%;
+  }
+
+  .transactions-card {
+    width: 100%;
+    max-width: 97%;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+  .balance-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .action-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .statistics-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .transactions-card {
+    width: 100%;
+    max-width: 100%;
+  }
 }
