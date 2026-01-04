@@ -129,7 +129,7 @@ const Login = () => {
                             localStorage.removeItem("rememberMe");
                         }
                         dispatch(login(response.data.user)); // Update Redux state
-                        navigate("/dashboard");
+                        navigate("/dashboard/user");
                     } else {
                         toast.error("User not found, please sign up");
                         setLoadingMessage("Login");

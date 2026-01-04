@@ -44,10 +44,10 @@ function Dashboard() {
     };
 
     const menuItems = [
-        { text: 'Dashboard', icon: <HomeIcon />, path: '' },
-        { text: 'Profile', icon: <AccountBoxIcon />, path: 'account' },
-        { text: 'Transactions', icon: <ReceiptIcon />, path: 'transactions' },
-        { text: 'Settings', icon: <SettingsIcon />, path: 'settings' },
+        { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/user' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/dashboard/user/account' },
+        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/user/transactions' },
+        { text: 'Settings', icon: <SettingsIcon />, path: '/dashboard/user/settings' },
     ];
 
     let navigate = useNavigate();
@@ -111,6 +111,7 @@ function Dashboard() {
                     <NavLink
                         to={item.path}
                         key={item.text}
+                        end={true}  // Add this: Forces exact matching (only active if path matches exactly)
                         style={({ isActive }) => ({
                             textDecoration: "none",
                             color: isActive ? PRIMARY_BLUE : "#b2bec3", // Highlight active link

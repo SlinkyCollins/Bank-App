@@ -52,7 +52,7 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess/>} />
         <Route 
-        path="/dashboard" 
+        path="/dashboard/user" 
         element={
         <PrivateRoute> 
           <Dashboard/>
@@ -60,9 +60,9 @@ function App() {
         }
         >
           <Route index element={<MainDashboard/>} />
-          <Route path="account" element={<Account />} />
-          <Route path="transactions" element={<Transactions />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="/dashboard/user/account" element={<Account />} />
+          <Route path="/dashboard/user/transactions" element={<Transactions />} />
+          <Route path="/dashboard/user/settings" element={<Settings />} />
         </Route>
       </Routes>  
     </>
