@@ -14,7 +14,7 @@ const ResetPassword = () => {
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
     const { token } = useParams();
     const navigate = useNavigate();
-    const URL = `${import.meta.env.VITE_API_BASE_URL}/host/reset-password`;
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/reset-password`;
     
 
     const togglePasswordVisibility = () => {

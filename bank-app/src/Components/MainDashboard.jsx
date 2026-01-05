@@ -41,7 +41,7 @@ const MainDashboard = () => {
   const isSmallMobile = useMediaQuery('(max-width:375px)');
   
   const user = useSelector((state) => state.user?.userDetails);
-  const balance = "345,000.00";
+  const balance = user?.balance || '0.00';
 
   const toggleBalance = () => setShowBalance(!showBalance);
 

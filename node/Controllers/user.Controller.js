@@ -2,7 +2,7 @@ const userModel = require("../Models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-const crypto = require('crypto');
+const crypto = require("crypto");
 require("dotenv").config();
 let secret = process.env.SECRET;
 
@@ -100,36 +100,36 @@ const welcomeUser = (req, res) => {
 // };
 
 const sendMail = async (email, firstName) => {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.USER_EMAIL, // Dev's Email address
-        pass: process.env.USER_PASS, // Dev's App Password
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
-  
-    let emailText = `Hello ${firstName},\n\nWe're glad to have you onboard.\n\nBest,\nThe NairaNest Team`;
-  
-    const mailOptions = {
-      from: process.env.USER_EMAIL, // Sender address
-      to: email, // List of receivers
-      subject: "Welcome to NairaNest!", // Subject line
-      text: emailText, // Plain text body
-    };
-  
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log("Email sent successfully");
-    } catch (err) {
-      console.error("Error sending mail: " + err);
-    }
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.USER_EMAIL, // Dev's Email address
+      pass: process.env.USER_PASS, // Dev's App Password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  let emailText = `Hello ${firstName},\n\nWe're glad to have you onboard.\n\nBest,\nThe NairaNest Team`;
+
+  const mailOptions = {
+    from: process.env.USER_EMAIL, // Sender address
+    to: email, // List of receivers
+    subject: "Welcome to NairaNest!", // Subject line
+    text: emailText, // Plain text body
   };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully");
+  } catch (err) {
+    console.error("Error sending mail: " + err);
+  }
+};
 
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -163,17 +163,14 @@ const registerUser = async (req, res) => {
 
     console.log(result);
     res.status(200).json({ message: "Registration successful", user: result });
-
   } catch (error) {
     console.error("Error during registration:", error);
 
     // Handle unexpected errors
-    res
-      .status(500)
-      .json({
-        message: "Registration failed. Please try again later.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Registration failed. Please try again later.",
+      error: error.message,
+    });
   }
 };
 
@@ -200,12 +197,10 @@ const loginUser = async (req, res) => {
     // 5 minutes lockout
     const retryAfter =
       lockoutTime - (Date.now() - loginAttempts[key].lastAttempt);
-    return res
-      .status(429)
-      .json({
-        message: "Too many login attempts. Please try again later.",
-        retryAfter,
-      });
+    return res.status(429).json({
+      message: "Too many login attempts. Please try again later.",
+      retryAfter,
+    });
   }
 
   try {
@@ -286,17 +281,11 @@ const loginUser = async (req, res) => {
 
 const dashboard = async (req, res) => {
   try {
-    // Extract the token from the request headers
-    const token = req.headers.authorization.split(" ")[1];
-
-    // Verify the token
-    const decoded = jwt.verify(token, secret);
-
-    // If token verification is successful, get the user ID from the decoded token
-    const userId = decoded.id;
+    // Middleware already verified token and set req.user
+    const userId = req.user.id;
 
     // Find the user by ID in the database
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(userId).select("-password"); // Exclude password for security;
 
     // If user is not found, send an error response
     if (!user) {
@@ -312,129 +301,130 @@ const dashboard = async (req, res) => {
   }
 };
 
+const sendResetMail = async (email, resetUrl) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
 
+  const emailText = `Hello,\n\nYou requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email.\n\nBest,\nThe NairaNest Team`;
 
+  const mailOptions = {
+    from: process.env.USER_EMAIL,
+    to: email,
+    subject: "Request for a Password Reset",
+    text: emailText,
+  };
 
-  const sendResetMail = async (email, resetUrl) => {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.USER_EMAIL,
-        pass: process.env.USER_PASS,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully");
+  } catch (err) {
+    console.error("Error sending mail: " + err);
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const resetTokenHash = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+    user.resetPasswordToken = resetTokenHash;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+    await user.save();
+
+    const resetUrl = `https://nairanest.vercel.app/reset-password/${resetToken}`; // Ensure this points to your deployed frontend
+    await sendResetMail(email, resetUrl);
+
+    res.status(200).json({ message: "Password reset email sent" });
+  } catch (error) {
+    console.error("Error sending reset email:", error);
+    res.status(500).json({ message: "Error sending reset email" });
+  }
+};
+
+const sendResetConfirmationEmail = async (email) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.USER_EMAIL,
+      pass: process.env.USER_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const emailText = `Hello,\n\nYour password has been successfully reset. If you did not initiate this change, please contact support immediately.\n\nBest,\nThe NairaNest Team`;
+
+  const mailOptions = {
+    from: "no-reply",
+    to: email,
+    subject: "Password Reset Successful",
+    text: emailText,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Confirmation email sent successfully");
+  } catch (err) {
+    console.error("Error sending confirmation email: " + err);
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const resetTokenHash = crypto
+      .createHash("sha256")
+      .update(token)
+      .digest("hex");
+    const user = await userModel.findOne({
+      resetPasswordToken: resetTokenHash,
+      resetPasswordExpires: { $gt: Date.now() },
     });
-  
-    const emailText = `Hello,\n\nYou requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email.\n\nBest,\nThe NairaNest Team`;
-  
-    const mailOptions = {
-      from: process.env.USER_EMAIL,
-      to: email,
-      subject: "Request for a Password Reset",
-      text: emailText,
-    };
-  
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log("Email sent successfully");
-    } catch (err) {
-      console.error("Error sending mail: " + err);
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired token" });
     }
-  };
-  
-  const forgotPassword = async (req, res) => {
-    const { email } = req.body;
-  
-    try {
-      const user = await userModel.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-  
-      const resetToken = crypto.randomBytes(32).toString('hex');
-      const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
-      user.resetPasswordToken = resetTokenHash;
-      user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-  
-      await user.save();
-  
-      const resetUrl = `https://nairanest.vercel.app/reset-password/${resetToken}`; // Ensure this points to your deployed frontend
-      await sendResetMail(email, resetUrl);
-  
-      res.status(200).json({ message: 'Password reset email sent' });
-    } catch (error) {
-      console.error('Error sending reset email:', error);
-      res.status(500).json({ message: 'Error sending reset email' });
-    }
-  };
 
-  const sendResetConfirmationEmail = async (email) => {
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: process.env.USER_EMAIL,
-            pass: process.env.USER_PASS,
-        },
-        tls: {
-            rejectUnauthorized: false,
-        },
-    });
+    user.password = bcrypt.hashSync(newPassword, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
 
-    const emailText = `Hello,\n\nYour password has been successfully reset. If you did not initiate this change, please contact support immediately.\n\nBest,\nThe NairaNest Team`
+    await user.save();
 
-    const mailOptions = {
-        from: "no-reply",
-        to: email,
-        subject: "Password Reset Successful",
-        text: emailText,
-    };
+    await sendResetConfirmationEmail(user.email); // Send confirmation email
 
-    try {
-        await transporter.sendMail(mailOptions);
-        console.log("Confirmation email sent successfully");
-    } catch (err) {
-        console.error("Error sending confirmation email: " + err);
-    }
-  };
-  
-  const resetPassword = async (req, res) => {
-    const { token, newPassword } = req.body;
-  
-    try {
-      const resetTokenHash = crypto.createHash('sha256').update(token).digest('hex');
-      const user = await userModel.findOne({
-        resetPasswordToken: resetTokenHash,
-        resetPasswordExpires: { $gt: Date.now() },
-      });
-  
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid or expired token' });
-      }
-  
-      user.password = bcrypt.hashSync(newPassword, 10);
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpires = undefined;
-  
-      await user.save();
-
-      await sendResetConfirmationEmail(user.email);  // Send confirmation email
-      
-      res.status(200).json({ message: 'Password reset successful' });
-
-    } catch (error) {
-      console.error('Error resetting password:', error);
-      res.status(500).json({ message: 'Error resetting password' });
-    }
-  };
-  
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    res.status(500).json({ message: "Error resetting password" });
+  }
+};
 
 module.exports = {
   welcomeUser,

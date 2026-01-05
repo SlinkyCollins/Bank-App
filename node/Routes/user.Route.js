@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const authMiddleware = require("../Middleware/authMiddleware")
 const {welcomeUser, registerUser, loginUser, dashboard, sendMail, forgotPassword, resetPassword, sendResetMail, sendResetConfirmationEmail} = require("../Controllers/user.Controller")
 
 router.get("/user", welcomeUser);
@@ -10,6 +11,6 @@ router.post("/sendmail", sendMail);
 router.post("/sendresetconfirmationemail", sendResetConfirmationEmail)
 router.post("/forgot-password", forgotPassword)
 router.post("/reset-password", resetPassword) // Ensure this is a POST request
-router.get("/dashboard", dashboard);
+router.get("/dashboard", authMiddleware, dashboard);
 
 module.exports = router;
