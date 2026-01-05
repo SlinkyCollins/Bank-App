@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { AppBar, Toolbar } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
 import './Homepage.css';
@@ -41,6 +42,7 @@ import TestimonialSection from './TestimonialSection';
 
 const Homepage = () => {
   const [loading, setLoading] = useState(true);
+  const user = useSelector((state) => state.user?.userDetails);
 
   useEffect(() => {
     // Simulate a network request
@@ -68,12 +70,18 @@ const Homepage = () => {
             <NavLink to="/services" className="nav-link">Services</NavLink>
             <NavLink to="/client" className="nav-link">Client</NavLink>
             <NavLink to="/contact" className="nav-link">Contact Us</NavLink>
-            <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
-            <NavLink to="/login" className="nav-link">Log In</NavLink>
+            {user ? (
+              <NavLink to="/dashboard/user" className="nav-link">Dashboard</NavLink>
+            ) : (
+              <>
+                <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
+                <NavLink to="/login" className="nav-link">Log In</NavLink>
+              </>
+            )}
           </div>
 
           <div className="mobile-nav">
-            <HamburgerMenu />
+            <HamburgerMenu user={user} /> 
           </div>
         </Toolbar>
       </AppBar>

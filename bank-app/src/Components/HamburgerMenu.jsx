@@ -2,7 +2,7 @@ import "./HamburgerMenu.css";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -52,24 +52,38 @@ const HamburgerMenu = () => {
               Contact Us
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/signup"
-              className={pathname === "/signup" ? "active-link" : ""}
-              onClick={toggleMenu}
-            >
-              Sign Up
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/login"
-              className={pathname === "/login" ? "active-link" : ""}
-              onClick={toggleMenu}
-            >
-              Log In
-            </NavLink>
-          </li>
+          {user ? (
+            <li>
+              <NavLink
+                to="/dashboard/user"
+                className={pathname === "/dashboard/user" ? "active-link" : ""}
+                onClick={toggleMenu}
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  to="/signup"
+                  className={pathname === "/signup" ? "active-link" : ""}
+                  onClick={toggleMenu}
+                >
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/login"
+                  className={pathname === "/login" ? "active-link" : ""}
+                  onClick={toggleMenu}
+                >
+                  Log In
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>
