@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -23,9 +23,10 @@ import {
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import axios from 'axios';
-import toast from 'react-hot-toast'; // For notifications
-import { useDispatch } from 'react-redux'; // For dispatching actions
-import { updateUserDetails } from '../Redux/userSlice'; // Import your Redux action
+import toast from 'react-hot-toast'; 
+import { useDispatch } from 'react-redux'; 
+import { setRecentTransactions, updateUserDetails, addTransaction } from '../Redux/userSlice';
+import { Link } from "react-router-dom";
 
 // Icons
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -59,9 +60,34 @@ const MainDashboard = () => {
   const dispatch = useDispatch(); // Redux dispatch
 
   const user = useSelector((state) => state.user?.userDetails);
+  const recentTransactions = useSelector((state) => state.user.recentTransactions);
   const balance = user?.balance || '0.00';
 
   const toggleBalance = () => setShowBalance(!showBalance);
+
+
+  // Fetch recent transactions on mount
+  useEffect(() => {
+    const fetchRecentTransactions = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/transactions/getTransactions`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
+        dispatch(setRecentTransactions(response.data.transactions || []));
+      } catch (error) {
+        console.error("Failed to fetch transactions:", error);
+      }
+    };
+    fetchRecentTransactions();
+  }, [dispatch]);
 
   const chartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -130,12 +156,16 @@ const MainDashboard = () => {
         throw new Error('Deposit request failed');
       }
       console.log(response);
+      toast.success(`Successfully deposited ₦${amount.toFixed(2)}!`);
+      handleCloseDepositModal();
       const updatedBalance = response.data.balance; // Adjust based on your backend response
       dispatch(updateUserDetails({ balance: updatedBalance })); // Use the new action
 
-      toast.success(`Successfully deposited ₦${amount.toFixed(2)}!`);
-      handleCloseDepositModal();
+      const newTransaction = response.data.transaction;
+      dispatch(addTransaction(newTransaction));
+
     } catch (error) {
+      console.log(error);
       toast.error('Deposit failed. Please try again.');
     } finally {
       setIsDepositing(false);
@@ -180,6 +210,9 @@ const MainDashboard = () => {
       }
       const updatedBalance = response.data.balance;
       dispatch(updateUserDetails({ balance: updatedBalance }));
+
+      const newTransaction = response.data.transaction;
+      dispatch(addTransaction(newTransaction));
 
       toast.success(`Successfully withdrew ₦${amount.toFixed(2)}!`);
       handleCloseWithdrawModal();
@@ -240,6 +273,9 @@ const MainDashboard = () => {
       }
       const updatedBalance = response.data.balance;
       dispatch(updateUserDetails({ balance: updatedBalance }));
+
+      const newTransaction = response.data.transaction;
+      dispatch(addTransaction(newTransaction));
 
       toast.success(`Successfully transferred ₦${numAmount.toFixed(2)}!`);
       handleCloseTransferModal();
@@ -372,35 +408,39 @@ const MainDashboard = () => {
               <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                   <Typography variant="h6" fontWeight={600}>Transactions</Typography>
-                  <Button size="small">See All</Button>
+                  <Button size="small" component={Link} to="/dashboard/user/transactions">See All</Button>
                 </Box>
 
                 <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
-                  {transactions.map((t) => (
-                    <React.Fragment key={t.id}>
+                  {recentTransactions.length > 0 ? recentTransactions.map((t) => (
+                    <React.Fragment key={t._id}>
                       <ListItem disableGutters sx={{ py: 1.5, borderBottom: '1px solid #f0f0f0' }}>
                         <ListItemAvatar sx={{ minWidth: 50 }}>
-                          <Avatar sx={{ bgcolor: t.type === 'credit' ? '#eaf9f0' : '#fdeded', color: t.type === 'credit' ? '#2dbe60' : '#e74c3c', width: 35, height: 35 }}>
-                            {t.title.charAt(0)}
+                          <Avatar sx={{ bgcolor: t.type === 'deposit' ? '#eaf9f0' : t.type === 'withdraw' ? '#fdeded' : '#eef5fc', color: t.type === 'deposit' ? '#2dbe60' : t.type === 'withdraw' ? '#e74c3c' : '#4a90e2', width: 35, height: 35 }}>
+                            {t.description?.charAt(0) || t.type.charAt(0).toUpperCase()}
                           </Avatar>
                         </ListItemAvatar>
 
                         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%', minWidth: 0 }}>
                           <Box sx={{ overflow: 'hidden', mr: 1, minWidth: 0 }}>
                             <Typography variant="subtitle2" fontWeight={600} noWrap>
-                              {t.title}
+                              {t.description || t.type}
                             </Typography>
                             <Typography variant="caption" color="textSecondary" noWrap>
-                              {t.date}
+                              {new Date(t.date).toLocaleDateString()}
                             </Typography>
                           </Box>
-                          <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'credit' ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap' }}>
-                            {t.amount}
+                          <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap' }}>
+                            {t.type === 'deposit' ? '+' : '-'}₦{t.amount}
                           </Typography>
                         </Stack>
                       </ListItem>
                     </React.Fragment>
-                  ))}
+                  )) : (
+                    <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center', py: 2 }}>
+                      No transactions yet.
+                    </Typography>
+                  )}
                 </List>
               </CardContent>
             </Card>

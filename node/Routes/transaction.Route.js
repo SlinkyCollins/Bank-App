@@ -6,6 +6,6 @@ const {deposit, withdraw, transfer, getTransactions} = require("../Controllers/t
 router.post("/deposit", authMiddleware, deposit);
 router.post("/withdraw", authMiddleware, withdraw);
 router.post("/transfer", authMiddleware, transfer);
-router.get("/transactions", authMiddleware, getTransactions);
+router.get("/getTransactions", authMiddleware, getTransactions);
 
 module.exports = router;

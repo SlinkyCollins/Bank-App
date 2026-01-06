@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const transactionModel = require('../Models/transaction.model');
-const userModel = require('../Models/user.model');
-const beneficiaryModel = require('../Models/beneficiary.model');
+const mongoose = require("mongoose");
+const transactionModel = require("../Models/transaction.model");
+const userModel = require("../Models/user.model");
+const beneficiaryModel = require("../Models/beneficiary.model");
 
 // Deposit money
 const deposit = async (req, res) => {
@@ -28,16 +28,28 @@ const deposit = async (req, res) => {
       type: "deposit",
       amount,
       description: description || "Deposit",
-      status: 'pending', // Start as pending
+      status: "pending", // Start as pending
     });
     await transaction.save({ session });
 
     // On success, update status
-    transaction.status = 'completed';
+    transaction.status = "completed";
     await transaction.save({ session });
 
     await session.commitTransaction();
-    res.status(200).json({ message: "Deposit successful", balance: user.balance });
+    res.status(200).json({
+      message: "Deposit successful",
+      balance: user.balance,
+      transaction: {
+        _id: transaction._id,
+        userId,
+        type: "deposit",
+        amount,
+        description: description || "Deposit",
+        date: transaction.date,
+        status: "completed",
+      },
+    });
   } catch (error) {
     await session.abortTransaction();
     res.status(500).json({ message: "Deposit failed", error: error.message });
@@ -71,18 +83,32 @@ const withdraw = async (req, res) => {
       type: "withdraw",
       amount,
       description,
-      status: 'pending',
+      status: "pending",
     });
     await transaction.save({ session });
 
-    transaction.status = 'completed';
+    transaction.status = "completed";
     await transaction.save({ session });
 
     await session.commitTransaction();
-    res.status(200).json({ message: "Withdrawal successful", balance: user.balance });
+    res.status(200).json({
+      message: "Withdrawal successful",
+      balance: user.balance,
+      transaction: {
+        _id: transaction._id,
+        userId,
+        type: "withdraw",
+        amount,
+        description,
+        date: transaction.date,
+        status: "completed",
+      },
+    });
   } catch (error) {
     await session.abortTransaction();
-    res.status(500).json({ message: "Withdrawal failed", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Withdrawal failed", error: error.message });
   } finally {
     session.endSession();
   }
@@ -94,7 +120,10 @@ const transfer = async (req, res) => {
   const userId = req.user.id;
 
   if (amount <= 0) return res.status(400).json({ message: "Invalid amount" });
-  if (!accountNumber) return res.status(400).json({ message: "Recipient account number required" });
+  if (!accountNumber)
+    return res
+      .status(400)
+      .json({ message: "Recipient account number required" });
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -107,14 +136,18 @@ const transfer = async (req, res) => {
     }
 
     if (beneficiaryId) {
-      const beneficiary = await beneficiaryModel.findOne({ _id: beneficiaryId, userId }).session(session);
+      const beneficiary = await beneficiaryModel
+        .findOne({ _id: beneficiaryId, userId })
+        .session(session);
       if (!beneficiary || beneficiary.accountNumber !== accountNumber) {
         await session.abortTransaction();
         return res.status(400).json({ message: "Invalid beneficiary" });
       }
     }
 
-    const recipient = await userModel.findOne({ accountNumber }).session(session);
+    const recipient = await userModel
+      .findOne({ accountNumber })
+      .session(session);
     if (!recipient) {
       await session.abortTransaction();
       return res.status(404).json({ message: "Recipient account not found" });
@@ -135,7 +168,7 @@ const transfer = async (req, res) => {
       amount,
       description,
       recipientAccount: accountNumber,
-      status: 'pending',
+      status: "pending",
     });
     await senderTransaction.save({ session });
 
@@ -143,20 +176,33 @@ const transfer = async (req, res) => {
       userId: recipient._id,
       type: "transfer",
       amount,
-      description: `Received from ${user.firstName} ${user.lastName}`,
+      description: `${description} - Received from ${user.firstName} ${user.lastName}`,
       recipientAccount: user.accountNumber,
-      status: 'pending',
+      status: "pending",
     });
     await recipientTransaction.save({ session });
 
     // On success, update statuses
-    senderTransaction.status = 'completed';
-    recipientTransaction.status = 'completed';
+    senderTransaction.status = "completed";
+    recipientTransaction.status = "completed";
     await senderTransaction.save({ session });
     await recipientTransaction.save({ session });
 
     await session.commitTransaction();
-    res.status(200).json({ message: "Transfer successful", balance: user.balance });
+    res.status(200).json({
+      message: "Transfer successful",
+      balance: user.balance,
+      transaction: {
+        _id: senderTransaction._id,
+        userId,
+        type: "transfer",
+        amount,
+        description,
+        recipientAccount: accountNumber,
+        date: senderTransaction.date,
+        status: "completed",
+      },
+    });
   } catch (error) {
     await session.abortTransaction();
     res.status(500).json({ message: "Transfer failed", error: error.message });
@@ -168,18 +214,17 @@ const transfer = async (req, res) => {
 // Get transaction history
 const getTransactions = async (req, res) => {
   const userId = req.user.id;
-  const { page = 1, limit = 10 } = req.query;
 
   try {
     const transactions = await transactionModel
       .find({ userId })
-      .sort({ date: -1 })
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
+      .sort({ date: -1 }); // Keep sorting (newest first) for consistency
 
     res.status(200).json({ transactions });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch transactions", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to fetch transactions", error: error.message });
   }
 };
 

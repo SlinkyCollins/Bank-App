@@ -7,6 +7,7 @@ const userSlice = createSlice({
   initialState: {
     isAuthenticated: !!localStorage.getItem("token"),
     userDetails: tokenInLocalStorage ? { token: tokenInLocalStorage } : null, // assign token if exists
+    recentTransactions: []
   },
   reducers: {
     setUser(state, action) {
@@ -26,8 +27,14 @@ const userSlice = createSlice({
         state.userDetails = { ...state.userDetails, ...action.payload };
       }
     },
+    setRecentTransactions(state, action) {
+      state.recentTransactions = action.payload.slice(0, 5);
+    },
+    addTransaction(state, action) {
+      state.recentTransactions = [action.payload, ...state.recentTransactions].slice(0, 5);
+    }
   },
 });
 
-export const { login, logout, setUser, updateUserDetails } = userSlice.actions;
+export const { login, logout, setUser, updateUserDetails, setRecentTransactions, addTransaction } = userSlice.actions;
 export default userSlice.reducer;

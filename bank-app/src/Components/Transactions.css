@@ -1,0 +1,23 @@
+@media (min-width: 320px) and (max-width: 355.99px) {
+  .filter-card {
+    width: 100%;
+    max-width: 238px;
+  }
+
+  .all-transactions-card {
+    width: 100%;
+    max-width: 238px;
+  }
+}
+
+@media (min-width: 356px) and (max-width: 375.99px) {
+  .filter-card {
+    width: 100%;
+    max-width: 285px;
+  }
+
+  .all-transactions-card {
+    width: 100%;
+    max-width: 98%;
+  }
+}
