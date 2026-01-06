@@ -288,16 +288,31 @@ const dashboard = async (req, res) => {
     const user = await userModel.findById(userId).select("-password"); // Exclude password for security;
 
     // If user is not found, send an error response
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    if (!user) return res.status(404).json({ error: "User not found" });
 
     // If user is found, send the user details in the response
-    res.status(200).json({ user: user });
+    res.status(200).json({ user });
   } catch (error) {
     // If an error occurs, send an error response
     console.error("Error:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  const { firstName, lastName, phone } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      userId,
+      { firstName, lastName, phone },
+      { new: true }
+    ).select("-password");
+
+    res.status(200).json({ message: "Profile updated", user });
+  } catch (error) {
+    res.status(500).json({ message: "Update failed", error: error.message });
   }
 };
 
@@ -431,6 +446,7 @@ module.exports = {
   registerUser,
   loginUser,
   dashboard,
+  updateProfile,
   sendMail,
   forgotPassword,
   resetPassword,

@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const tokenInLocalStorage = localStorage.getItem('token');
+const tokenInLocalStorage = localStorage.getItem("token");
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
-    isAuthenticated: !!localStorage.getItem('token'),
+    isAuthenticated: !!localStorage.getItem("token"),
     userDetails: tokenInLocalStorage ? { token: tokenInLocalStorage } : null, // assign token if exists
   },
   reducers: {
@@ -21,8 +21,13 @@ const userSlice = createSlice({
       state.isAuthenticated = false;
       state.userDetails = null;
     },
+    updateUserDetails(state, action) {
+      if (state.userDetails) {
+        state.userDetails = { ...state.userDetails, ...action.payload };
+      }
+    },
   },
 });
 
-export const { login, logout, setUser } = userSlice.actions;
+export const { login, logout, setUser, updateUserDetails } = userSlice.actions;
 export default userSlice.reducer;

@@ -6,7 +6,7 @@ const transactionSchema = new mongoose.Schema({
     amount: { type: Number, required: true },
     description: { type: String },
     recipientAccount: { type: String, required: function() { return this.type === 'transfer'; } }, // For transfers
-    status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'completed' },
+    status: { type: String, enum: ['pending', 'completed'], default: 'pending' },
     date: { type: Date, default: Date.now },
 });
 

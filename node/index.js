@@ -3,6 +3,7 @@ require("dotenv").config();
 let port = process.env.PORT;
 const app = express();
 const userRouter = require("./Routes/user.Route");
+const transactionRouter = require("./Routes/transaction.Route");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
@@ -15,16 +16,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api", userRouter);
+app.use("/api/transactions", transactionRouter);
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../bank-app/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../bank-app/dist", "index.html"));
+});
 
 app.get("/", function (req, res) {
   res.send("hello world!");
-});
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../bank-app/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../bank-app/dist", "index.html"));
 });
 
 app.listen(port, () => {

@@ -1,22 +1,31 @@
 import React, { useState } from "react";
-import { 
-  Box, 
-  Button, 
-  Card, 
-  CardContent, 
-  Grid, 
-  Typography, 
-  IconButton, 
-  Avatar, 
-  List, 
-  ListItem, 
-  ListItemAvatar, 
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  IconButton,
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
   useTheme,
   useMediaQuery,
-  Stack
+  Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
 } from "@mui/material";
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import axios from 'axios';
+import toast from 'react-hot-toast'; // For notifications
+import { useDispatch } from 'react-redux'; // For dispatching actions
+import { updateUserDetails } from '../Redux/userSlice'; // Import your Redux action
 
 // Icons
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -36,10 +45,14 @@ import { useSelector } from "react-redux";
 
 const MainDashboard = () => {
   const [showBalance, setShowBalance] = useState(true);
+  const [depositModalOpen, setDepositModalOpen] = useState(false); // State for modal
+  const [depositAmount, setDepositAmount] = useState(''); // State for amount input
+  const [isDepositing, setIsDepositing] = useState(false); // Loading state for submit
   const theme = useTheme();
   // Target very small screens specifically
-  const isSmallMobile = useMediaQuery('(max-width:375px)');
-  
+  const isSmallMobile = useMediaQuery('(max-width:315px)');
+  const dispatch = useDispatch(); // Redux dispatch
+
   const user = useSelector((state) => state.user?.userDetails);
   const balance = user?.balance || '0.00';
 
@@ -51,7 +64,7 @@ const MainDashboard = () => {
       {
         label: 'Income',
         data: [1200, 1900, 3000, 5000, 2300, 4800],
-        tension: 0.4, 
+        tension: 0.4,
         borderColor: '#4a90e2',
         backgroundColor: 'rgba(74, 144, 226, 0.1)',
         fill: true,
@@ -68,7 +81,7 @@ const MainDashboard = () => {
     plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false }, ticks: { font: { size: 10 } } },
-      y: { grid: { color: '#f0f0f0' }, ticks: { display: false } }, 
+      y: { grid: { color: '#f0f0f0' }, ticks: { display: false } },
     },
   };
 
@@ -86,36 +99,89 @@ const MainDashboard = () => {
     { id: 4, title: "Salary Deposit", date: "Oct 21, 2023", amount: "+₦250,000", type: "credit" },
   ];
 
+  // // Handle opening deposit modal
+  const handleOpenDepositModal = () => setDepositModalOpen(true);
+  const handleCloseDepositModal = () => {
+    setDepositModalOpen(false);
+    setDepositAmount(''); // Reset input
+  };
+
+  const handleDeposit = async () => {
+    const amount = parseFloat(depositAmount);
+    if (!amount || amount <= 0) {
+      toast.error('Please enter a valid amount greater than 0.');
+      return;
+    }
+
+    setIsDepositing(true);
+    try {
+      const token = localStorage.getItem("token");
+      // Change to POST and send amount in body
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/deposit`,
+        { amount, description: "Manual deposit" }, // Send amount in request body
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error('Deposit request failed');
+      }
+      console.log(response);
+      const updatedBalance = response.data.balance; // Adjust based on your backend response
+      dispatch(updateUserDetails({ balance: updatedBalance })); // Use the new action
+
+      toast.success(`Successfully deposited ₦${amount.toFixed(2)}!`);
+      handleCloseDepositModal();
+    } catch (error) {
+      toast.error('Deposit failed. Please try again.');
+    } finally {
+      setIsDepositing(false);
+    }
+  };
+
   return (
     // MASTER WRAPPER
     <Box className="main-dashboard-container">
-      
+
       {/* 1. Header Section */}
-      <Box sx={{ mb: 3, px: 2, pt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box sx={{ mb: 3, px: 2, pt: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
           <Typography variant="h5" sx={{ fontWeight: 700, color: '#34495e', fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
             Hello, {user?.firstName || 'User'} 👋
           </Typography>
-          <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' }}}>
+          <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}>
+            Account Number: {user?.accountNumber || 'N/A'}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>
             Here is your financial overview.
           </Typography>
         </Box>
         {!isSmallMobile && (
-           <Button variant="contained" startIcon={<AddIcon />} sx={{ borderRadius: '20px', backgroundColor: '#4a90e2', display: {xs: 'none', sm: 'flex'} }}>
-             Add Money
-           </Button>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            sx={{ borderRadius: '20px', backgroundColor: '#4a90e2', display: { xs: 'block', sm: 'flex' } }}
+            onClick={handleOpenDepositModal}
+          >
+            Add Money
+          </Button>
         )}
       </Box>
 
       {/* Main Layout Grid - Zero Spacing to prevent overflow */}
       <Grid container spacing={0}>
-        
+
         {/* LEFT COLUMN */}
         <Grid item xs={12} md={8}>
-          
+
           {/* Wrapper: Adjusted padding to 1 (8px) for better fit on 320px screens */}
-          <Box sx={{ p: { xs: 1, md: 3 }, pt: 0 }}> 
-            
+          <Box sx={{ p: { xs: 1, md: 3 }, pt: 0 }}>
+
             {/* 2. Balance Card */}
             <Card className="balance-card glass-effect" sx={{ borderRadius: 4, mb: 3, position: 'relative', overflow: 'hidden' }}>
               <Box className="card-decoration-circle" />
@@ -127,7 +193,7 @@ const MainDashboard = () => {
                     {showBalance ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
                   </IconButton>
                 </Box>
-                
+
                 <Typography variant="h3" sx={{ fontWeight: 800, mb: 3, fontSize: 'clamp(1.8rem, 8vw, 3rem)' }}>
                   {showBalance ? `₦${balance}` : "********"}
                 </Typography>
@@ -145,7 +211,7 @@ const MainDashboard = () => {
 
             {/* 3. Quick Actions */}
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#34495e' }}>Quick Actions</Typography>
-            
+
             {/* FIX: Reduced spacing to 1 (8px) on mobile to prevent negative margin overflow */}
             <Grid container spacing={{ xs: 1, sm: 2 }} sx={{ mb: 3 }}>
               {actions.map((action, index) => (
@@ -188,7 +254,7 @@ const MainDashboard = () => {
                   <Typography variant="h6" fontWeight={600}>Transactions</Typography>
                   <Button size="small">See All</Button>
                 </Box>
-                
+
                 <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
                   {transactions.map((t) => (
                     <React.Fragment key={t.id}>
@@ -198,15 +264,15 @@ const MainDashboard = () => {
                             {t.title.charAt(0)}
                           </Avatar>
                         </ListItemAvatar>
-                        
+
                         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%', minWidth: 0 }}>
                           <Box sx={{ overflow: 'hidden', mr: 1, minWidth: 0 }}>
-                              <Typography variant="subtitle2" fontWeight={600} noWrap>
-                                  {t.title}
-                              </Typography>
-                              <Typography variant="caption" color="textSecondary" noWrap>
-                                  {t.date}
-                              </Typography>
+                            <Typography variant="subtitle2" fontWeight={600} noWrap>
+                              {t.title}
+                            </Typography>
+                            <Typography variant="caption" color="textSecondary" noWrap>
+                              {t.date}
+                            </Typography>
                           </Box>
                           <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'credit' ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap' }}>
                             {t.amount}
@@ -222,6 +288,47 @@ const MainDashboard = () => {
         </Grid>
 
       </Grid>
+
+
+      {/* Deposit Modal */}
+      <Dialog
+        open={depositModalOpen}
+        onClose={handleCloseDepositModal}
+        fullWidth
+        maxWidth="sm"
+        sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>Deposit Money</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Enter the amount you want to deposit. This is a simulation, no real payment required.
+          </Typography>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Amount (₦)"
+            type="number"
+            fullWidth
+            variant="outlined"
+            value={depositAmount}
+            onChange={(e) => setDepositAmount(e.target.value)}
+            inputProps={{ min: 0, step: 0.01 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDepositModal} color="secondary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleDeposit}
+            variant="contained"
+            disabled={isDepositing}
+            sx={{ backgroundColor: '#4a90e2' }}
+          >
+            {isDepositing ? 'Depositing...' : 'Deposit'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
