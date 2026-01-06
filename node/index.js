@@ -17,14 +17,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/auth", userRouter);
 app.use("/api/transactions", transactionRouter);
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../bank-app/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../bank-app/dist", "index.html"));
-});
 
 app.get("/", function (req, res) {
   res.send("hello world!");
+});
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../bank-app/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../bank-app/dist", "index.html"));
 });
 
 app.listen(port, () => {
