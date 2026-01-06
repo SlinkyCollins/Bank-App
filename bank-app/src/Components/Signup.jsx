@@ -39,7 +39,7 @@ const Signup = () => {
     };
 
     const navigate = useNavigate();
-    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/register`;
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth/register`;
     const formik = useFormik({
         initialValues: {
             firstName: '',

@@ -90,7 +90,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/login`;
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`;
     const formik = useFormik({
         initialValues: {
             email: "",

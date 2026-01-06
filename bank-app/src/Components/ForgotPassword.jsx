@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
-    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/forgot-password`; 
+    const URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth/forgot-password`; 
 
     useEffect(() => {
         setTimeout(() => {

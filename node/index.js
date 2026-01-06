@@ -15,7 +15,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use("/api", userRouter);
+app.use("/api/auth", userRouter);
 app.use("/api/transactions", transactionRouter);
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../bank-app/dist")));

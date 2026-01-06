@@ -45,9 +45,12 @@ import { useSelector } from "react-redux";
 
 const MainDashboard = () => {
   const [showBalance, setShowBalance] = useState(true);
-  const [depositModalOpen, setDepositModalOpen] = useState(false); // State for modal
-  const [depositAmount, setDepositAmount] = useState(''); // State for amount input
-  const [isDepositing, setIsDepositing] = useState(false); // Loading state for submit
+  const [depositModalOpen, setDepositModalOpen] = useState(false);
+  const [depositAmount, setDepositAmount] = useState('');
+  const [isDepositing, setIsDepositing] = useState(false);
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
+  const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [isWithdrawing, setIsWithdrawing] = useState(false);
   const theme = useTheme();
   // Target very small screens specifically
   const isSmallMobile = useMediaQuery('(max-width:315px)');
@@ -144,6 +147,54 @@ const MainDashboard = () => {
     }
   };
 
+  // Handle opening withdraw modal
+  const handleOpenWithdrawModal = () => setWithdrawModalOpen(true);
+  const handleCloseWithdrawModal = () => {
+    setWithdrawModalOpen(false);
+    setWithdrawAmount(''); // Reset input
+  };
+
+  // Handle withdraw submission
+  const handleWithdraw = async () => {
+    const amount = parseFloat(withdrawAmount);
+    if (!amount || amount <= 0) {
+      toast.error('Please enter a valid amount greater than 0.');
+      return;
+    }
+    if (amount > parseFloat(balance)) {
+      toast.error('Insufficient funds.');
+      return;
+    }
+
+    setIsWithdrawing(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/withdraw`,
+        { amount, description: "Manual withdrawal" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error('Withdraw request failed');
+      }
+      const updatedBalance = response.data.balance;
+      dispatch(updateUserDetails({ balance: updatedBalance }));
+
+      toast.success(`Successfully withdrew ₦${amount.toFixed(2)}!`);
+      handleCloseWithdrawModal();
+    } catch (error) {
+      toast.error('Withdrawal failed. Please try again.');
+    } finally {
+      setIsWithdrawing(false);
+    }
+  };
+
   return (
     // MASTER WRAPPER
     <Box className="main-dashboard-container">
@@ -199,8 +250,8 @@ const MainDashboard = () => {
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button variant="contained" startIcon={<ArrowUpwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }}>
-                    Send
+                  <Button variant="contained" startIcon={<ArrowUpwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }} onClick={handleOpenWithdrawModal}>
+                    Withdraw
                   </Button>
                   <Button variant="contained" startIcon={<ArrowDownwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }}>
                     Receive
@@ -326,6 +377,46 @@ const MainDashboard = () => {
             sx={{ backgroundColor: '#4a90e2' }}
           >
             {isDepositing ? 'Depositing...' : 'Deposit'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Withdraw Modal */}
+      <Dialog
+        open={withdrawModalOpen}
+        onClose={handleCloseWithdrawModal}
+        fullWidth
+        maxWidth="sm"
+        sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>Withdraw Money</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Enter the amount you want to withdraw. Ensure sufficient balance.
+          </Typography>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Amount (₦)"
+            type="number"
+            fullWidth
+            variant="outlined"
+            value={withdrawAmount}
+            onChange={(e) => setWithdrawAmount(e.target.value)}
+            inputProps={{ min: 0, step: 0.01, max: parseFloat(balance) }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseWithdrawModal} color="secondary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleWithdraw}
+            variant="contained"
+            disabled={isWithdrawing}
+            sx={{ backgroundColor: '#4a90e2' }}
+          >
+            {isWithdrawing ? 'Withdrawing...' : 'Withdraw'}
           </Button>
         </DialogActions>
       </Dialog>
