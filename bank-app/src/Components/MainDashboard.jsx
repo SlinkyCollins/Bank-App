@@ -51,7 +51,9 @@ const MainDashboard = () => {
   const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [isWithdrawing, setIsWithdrawing] = useState(false);
-  const theme = useTheme();
+  const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const [transferData, setTransferData] = useState({ accountNumber: '', amount: '', description: '' });
+  const [isTransferring, setIsTransferring] = useState(false);
   // Target very small screens specifically
   const isSmallMobile = useMediaQuery('(max-width:315px)');
   const dispatch = useDispatch(); // Redux dispatch
@@ -87,13 +89,6 @@ const MainDashboard = () => {
       y: { grid: { color: '#f0f0f0' }, ticks: { display: false } },
     },
   };
-
-  const actions = [
-    { label: "Transfer", icon: <SendIcon />, color: "#4a90e2", bg: "#eef5fc" },
-    { label: "To Bank", icon: <AccountBalanceIcon />, color: "#2dbe60", bg: "#eaf9f0" },
-    { label: "Pay Bills", icon: <PaymentsIcon />, color: "#f39c12", bg: "#fef6e7" },
-    { label: "Airtime", icon: <PhoneIphoneIcon />, color: "#9b59b6", bg: "#f5eafb" },
-  ];
 
   const transactions = [
     { id: 1, title: "Netflix Subscription", date: "Today, 10:23 AM", amount: "-₦4,500", type: "debit" },
@@ -195,6 +190,67 @@ const MainDashboard = () => {
     }
   };
 
+  // Handle opening transfer modal
+  const handleOpenTransferModal = () => setTransferModalOpen(true);
+  const handleCloseTransferModal = () => {
+    setTransferModalOpen(false);
+    setTransferData({ accountNumber: '', amount: '', description: '' }); // Reset form
+  };
+
+  const actions = [
+    { label: "Transfer", icon: <SendIcon />, color: "#4a90e2", bg: "#eef5fc", onClick: handleOpenTransferModal },
+    { label: "To Bank", icon: <AccountBalanceIcon />, color: "#2dbe60", bg: "#eaf9f0" },
+    { label: "Pay Bills", icon: <PaymentsIcon />, color: "#f39c12", bg: "#fef6e7" },
+    { label: "Airtime", icon: <PhoneIphoneIcon />, color: "#9b59b6", bg: "#f5eafb" },
+  ];
+
+  // Handle transfer submission
+  const handleTransfer = async () => {
+    const { accountNumber, amount, description } = transferData;
+    const numAmount = parseFloat(amount);
+    if (!accountNumber || !numAmount || numAmount <= 0) {
+      toast.error('Please enter valid account number and amount.');
+      return;
+    }
+    if (accountNumber === user?.accountNumber) {
+      toast.error('Cannot transfer to your own account.');
+      return;
+    }
+    if (numAmount > parseFloat(balance)) {
+      toast.error('Insufficient funds.');
+      return;
+    }
+
+    setIsTransferring(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/transactions/transfer`,
+        { accountNumber, amount: numAmount, description: description || "Transfer" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error('Transfer request failed');
+      }
+      const updatedBalance = response.data.balance;
+      dispatch(updateUserDetails({ balance: updatedBalance }));
+
+      toast.success(`Successfully transferred ₦${numAmount.toFixed(2)}!`);
+      handleCloseTransferModal();
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Transfer failed. Please try again.');
+    } finally {
+      setIsTransferring(false);
+    }
+  };
+
+
   return (
     // MASTER WRAPPER
     <Box className="main-dashboard-container">
@@ -267,7 +323,20 @@ const MainDashboard = () => {
             <Grid container spacing={{ xs: 1, sm: 2 }} sx={{ mb: 3 }}>
               {actions.map((action, index) => (
                 <Grid item xs={12} sm={6} key={index}>
-                  <Card className="action-card" sx={{ borderRadius: 3, textAlign: 'center', cursor: 'pointer', boxShadow: 'none', bgcolor: 'white', border: '1px solid #f0f2f5', height: '100%', '&:hover': { transform: 'translateY(-3px)' } }}>
+                  <Card
+                    className="action-card"
+                    sx={{
+                      borderRadius: 3,
+                      textAlign: 'center',
+                      cursor: 'pointer',
+                      boxShadow: 'none',
+                      bgcolor: 'white',
+                      border: '1px solid #f0f2f5',
+                      height: '100%',
+                      '&:hover': action.onClick ? { transform: 'translateY(-3px)' } : {}
+                    }}
+                    onClick={action.onClick}
+                  >
                     <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                       <Box sx={{ width: 45, height: 45, borderRadius: '50%', bgcolor: action.bg, color: action.color, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px' }}>
                         {React.cloneElement(action.icon, { fontSize: "medium" })}
@@ -417,6 +486,64 @@ const MainDashboard = () => {
             sx={{ backgroundColor: '#4a90e2' }}
           >
             {isWithdrawing ? 'Withdrawing...' : 'Withdraw'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Transfer Modal */}
+      <Dialog
+        open={transferModalOpen}
+        onClose={handleCloseTransferModal}
+        fullWidth
+        maxWidth="sm"
+        sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>Transfer Money</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Enter recipient account number and amount. Ensure sufficient balance.
+          </Typography>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Recipient Account Number"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={transferData.accountNumber}
+            onChange={(e) => setTransferData({ ...transferData, accountNumber: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="Amount (₦)"
+            type="number"
+            fullWidth
+            variant="outlined"
+            value={transferData.amount}
+            onChange={(e) => setTransferData({ ...transferData, amount: e.target.value })}
+            inputProps={{ min: 0, step: 0.01 }}
+          />
+          <TextField
+            margin="dense"
+            label="Description (Optional)"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={transferData.description}
+            onChange={(e) => setTransferData({ ...transferData, description: e.target.value })}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseTransferModal} color="secondary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleTransfer}
+            variant="contained"
+            disabled={isTransferring}
+            sx={{ backgroundColor: '#4a90e2' }}
+          >
+            {isTransferring ? 'Transferring...' : 'Transfer'}
           </Button>
         </DialogActions>
       </Dialog>
