@@ -2,8 +2,9 @@ const express = require("express");
 require("dotenv").config();
 let port = process.env.PORT;
 const app = express();
-const userRouter = require("./Routes/user.Route");
-const transactionRouter = require("./Routes/transaction.Route");
+const userRoutes = require("./Routes/user.Route");
+const transactionRoutes = require("./Routes/transaction.Route");
+const beneficiaryRoutes = require("./Routes/beneficiary.Route");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
@@ -15,8 +16,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use("/api/auth", userRouter);
-app.use("/api/transactions", transactionRouter);
+app.use("/api/auth", userRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/beneficiaries", beneficiaryRoutes);
 
 app.get("/", function (req, res) {
   res.send("hello world!");

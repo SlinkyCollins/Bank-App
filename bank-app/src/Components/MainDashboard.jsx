@@ -11,7 +11,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  useTheme,
   useMediaQuery,
   Stack,
   Dialog,
@@ -40,6 +39,8 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 // Import CSS
 import "./MainDashboard.css";
@@ -57,6 +58,9 @@ const MainDashboard = () => {
   const [transferData, setTransferData] = useState({ accountNumber: '', amount: '', description: '' });
   const [isTransferring, setIsTransferring] = useState(false);
   const [receiveModalOpen, setReceiveModalOpen] = useState(false);
+  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [beneficiariesModalOpen, setBeneficiariesModalOpen] = useState(false);
+  const [newBeneficiary, setNewBeneficiary] = useState({ name: '', accountNumber: '', bankName: '' });
   // Target very small screens specifically
   const isSmallMobile = useMediaQuery('(max-width:315px)');
   const dispatch = useDispatch(); // Redux dispatch
@@ -91,6 +95,22 @@ const MainDashboard = () => {
     fetchRecentTransactions();
   }, [dispatch]);
 
+  // Fetch beneficiaries on mount
+  useEffect(() => {
+    const fetchBeneficiaries = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBeneficiaries(response.data.beneficiaries || []);
+      } catch (error) {
+        console.error("Failed to fetch beneficiaries:", error);
+      }
+    };
+    fetchBeneficiaries();
+  }, []);
+
   const chartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     datasets: [
@@ -116,6 +136,43 @@ const MainDashboard = () => {
       x: { grid: { display: false }, ticks: { font: { size: 10 } } },
       y: { grid: { color: '#f0f0f0' }, ticks: { display: false } },
     },
+  };
+
+  // Handle add beneficiary
+  const handleAddBeneficiary = async () => {
+    if (!newBeneficiary.name || !newBeneficiary.accountNumber || !newBeneficiary.bankName) {
+      toast.error('Please fill all fields.');
+      return;
+    }
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, newBeneficiary, {
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+      });
+      setNewBeneficiary({ name: '', accountNumber: '', bankName: '' });
+      // Refetch
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setBeneficiaries(response.data.beneficiaries || []);
+      toast.success('Beneficiary added!');
+    } catch (error) {
+      toast.error('Failed to add beneficiary.');
+    }
+  };
+
+  // Handle remove beneficiary
+  const handleRemoveBeneficiary = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setBeneficiaries(beneficiaries.filter(b => b._id !== id));
+      toast.success('Beneficiary removed!');
+    } catch (error) {
+      toast.error('Failed to remove beneficiary.');
+    }
   };
 
   // Async copy function
@@ -459,6 +516,38 @@ const MainDashboard = () => {
                 </List>
               </CardContent>
             </Card>
+
+            {/* Beneficiary card */}
+            <Card className="beneficiary-card" sx={{ borderRadius: 4, height: '100%', marginTop: '1rem', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+              <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                  <Typography variant="h6" fontWeight={600}>Beneficiaries</Typography>
+                  {beneficiaries.length > 0 && (<Button size="small" onClick={() => setBeneficiariesModalOpen(true)}>See All</Button>)}
+                </Box>
+                <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
+                  {beneficiaries.slice(0, 3).map((b) => (
+                    <ListItem key={b._id} sx={{ py: 1.5, borderBottom: '1px solid #f0f0f0' }}>
+                      <ListItemAvatar>
+                        <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
+                          {b.name.charAt(0).toUpperCase()}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <Box>
+                        <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
+                        <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
+                        <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
+                      </Box>
+                    </ListItem>
+                  ))}
+                  {beneficiaries.length === 0 && (
+                    <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: '1rem'  }}>
+                      No beneficiaries yet.
+                      <Button size="small" onClick={() => setBeneficiariesModalOpen(true)} sx={{mt: '.4rem'}}>Add a beneficiary</Button>
+                    </Typography>
+                  )}
+                </List>
+              </CardContent>
+            </Card>
           </Box>
         </Grid>
 
@@ -628,6 +717,75 @@ const MainDashboard = () => {
             sx={{ backgroundColor: '#4a90e2' }}
           >
             {isTransferring ? 'Transferring...' : 'Transfer'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Add Beneficiaries Modal */}
+      <Dialog
+        open={beneficiariesModalOpen}
+        onClose={() => setBeneficiariesModalOpen(false)}
+        fullWidth
+        maxWidth="sm"
+        sx={{ '& .MuiDialog-paper': { borderRadius: 3, maxHeight: '80vh' } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>Manage Beneficiaries</DialogTitle>
+        <DialogContent sx={{ maxHeight: '60vh', overflowY: 'auto' }}>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Add or remove saved payees.
+          </Typography>
+          <Box sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              label="Name"
+              value={newBeneficiary.name}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, name: e.target.value })}
+              sx={{ mb: 1 }}
+            />
+            <TextField
+              fullWidth
+              label="Account Number"
+              value={newBeneficiary.accountNumber}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, accountNumber: e.target.value })}
+            />
+            <TextField
+              fullWidth
+              label="Bank Name"
+              value={newBeneficiary.bankName}
+              onChange={(e) => setNewBeneficiary({ ...newBeneficiary, bankName: e.target.value })}
+            />
+            <Button
+              variant="contained"
+              startIcon={<PersonAddIcon />}
+              onClick={handleAddBeneficiary}
+              sx={{ mt: 1, backgroundColor: '#4a90e2' }}
+            >
+              Add Beneficiary
+            </Button>
+          </Box>
+          <List>
+            {beneficiaries.map((b) => (
+              <ListItem key={b._id} sx={{ borderBottom: '1px solid #f0f0f0' }}>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
+                    {b.name.charAt(0).toUpperCase()}
+                  </Avatar>
+                </ListItemAvatar>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
+                  <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
+                  <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
+                </Box>
+                <IconButton onClick={() => handleRemoveBeneficiary(b._id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItem>
+            ))}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setBeneficiariesModalOpen(false)} color="secondary">
+            Close
           </Button>
         </DialogActions>
       </Dialog>

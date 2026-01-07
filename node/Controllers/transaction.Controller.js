@@ -166,7 +166,7 @@ const transfer = async (req, res) => {
       userId,
       type: "transfer",
       amount,
-      description,
+      description: `${description} - Sent to ${recipient.firstName} ${recipient.lastName}`,
       recipientAccount: accountNumber,
       status: "pending",
     });
@@ -197,7 +197,7 @@ const transfer = async (req, res) => {
         userId,
         type: "transfer",
         amount,
-        description,
+        description: `${description} - Sent to ${recipient.firstName} ${recipient.lastName}`,
         recipientAccount: accountNumber,
         date: senderTransaction.date,
         status: "completed",
