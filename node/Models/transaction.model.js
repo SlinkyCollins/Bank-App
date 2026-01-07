@@ -5,7 +5,8 @@ const transactionSchema = new mongoose.Schema({
     type: { type: String, enum: ['deposit', 'withdraw', 'transfer'], required: true },
     amount: { type: Number, required: true },
     description: { type: String },
-    recipientAccount: { type: String, required: function() { return this.type === 'transfer'; } }, // For transfers
+    recipientAccount: { type: String, required: function() { return this.type === 'transfer' && !this.senderAccount; } }, // Required only for outgoing
+    senderAccount: { type: String }, // For incoming transfers
     status: { type: String, enum: ['pending', 'completed'], default: 'pending' },
     date: { type: Date, default: Date.now },
 });

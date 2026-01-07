@@ -177,7 +177,7 @@ const transfer = async (req, res) => {
       type: "transfer",
       amount,
       description: `${description} - Received from ${user.firstName} ${user.lastName}`,
-      recipientAccount: user.accountNumber,
+      senderAccount: user.accountNumber,
       status: "pending",
     });
     await recipientTransaction.save({ session });

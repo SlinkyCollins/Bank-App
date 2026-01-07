@@ -175,8 +175,8 @@ const Transactions = () => {
                       {new Date(t.date).toLocaleString()} | Status: {t.status}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' ? '#2dbe60' : '#e74c3c' }}>
-                    {t.type === 'deposit' ? '+' : '-'}₦{t.amount}
+                  <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '#2dbe60' : '#e74c3c' }}>
+                    {t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '+' : '-'}₦{t.amount}
                   </Typography>
                 </Stack>
               </ListItem>
