@@ -61,6 +61,9 @@ const MainDashboard = () => {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [beneficiariesModalOpen, setBeneficiariesModalOpen] = useState(false);
   const [newBeneficiary, setNewBeneficiary] = useState({ name: '', accountNumber: '', bankName: '' });
+  const [toBankModalOpen, setToBankModalOpen] = useState(false);
+  const [payBillsModalOpen, setPayBillsModalOpen] = useState(false);
+  const [airtimeModalOpen, setAirtimeModalOpen] = useState(false);
   // Target very small screens specifically
   const isSmallMobile = useMediaQuery('(max-width:315px)');
   const dispatch = useDispatch(); // Redux dispatch
@@ -338,9 +341,9 @@ const MainDashboard = () => {
 
   const actions = [
     { label: "Transfer", icon: <SendIcon />, color: "#4a90e2", bg: "#eef5fc", onClick: handleOpenTransferModal },
-    { label: "To Bank", icon: <AccountBalanceIcon />, color: "#2dbe60", bg: "#eaf9f0" },
-    { label: "Pay Bills", icon: <PaymentsIcon />, color: "#f39c12", bg: "#fef6e7" },
-    { label: "Airtime", icon: <PhoneIphoneIcon />, color: "#9b59b6", bg: "#f5eafb" },
+    { label: "To Bank", icon: <AccountBalanceIcon />, color: "#2dbe60", bg: "#eaf9f0", onClick: () => setToBankModalOpen(true) },
+    { label: "Pay Bills", icon: <PaymentsIcon />, color: "#f39c12", bg: "#fef6e7", onClick: () => setPayBillsModalOpen(true) },
+    { label: "Airtime", icon: <PhoneIphoneIcon />, color: "#9b59b6", bg: "#f5eafb", onClick: () => setAirtimeModalOpen(true) },
   ];
 
   // Handle transfer submission
@@ -842,6 +845,24 @@ const MainDashboard = () => {
             Close
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog open={toBankModalOpen} onClose={() => setToBankModalOpen(false)} fullWidth maxWidth="sm" sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}>
+        <DialogTitle>To Bank</DialogTitle>
+        <DialogContent><Typography>Feature coming soon!</Typography></DialogContent>
+        <DialogActions><Button onClick={() => setToBankModalOpen(false)}>Close</Button></DialogActions>
+      </Dialog>
+
+      <Dialog open={payBillsModalOpen} onClose={() => setPayBillsModalOpen(false)} fullWidth maxWidth="sm" sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}>
+        <DialogTitle>Pay Bills</DialogTitle>
+        <DialogContent><Typography>Feature coming soon!</Typography></DialogContent>
+        <DialogActions><Button onClick={() => setPayBillsModalOpen(false)}>Close</Button></DialogActions>
+      </Dialog>
+
+      <Dialog open={airtimeModalOpen} onClose={() => setAirtimeModalOpen(false)} fullWidth maxWidth="sm" sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}>
+        <DialogTitle>Airtime</DialogTitle>
+        <DialogContent><Typography>Feature coming soon!</Typography></DialogContent>
+        <DialogActions><Button onClick={() => setAirtimeModalOpen(false)}>Close</Button></DialogActions>
       </Dialog>
     </Box>
   );
