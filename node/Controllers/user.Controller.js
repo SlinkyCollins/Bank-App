@@ -299,16 +299,41 @@ const dashboard = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await userModel.findById(userId).select("-password");
+
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const profile = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      accountNumber: user.accountNumber,
+    };
+
+    res.status(200).json({ profile });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 const updateProfile = async (req, res) => {
   const { firstName, lastName, phone } = req.body;
   const userId = req.user.id;
 
+  if (!firstName?.trim() || !lastName?.trim()) {
+    return res.status(400).json({ message: "First name and last name are required." });
+  }
+
   try {
-    const user = await userModel.findByIdAndUpdate(
-      userId,
-      { firstName, lastName, phone },
-      { new: true }
-    ).select("-password");
+    const user = await userModel
+      .findByIdAndUpdate(userId, { firstName: firstName.trim(), lastName: lastName.trim(), phone }, { new: true })
+      .select("-password");
 
     res.status(200).json({ message: "Profile updated", user });
   } catch (error) {
@@ -441,15 +466,51 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const updatePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const userId = req.user.id;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ message: "Old and new passwords are required." });
+  }
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Verify old password
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect." });
+    }
+
+    // Hash new password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Update failed", error: error.message });
+  }
+};
+
 module.exports = {
   welcomeUser,
   registerUser,
   loginUser,
   dashboard,
+  getProfile,
   updateProfile,
   sendMail,
   forgotPassword,
   resetPassword,
   sendResetMail,
   sendResetConfirmationEmail,
+  updatePassword
 };
