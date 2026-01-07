@@ -147,6 +147,12 @@ const MainDashboard = () => {
     const accountNumber = transaction.recipientAccount || transaction.senderAccount;
     const name = transaction.recipientName || transaction.senderName || 'Unknown';
     const bankName = 'NairaNest';
+    // Check for duplicate
+    const exists = beneficiaries.some(b => b.accountNumber === accountNumber);
+    if (exists) {
+      toast.error('Beneficiary already exists.');
+      return;
+    }
     try {
       toast.success('Added to beneficiaries!');
       const token = localStorage.getItem("token");
@@ -159,6 +165,7 @@ const MainDashboard = () => {
       });
       setBeneficiaries(response.data.beneficiaries || []);
     } catch (error) {
+      console.log(error);
       toast.error('Failed to add.');
     }
   };
@@ -167,6 +174,12 @@ const MainDashboard = () => {
   const handleAddBeneficiary = async () => {
     if (!newBeneficiary.name || !newBeneficiary.accountNumber || !newBeneficiary.bankName) {
       toast.error('Please fill all fields.');
+      return;
+    }
+    // Check for duplicate
+    const exists = beneficiaries.some(b => b.accountNumber === newBeneficiary.accountNumber);
+    if (exists) {
+      toast.error('Beneficiary with this account number already exists.');
       return;
     }
     try {
@@ -182,6 +195,7 @@ const MainDashboard = () => {
       setBeneficiaries(response.data.beneficiaries || []);
       toast.success('Beneficiary added!');
     } catch (error) {
+      console.log(error);
       toast.error('Failed to add beneficiary.');
     }
   };

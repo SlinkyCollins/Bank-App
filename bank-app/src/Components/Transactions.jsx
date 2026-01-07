@@ -12,6 +12,7 @@ import "./Transactions.css";
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState([]);
   const [page, setPage] = useState(1);
   const [limit] = useState(10); // Items per page
   const [filters, setFilters] = useState({
@@ -48,6 +49,22 @@ const Transactions = () => {
       }
     };
     fetchTransactions();
+  }, []);
+
+  // Fetch beneficiaries on mount
+  useEffect(() => {
+    const fetchBeneficiaries = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBeneficiaries(response.data.beneficiaries || []);
+      } catch (error) {
+        console.error("Failed to fetch beneficiaries:", error);
+      }
+    };
+    fetchBeneficiaries();
   }, []);
 
   // Apply filters
@@ -109,6 +126,12 @@ const Transactions = () => {
     const accountNumber = transaction.recipientAccount || transaction.senderAccount;
     const name = transaction.recipientName || transaction.senderName || 'Unknown';
     const bankName = 'NairaNest';
+    // Check for duplicate
+    const exists = beneficiaries.some(b => b.accountNumber === accountNumber);
+    if (exists) {
+      toast.error('Beneficiary already exists.');
+      return;
+    }
     try {
       const token = localStorage.getItem("token");
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, { name, accountNumber, bankName }, {
