@@ -14,7 +14,7 @@ const Modal = ({ show, onClose, onConfirm }) => {
     if (!show) return null;
 
   return (
-    <div className={`modal-overlay ${isExiting ? 'fadeOut' : 'fadeIn'}`} onClick={handleClose}>
+    <div style={{zIndex: '1000'}} className={`modal-overlay ${isExiting ? 'fadeOut' : 'fadeIn'}`} onClick={handleClose}>
         <div className={`modal ${isExiting ? 'slideOut' : 'slideIn'}`} onClick={(e) => e.stopPropagation()}>
             <h2>Confirmation</h2>
             <hr />

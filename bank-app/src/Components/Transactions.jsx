@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import {
-  Box, Typography, Card, CardContent, List, ListItem, ListItemAvatar, Avatar, Stack, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Pagination
+  Box, Typography, Card, CardContent, List, ListItem, ListItemAvatar, Avatar, Stack, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Pagination,
+  IconButton
 } from '@mui/material';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import "./Transactions.css";
 
@@ -102,6 +105,21 @@ const Transactions = () => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
+  const handleAddFromTransaction = async (transaction) => {
+    const accountNumber = transaction.recipientAccount || transaction.senderAccount;
+    const name = transaction.recipientName || transaction.senderName || 'Unknown';
+    const bankName = 'NairaNest';
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, { name, accountNumber, bankName }, {
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+      });
+      toast.success('Added to beneficiaries!');
+    } catch (error) {
+      toast.error('Failed to add.');
+    }
+  };
+
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>Transaction History</Typography>
@@ -175,9 +193,16 @@ const Transactions = () => {
                       {new Date(t.date).toLocaleString()} | Status: {t.status}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '#2dbe60' : '#e74c3c' }}>
-                    {t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '+' : '-'}₦{t.amount}
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap', mr: 1 }}>
+                      {t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '+' : '-'}₦{t.amount}
+                    </Typography>
+                    {t.type === 'transfer' && (
+                      <IconButton size="small" onClick={() => handleAddFromTransaction(t)}>
+                        <PersonAddIcon fontSize="small" />
+                      </IconButton>
+                    )}
+                  </Box>
                 </Stack>
               </ListItem>
             )) : (

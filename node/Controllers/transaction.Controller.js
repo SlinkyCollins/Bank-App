@@ -168,6 +168,7 @@ const transfer = async (req, res) => {
       amount,
       description: `${description} - Sent to ${recipient.firstName} ${recipient.lastName}`,
       recipientAccount: accountNumber,
+      recipientName: recipient.firstName + ' ' + recipient.lastName,
       status: "pending",
     });
     await senderTransaction.save({ session });
@@ -178,6 +179,7 @@ const transfer = async (req, res) => {
       amount,
       description: `${description} - Received from ${user.firstName} ${user.lastName}`,
       senderAccount: user.accountNumber,
+      senderName: user.firstName + ' ' + user.lastName,
       status: "pending",
     });
     await recipientTransaction.save({ session });
@@ -199,6 +201,7 @@ const transfer = async (req, res) => {
         amount,
         description: `${description} - Sent to ${recipient.firstName} ${recipient.lastName}`,
         recipientAccount: accountNumber,
+        recipientName: recipient.firstName + ' ' + recipient.lastName,
         date: senderTransaction.date,
         status: "completed",
       },

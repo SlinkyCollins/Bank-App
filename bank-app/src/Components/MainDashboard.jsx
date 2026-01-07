@@ -138,6 +138,31 @@ const MainDashboard = () => {
     },
   };
 
+  const handleBeneficiaryTransfer = (beneficiary) => {
+    setTransferData({ accountNumber: beneficiary.accountNumber, amount: '', description: `Transfer to ${beneficiary.name}` });
+    setTransferModalOpen(true);
+  };
+
+  const handleAddFromTransaction = async (transaction) => {
+    const accountNumber = transaction.recipientAccount || transaction.senderAccount;
+    const name = transaction.recipientName || transaction.senderName || 'Unknown';
+    const bankName = 'NairaNest';
+    try {
+      toast.success('Added to beneficiaries!');
+      const token = localStorage.getItem("token");
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, { name, accountNumber, bankName }, {
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+      });
+      // Refetch beneficiaries
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/beneficiaries`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setBeneficiaries(response.data.beneficiaries || []);
+    } catch (error) {
+      toast.error('Failed to add.');
+    }
+  };
+
   // Handle add beneficiary
   const handleAddBeneficiary = async () => {
     if (!newBeneficiary.name || !newBeneficiary.accountNumber || !newBeneficiary.bankName) {
@@ -502,9 +527,17 @@ const MainDashboard = () => {
                               {new Date(t.date).toLocaleDateString()}
                             </Typography>
                           </Box>
-                          <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap' }}>
-                            {t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '+' : '-'}₦{t.amount}
-                          </Typography>
+
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography variant="body2" sx={{ fontWeight: 700, color: t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '#2dbe60' : '#e74c3c', whiteSpace: 'nowrap', mr: 1 }}>
+                              {t.type === 'deposit' || (t.type === 'transfer' && t.senderAccount) ? '+' : '-'}₦{t.amount}
+                            </Typography>
+                            {t.type === 'transfer' && (
+                              <IconButton size="small" onClick={() => handleAddFromTransaction(t)}>
+                                <PersonAddIcon fontSize="small" />
+                              </IconButton>
+                            )}
+                          </Box>
                         </Stack>
                       </ListItem>
                     </React.Fragment>
@@ -526,23 +559,28 @@ const MainDashboard = () => {
                 </Box>
                 <List sx={{ width: '100%', bgcolor: 'background.paper', p: 0 }}>
                   {beneficiaries.slice(0, 3).map((b) => (
-                    <ListItem key={b._id} sx={{ py: 1.5, borderBottom: '1px solid #f0f0f0' }}>
-                      <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
-                          {b.name.charAt(0).toUpperCase()}
-                        </Avatar>
-                      </ListItemAvatar>
-                      <Box>
-                        <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
-                        <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
-                        <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
-                      </Box>
+                    <ListItem key={b._id} sx={{ py: 1.5, borderBottom: '1px solid #f0f0f0', cursor: 'pointer' }}>
+                      <div onClick={() => handleBeneficiaryTransfer(b)}>
+                        <ListItemAvatar>
+                          <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
+                            {b.name.charAt(0).toUpperCase()}
+                          </Avatar>
+                        </ListItemAvatar>
+                        <Box>
+                          <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
+                          <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
+                          <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
+                        </Box>
+                      </div>
+                      <IconButton onClick={() => handleRemoveBeneficiary(b._id)}>
+                        <DeleteIcon />
+                      </IconButton>
                     </ListItem>
                   ))}
                   {beneficiaries.length === 0 && (
-                    <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: '1rem'  }}>
+                    <Typography variant="body2" color="textSecondary" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: '1rem' }}>
                       No beneficiaries yet.
-                      <Button size="small" onClick={() => setBeneficiariesModalOpen(true)} sx={{mt: '.4rem'}}>Add a beneficiary</Button>
+                      <Button size="small" onClick={() => setBeneficiariesModalOpen(true)} sx={{ mt: '.4rem' }}>Add a beneficiary</Button>
                     </Typography>
                   )}
                 </List>
@@ -765,17 +803,19 @@ const MainDashboard = () => {
           </Box>
           <List>
             {beneficiaries.map((b) => (
-              <ListItem key={b._id} sx={{ borderBottom: '1px solid #f0f0f0' }}>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
-                    {b.name.charAt(0).toUpperCase()}
-                  </Avatar>
-                </ListItemAvatar>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
-                  <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
-                  <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
-                </Box>
+              <ListItem key={b._id} sx={{ borderBottom: '1px solid #f0f0f0', cursor: 'pointer' }}>
+                <div onClick={() => handleBeneficiaryTransfer(b)}>
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: '#eef5fc', color: '#4a90e2' }}>
+                      {b.name.charAt(0).toUpperCase()}
+                    </Avatar>
+                  </ListItemAvatar>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Typography variant="subtitle2" fontWeight={600}>{b.name}</Typography>
+                    <Typography variant="caption" color="textSecondary">{b.accountNumber}</Typography>
+                    <Typography variant="body2" color="textSecondary">{b.bankName}</Typography>
+                  </Box>
+                </div>
                 <IconButton onClick={() => handleRemoveBeneficiary(b._id)}>
                   <DeleteIcon />
                 </IconButton>

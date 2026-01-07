@@ -18,7 +18,6 @@ import Transactions from './Components/Transactions';
 import Settings from './Components/Settings';
 import MainDashboard from './Components/MainDashboard';
 import PrivateRoute from './Components/PrivateRoute';
-// import { useSelector } from "react-redux"; // Import if you need additional state for checking authentication
 
 
 
@@ -36,7 +35,6 @@ function App() {
     return <FullPageLoader />;
   }
   console.log("App component rendered");
-  // let token = localStorage.getItem("token")
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
