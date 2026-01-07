@@ -23,8 +23,8 @@ import {
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import axios from 'axios';
-import toast from 'react-hot-toast'; 
-import { useDispatch } from 'react-redux'; 
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { setRecentTransactions, updateUserDetails, addTransaction } from '../Redux/userSlice';
 import { Link } from "react-router-dom";
 
@@ -39,6 +39,7 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 // Import CSS
 import "./MainDashboard.css";
@@ -55,6 +56,7 @@ const MainDashboard = () => {
   const [transferModalOpen, setTransferModalOpen] = useState(false);
   const [transferData, setTransferData] = useState({ accountNumber: '', amount: '', description: '' });
   const [isTransferring, setIsTransferring] = useState(false);
+  const [receiveModalOpen, setReceiveModalOpen] = useState(false);
   // Target very small screens specifically
   const isSmallMobile = useMediaQuery('(max-width:315px)');
   const dispatch = useDispatch(); // Redux dispatch
@@ -116,12 +118,20 @@ const MainDashboard = () => {
     },
   };
 
-  const transactions = [
-    { id: 1, title: "Netflix Subscription", date: "Today, 10:23 AM", amount: "-₦4,500", type: "debit" },
-    { id: 2, title: "Femi Adebayo", date: "Yesterday, 4:00 PM", amount: "+₦50,000", type: "credit" },
-    { id: 3, title: "MTN Airtime", date: "Oct 24, 2023", amount: "-₦1,000", type: "debit" },
-    { id: 4, title: "Salary Deposit", date: "Oct 21, 2023", amount: "+₦250,000", type: "credit" },
-  ];
+  // Async copy function
+  const copyTextToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success('Copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      toast.error('Failed to copy.');
+    }
+  };
+
+  // Handle opening receive modal
+  const handleOpenReceiveModal = () => setReceiveModalOpen(true);
+  const handleCloseReceiveModal = () => setReceiveModalOpen(false);
 
   // // Handle opening deposit modal
   const handleOpenDepositModal = () => setDepositModalOpen(true);
@@ -297,8 +307,13 @@ const MainDashboard = () => {
           <Typography variant="h5" sx={{ fontWeight: 700, color: '#34495e', fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
             Hello, {user?.firstName || 'User'} 👋
           </Typography>
-          <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}>
+          <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, display: 'flex', alignItems: 'center' }}>
             Account Number: {user?.accountNumber || 'N/A'}
+            {user?.accountNumber && (
+              <IconButton size="small" onClick={() => copyTextToClipboard(user.accountNumber)} sx={{ ml: 1 }}>
+                <ContentCopyIcon fontSize="small" />
+              </IconButton>
+            )}
           </Typography>
           <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>
             Here is your financial overview.
@@ -345,7 +360,7 @@ const MainDashboard = () => {
                   <Button variant="contained" startIcon={<ArrowUpwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }} onClick={handleOpenWithdrawModal}>
                     Withdraw
                   </Button>
-                  <Button variant="contained" startIcon={<ArrowDownwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }}>
+                  <Button variant="contained" startIcon={<ArrowDownwardIcon />} className="action-btn-primary" sx={{ bgcolor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(5px)', flex: 1 }} onClick={handleOpenReceiveModal}>
                     Receive
                   </Button>
                 </Box>
@@ -448,6 +463,35 @@ const MainDashboard = () => {
         </Grid>
 
       </Grid>
+
+      {/* Receive Modal */}
+      <Dialog
+        open={receiveModalOpen}
+        onClose={handleCloseReceiveModal}
+        fullWidth
+        maxWidth="sm"
+        sx={{ '& .MuiDialog-paper': { borderRadius: 3 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600 }}>Receive Money</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Share these details to receive money from others.
+          </Typography>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2">Name: {user?.firstName} {user?.lastName}</Typography>
+            <Typography variant="subtitle2">Account Number: {user?.accountNumber}</Typography>
+            <Typography variant="subtitle2">Bank: NairaNest</Typography>
+          </Box>
+          <Button variant="outlined" onClick={() => copyTextToClipboard(`Name: ${user?.firstName} ${user?.lastName}\nAccount Number: ${user?.accountNumber}\nBank: NairaNest`)}>
+            Copy Details
+          </Button>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseReceiveModal} color="secondary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
 
       {/* Deposit Modal */}
