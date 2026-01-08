@@ -1,3 +1,5 @@
+<img width="1907" height="956" alt="nairanest hero" src="https://github.com/user-attachments/assets/4d851794-00ab-4786-9804-bbe0668e366b" />
+
 ### Banking App MVP - NairaNest
 
 A full-stack banking application built with React (frontend) and Node.js/Express (backend) for a functional MVP demo. Features include user authentication, transactions, beneficiary management, and an admin dashboard.
@@ -21,8 +23,8 @@ A full-stack banking application built with React (frontend) and Node.js/Express
 #### Installation & Setup
 
 ##### Backend Setup
-1. Clone the repo: `git clone <repo-url>`
-2. Navigate to backend: `cd bank-app/backend` (assuming your structure)
+1. Clone the repo: `git clone https://github.com/SlinkyCollins/Bank-App.git`
+2. Navigate to backend: `cd Bank App/node` (assuming your structure)
 3. Install dependencies: `npm install`
 4. Create .env file:
    ```
@@ -89,5 +91,3 @@ MIT License.
 
 #### Acknowledgments
 Built as a school project MVP. Inspired by real banking apps.
-
-Add screenshots, demo links, and any known issues. If you need help refining this or with deployment, let me know—great job! 🚀
