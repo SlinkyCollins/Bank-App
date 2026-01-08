@@ -46,8 +46,7 @@ function AdminLayout() {
     const menuItems = [
         { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/admin' },
         { text: 'Users', icon: <AccountBoxIcon />, path: '/dashboard/admin/users' },
-        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/admin/transactions' },
-        { text: 'Settings', icon: <SettingsIcon />, path: '/dashboard/admin/settings' },  // If you add admin settings later
+        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/admin/transactions' }
     ];
 
     let navigate = useNavigate();
@@ -86,7 +85,6 @@ function AdminLayout() {
                 navigate("/login", { replace: true });
             }
         };
-
         fetchUserDetails();
     }, [dispatch, navigate]);
 
