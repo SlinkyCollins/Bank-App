@@ -34,7 +34,7 @@ const drawWidth = 260;
 const PRIMARY_BLUE = "#4a90e2";
 const SIDEBAR_BG = "#1e272e"; // Darker professional sidebar
 
-function Dashboard() {
+function AdminLayout() {
     const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
     const hasShownToast = useRef(false);
     const user = useSelector((state) => state.user.userDetails);
@@ -44,10 +44,10 @@ function Dashboard() {
     };
 
     const menuItems = [
-        { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/user' },
-        { text: 'Profile', icon: <AccountBoxIcon />, path: '/dashboard/user/account' },
-        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/user/transactions' },
-        { text: 'Settings', icon: <SettingsIcon />, path: '/dashboard/user/settings' },
+        { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/admin' },
+        { text: 'Users', icon: <AccountBoxIcon />, path: '/dashboard/admin/users' },
+        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/admin/transactions' },
+        { text: 'Settings', icon: <SettingsIcon />, path: '/dashboard/admin/settings' },  // If you add admin settings later
     ];
 
     let navigate = useNavigate();
@@ -55,12 +55,11 @@ function Dashboard() {
     const [showModal, setShowModal] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    // Add separate useEffect for role check
     useEffect(() => {
-        if (user && user.role && user.role !== 'user' && !hasShownToast.current) {
+        if (user && user.role && user.role !== 'admin' && !hasShownToast.current) {
             toast.error("You do not have permission to access this page.");
             hasShownToast.current = true;
-            const redirectPath = user.role === 'admin' ? '/dashboard/admin' : '/login';
+            const redirectPath = user.role === 'user' ? '/dashboard/user' : '/login';
             navigate(redirectPath);
         }
     }, [user, navigate]);
@@ -91,9 +90,8 @@ function Dashboard() {
         fetchUserDetails();
     }, [dispatch, navigate]);
 
-    // Add early return for non-users
-    if (!user || user?.role !== 'user') {
-        return <Typography>Access denied. User only.</Typography>;
+    if (!user || user?.role !== 'admin') {
+        return <Typography>Access denied. Admin only.</Typography>;
     }
 
     const handleLogout = async () => {
@@ -251,4 +249,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default AdminLayout;

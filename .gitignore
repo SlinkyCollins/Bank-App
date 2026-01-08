@@ -2,3 +2,4 @@ bank-app/node_modules/
 bank-app/.env
 node/node_modules/
 node/.env
+node/createAdmin.js

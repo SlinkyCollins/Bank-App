@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-const userModel = require("../Models/user.model");
 const beneficiaryModel = require("../Models/beneficiary.model");
 
 const addBeneficiary = async (req, res) => {

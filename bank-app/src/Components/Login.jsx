@@ -114,12 +114,8 @@ const Login = () => {
                     if (response.data && response.data.user) {
                         toast.success("Login successful");
                         setLoadingMessage("Login");
-                        // console.log(response.data.user);
                         let token = response.data.token;
                         localStorage.setItem("token", token);
-                        // const decodedToken = jwtDecode(token);
-                        // console.log('Decoded token', decodedToken);
-                        // console.log('Logged in user:', decodedToken.id);
                         if (rememberMe) {
                             localStorage.setItem("rememberMe", "true");
                             localStorage.setItem("email", values.email);
@@ -129,7 +125,10 @@ const Login = () => {
                             localStorage.removeItem("rememberMe");
                         }
                         dispatch(login(response.data.user)); // Update Redux state
-                        navigate("/dashboard/user");
+                        // Check role and navigate
+                        const userRole = response.data.user.role;
+                        const dashboardPath = userRole === 'admin' ? '/dashboard/admin' : '/dashboard/user';
+                        navigate(dashboardPath);
                     } else {
                         toast.error("User not found, please sign up");
                         setLoadingMessage("Login");

@@ -1,12 +1,20 @@
-// PrivateRoute.jsx
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+
+// Module-level flag to prevent duplicate toasts across all PrivateRoute instances
+let hasShownAuthToast = false;
 
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
-  // Redirect to login if not authenticated
-  return isAuthenticated ? children : <Navigate replace to="/login" />;
+  if (!isAuthenticated && !hasShownAuthToast) {
+    toast.error("Please log in to access this page.");
+    hasShownAuthToast = true;
+    return <Navigate replace to="/login" />;
+  }
+
+  return children;
 };
 
 export default PrivateRoute;

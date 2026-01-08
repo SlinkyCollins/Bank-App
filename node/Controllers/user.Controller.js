@@ -248,7 +248,9 @@ const loginUser = async (req, res) => {
     loginAttempts[key] = { count: 0, lastAttempt: Date.now() };
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, secret, { expiresIn: "30m" });
+    const token = jwt.sign({ id: user._id, role: user.role }, secret, {
+      expiresIn: "30m",
+    });
 
     // Send response with token and user details
     res.status(200).json({
@@ -327,12 +329,18 @@ const updateProfile = async (req, res) => {
   const userId = req.user.id;
 
   if (!firstName?.trim() || !lastName?.trim()) {
-    return res.status(400).json({ message: "First name and last name are required." });
+    return res
+      .status(400)
+      .json({ message: "First name and last name are required." });
   }
 
   try {
     const user = await userModel
-      .findByIdAndUpdate(userId, { firstName: firstName.trim(), lastName: lastName.trim(), phone }, { new: true })
+      .findByIdAndUpdate(
+        userId,
+        { firstName: firstName.trim(), lastName: lastName.trim(), phone },
+        { new: true }
+      )
       .select("-password");
 
     res.status(200).json({ message: "Profile updated", user });
@@ -471,7 +479,9 @@ const updatePassword = async (req, res) => {
   const userId = req.user.id;
 
   if (!oldPassword || !newPassword) {
-    return res.status(400).json({ message: "Old and new passwords are required." });
+    return res
+      .status(400)
+      .json({ message: "Old and new passwords are required." });
   }
 
   try {
@@ -512,5 +522,5 @@ module.exports = {
   resetPassword,
   sendResetMail,
   sendResetConfirmationEmail,
-  updatePassword
+  updatePassword,
 };
