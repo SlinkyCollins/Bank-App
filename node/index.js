@@ -9,7 +9,7 @@ const adminRoutes = require("./Routes/admin.Route");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
-let uri = process.env.URL;
+let uri = process.env.MONGO_URI;
 
 const corsOptions = {
   origin: ["http://localhost:5173", "https://nairanest.vercel.app"], // Allow only these origins
