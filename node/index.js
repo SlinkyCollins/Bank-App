@@ -6,6 +6,7 @@ const userRoutes = require("./Routes/user.Route");
 const transactionRoutes = require("./Routes/transaction.Route");
 const beneficiaryRoutes = require("./Routes/beneficiary.Route");
 const adminRoutes = require("./Routes/admin.Route");
+const healthRoutes = require("./Routes/health.Route");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
@@ -21,6 +22,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/beneficiaries", beneficiaryRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/ready", healthRoutes);
 
 app.get("/", function (req, res) {
   res.send("hello world!");
