@@ -4,8 +4,6 @@ import Signup from './Components/Signup';
 import { Toaster } from "react-hot-toast";
 import Homepage from './Components/Pages/Homepage';
 import Login from './Components/Login';
-import FullPageLoader from './Components/FullPageLoader';
-import { useEffect, useState } from 'react';
 import ResetPassword from './Components/ResetPassword';
 import ForgotPassword from './Components/ForgotPassword';
 import ResetSuccess from './Components/resetSucess';
@@ -27,17 +25,6 @@ import AdminOverview from './Components/AdminOverview';
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    // Simulate a network request
-    setTimeout(() => {
-      setLoading(false);
-    }, 400);
-  }, []);
-
-  if (loading) {
-    return <FullPageLoader />;
-  }
   console.log("App component rendered");
   return (
     <>

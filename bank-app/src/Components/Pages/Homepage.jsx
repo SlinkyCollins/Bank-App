@@ -3,8 +3,6 @@ import { AppBar, Toolbar } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
 import './Homepage.css';
 import Logo from "/src/assets/logo.webp";
-import FullPageLoader from '../FullPageLoader';
-import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -41,19 +39,7 @@ import TestimonialSection from './TestimonialSection';
 
 
 const Homepage = () => {
-  const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user?.userDetails);
-
-  useEffect(() => {
-    // Simulate a network request
-    setTimeout(() => {
-      setLoading(false);
-    }, 400);
-  }, []);
-
-  if (loading) {
-    return <FullPageLoader />;
-  }
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Visibility from '@mui/icons-material/Visibility';
@@ -14,24 +14,13 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { LoadingButton } from '@mui/lab';
 import bgImg from "../assets/bg-img.webp";
 import "../Components/Signup.css"
-import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import Logo from "/src/assets/logo.webp";
 
 const Signup = () => {
-    const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState("Sign Up");
-
-    let timeoutId;
-
-    useEffect(() => {
-        // Simulate a network request
-        setTimeout(() => {
-            setLoading(false);
-        }, 400);
-    }, []);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -79,20 +68,14 @@ const Signup = () => {
             setSubmitting(true); // start submission
             setLoadingMessage("Loading...");
 
-            timeoutId = setTimeout(() => {
-                setLoadingMessage("Please Wait...");
-            }, 400); // 400 milliseconds
-
             axios.post(URL, values)
                 .then((response) => {
                     console.log(response);
                     console.log("User saved successfully");
                     toast.success('Signed up successfully');
                     navigate("/login");
-                    clearTimeout(timeoutId);
                 })
                 .catch((error) => {
-                    clearTimeout(timeoutId);
                     if (error.response) {
                         if (error.response.status === 409) {
                             toast.error("User already exists. Please use a different email or try logging in.");
@@ -115,16 +98,6 @@ const Signup = () => {
                 });
         }
     });
-
-    useEffect(() => {
-        return () => {
-            clearTimeout(timeoutId);
-        }
-    }, []);
-
-    if (loading) {
-        return <FullPageLoader />;
-    }
 
     return (
         <Grid container sx={{ height: "100vh" }} className='signupgridcontainer'>

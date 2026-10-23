@@ -16,7 +16,6 @@ import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
 import "../Components/Login.css"
 import banking1 from "../assets/banking1.webp";
-import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useDispatch } from 'react-redux';
@@ -25,7 +24,6 @@ import Logo from "/src/assets/logo.webp";
 
 
 const Login = () => {
-    const [loading, setLoading] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const [isLockedOut, setIsLockedOut] = useState(false);
@@ -33,16 +31,6 @@ const Login = () => {
     const [lockoutMessage, setLockoutMessage] = useState('');
     const [warningMessage, setWarningMessage] = useState('');
     const [loadingMessage, setLoadingMessage] = useState("Login");
-
-    let timeoutId;
-
-    useEffect(() => {
-        // Simulate a network request
-        setTimeout(() => {
-            setLoading(false);
-        }, 400);
-    }, []);
-
 
     useEffect(() => {
         const email = localStorage.getItem('email');
@@ -104,13 +92,8 @@ const Login = () => {
             setSubmitting(true);  // Start submission
             setLoadingMessage("Loading...");
 
-            timeoutId = setTimeout(() => {
-                setLoadingMessage("Please Wait...");
-            }, 400); // 400 milliseconds
-
             axios.post(URL, values)
                 .then((response) => {
-                    clearTimeout(timeoutId);
                     if (response.data && response.data.user) {
                         toast.success("Login successful");
                         setLoadingMessage("Login");
@@ -135,7 +118,6 @@ const Login = () => {
                     }
                 })
                 .catch((err) => {
-                    clearTimeout(timeoutId);
                     if (err.response && err.response.status === 404) {
                         setWarningMessage(err.response.data.warning); // set warning message
                         toast.error("User not found, please sign up");
@@ -160,15 +142,6 @@ const Login = () => {
         },
     });
 
-    useEffect(() => {
-        return () => {
-            clearTimeout(timeoutId);
-        }
-    }, []);
-
-    if (loading) {
-        return <FullPageLoader />;
-    }
     return (
         <Grid container sx={{ height: "100vh" }} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>

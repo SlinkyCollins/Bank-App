@@ -96,8 +96,8 @@ function AdminLayout() {
         const loadingToastId = toast.loading("Logging out...");
         try {
             localStorage.removeItem("token");
-            setTimeout(() => { toast.dismiss(loadingToastId); }, 400);
-            setTimeout(() => { toast.success("Logged out"); }, 400);
+            toast.dismiss(loadingToastId);
+            toast.success("Logged out");
             dispatch(logout());
             navigate("/login", { replace: true });
         } catch (error) {

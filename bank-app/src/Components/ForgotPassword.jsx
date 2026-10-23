@@ -1,24 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast"
 import "./ResetForms.css";
-import FullPageLoader from "./FullPageLoader";
 import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
-    const [loading, setLoading] = useState(true);
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
     const URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth/forgot-password`; 
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 400)
-    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,10 +36,6 @@ const ForgotPassword = () => {
             setLoadingBtn(false);
         }
     };
-
-    if (loading) {
-        return <FullPageLoader />;
-    }
 
     return (
 
