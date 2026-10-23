@@ -229,7 +229,7 @@ button {
   position: relative;
   padding: 7rem 1rem 7rem;
   margin: 4rem 0 0;
-  background-image: url("/src/assets/workers.jpg");
+  background-image: url("/src/assets/workers.webp");
   height: 100%;
   background-attachment: fixed;
   background-position: center;

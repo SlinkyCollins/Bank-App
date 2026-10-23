@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { AppBar, Toolbar } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
 import './Homepage.css';
-import Logo from "/src/assets/logo.png";
+import Logo from "/src/assets/logo.webp";
 import FullPageLoader from '../FullPageLoader';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,8 +12,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import image3 from '/src/assets/banking3.jpg';
-import image8 from '/src/assets/banking8.jpg';
+import image3 from '/src/assets/banking3.webp';
+import image8 from '/src/assets/banking8.webp';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import HamburgerMenu from '../HamburgerMenu';
@@ -21,10 +21,10 @@ import { FaAngleLeft, FaAngleRight, FaHandPointer } from "react-icons/fa";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LockIcon from '@mui/icons-material/Lock';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import freelancer from "/src/assets/freelancer.jpg";
-import shopping from "/src/assets/onlineShopping.jpg";
-import seller from "/src/assets/onlineSellers.jpg";
-import affiliateMarketing from "/src/assets/affiliateMarketing.jpg";
+import freelancer from "/src/assets/freelancer.webp";
+import shopping from "/src/assets/onlineShopping.webp";
+import seller from "/src/assets/onlineSellers.webp";
+import affiliateMarketing from "/src/assets/affiliateMarketing.webp";
 import { FaShareSquare } from "react-icons/fa";
 import { FaRegCheckSquare } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
@@ -295,7 +295,6 @@ const Homepage = () => {
       </section>
 
 
-      {/* <video src='/src/assets/banking-video.mp4' width='500' height='500' autoPlay controls></video> */}
 
       {/* <iframe width="200"
           height="315"

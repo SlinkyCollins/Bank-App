@@ -3,7 +3,7 @@ import { Modal } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { IoPlay } from "react-icons/io5";
 import "./VideoSection.css";
-import thumbnailImg from "/src/assets/banking2.jpg";
+import thumbnailImg from "/src/assets/banking2.webp";
 
 
 const VideoSection = () => {

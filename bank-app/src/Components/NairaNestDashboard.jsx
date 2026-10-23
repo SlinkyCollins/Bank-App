@@ -26,7 +26,7 @@ import { logout, setUser } from '../Redux/userSlice'; // Ensure this path is cor
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Logo from "/src/assets/logo.png";
+import Logo from "/src/assets/logo.webp";
 
 const drawWidth = 260;
 

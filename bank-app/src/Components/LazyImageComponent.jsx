@@ -7,7 +7,7 @@ const LazyImageComponent = () => (
       alt="Example image"
       height="200px"
       effect="blur"
-      src="/src/assets/banking1.jpg" // Replace with your image source
+      src="/src/assets/banking1.webp" // Replace with your image source
       width="300px"
     />
   </div>

@@ -12,12 +12,12 @@ import * as Yup from "yup";
 import toast from 'react-hot-toast';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { LoadingButton } from '@mui/lab';
-import bgImg from "../assets/bg-img.jpg";
+import bgImg from "../assets/bg-img.webp";
 import "../Components/Signup.css"
 import FullPageLoader from './FullPageLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import Logo from "/src/assets/logo.png";
+import Logo from "/src/assets/logo.webp";
 
 const Signup = () => {
     const [loading, setLoading] = useState(true);
