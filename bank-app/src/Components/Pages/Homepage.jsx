@@ -95,7 +95,7 @@ const Homepage = () => {
               height="100%"
               src={image3}
               alt="Send and receive money with NairaNest"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
               style=
               {{
