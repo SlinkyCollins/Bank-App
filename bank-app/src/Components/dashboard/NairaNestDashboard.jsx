@@ -18,11 +18,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, NavLink, Outlet, Link } from "react-router-dom";
-import Modal from "./Modal"; // Ensure this path is correct
+import Modal from "../common/Modal";
 import "./Dashboard.css";
 import { AccountCircle } from "@mui/icons-material";
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, setUser } from '../Redux/userSlice'; // Ensure this path is correct
+import { logout, setUser } from '../../Redux/userSlice';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -34,7 +34,7 @@ const drawWidth = 260;
 const PRIMARY_BLUE = "#4a90e2";
 const SIDEBAR_BG = "#1e272e"; // Darker professional sidebar
 
-function AdminLayout() {
+function Dashboard() {
     const [mobileViewOpen, setMobileViewOpen] = React.useState(false);
     const hasShownToast = useRef(false);
     const user = useSelector((state) => state.user.userDetails);
@@ -44,9 +44,10 @@ function AdminLayout() {
     };
 
     const menuItems = [
-        { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/admin' },
-        { text: 'Users', icon: <AccountBoxIcon />, path: '/dashboard/admin/users' },
-        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/admin/transactions' }
+        { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard/user' },
+        { text: 'Profile', icon: <AccountBoxIcon />, path: '/dashboard/user/account' },
+        { text: 'Transactions', icon: <ReceiptIcon />, path: '/dashboard/user/transactions' },
+        { text: 'Settings', icon: <SettingsIcon />, path: '/dashboard/user/settings' },
     ];
 
     let navigate = useNavigate();
@@ -54,11 +55,12 @@ function AdminLayout() {
     const [showModal, setShowModal] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    // Add separate useEffect for role check
     useEffect(() => {
-        if (user && user.role && user.role !== 'admin' && !hasShownToast.current) {
+        if (user && user.role && user.role !== 'user' && !hasShownToast.current) {
             toast.error("You do not have permission to access this page.");
             hasShownToast.current = true;
-            const redirectPath = user.role === 'user' ? '/dashboard/user' : '/login';
+            const redirectPath = user.role === 'admin' ? '/dashboard/admin' : '/login';
             navigate(redirectPath);
         }
     }, [user, navigate]);
@@ -85,11 +87,13 @@ function AdminLayout() {
                 navigate("/login", { replace: true });
             }
         };
+
         fetchUserDetails();
     }, [dispatch, navigate]);
 
-    if (!user || user?.role !== 'admin') {
-        return <Typography>Access denied. Admin only.</Typography>;
+    // Add early return for non-users
+    if (!user || user?.role !== 'user') {
+        return <Typography>Access denied. User only.</Typography>;
     }
 
     const handleLogout = async () => {
@@ -247,4 +251,4 @@ function AdminLayout() {
     );
 }
 
-export default AdminLayout;
+export default Dashboard;

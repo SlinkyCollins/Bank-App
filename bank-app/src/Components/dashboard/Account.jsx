@@ -4,7 +4,7 @@ import { Box, Card, CardContent, Grid, TextField, Typography, Avatar, Button } f
 import { Edit } from "@mui/icons-material";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
-import { setUser } from '../Redux/userSlice';
+import { setUser } from '../../Redux/userSlice';
 
 const Account = () => {
     const userInfo = useSelector((state) => state.user.userDetails);

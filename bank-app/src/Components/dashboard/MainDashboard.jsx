@@ -24,7 +24,7 @@ import 'chart.js/auto';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { setRecentTransactions, updateUserDetails, addTransaction } from '../Redux/userSlice';
+import { setRecentTransactions, updateUserDetails, addTransaction } from '../../Redux/userSlice';
 import { Link } from "react-router-dom";
 
 // Icons

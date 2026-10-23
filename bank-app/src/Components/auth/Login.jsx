@@ -14,12 +14,12 @@ import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
-import "../Components/Login.css"
-import banking1 from "../assets/banking1.webp";
+import "./Login.css"
+import banking1 from "../../assets/banking1.webp";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useDispatch } from 'react-redux';
-import { login } from '../Redux/userSlice';
+import { login } from '../../Redux/userSlice';
 import Logo from "/src/assets/logo.webp";
 
 

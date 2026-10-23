@@ -2,26 +2,26 @@ import './App.css'
 import { Navigate, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from 'react';
 import { Toaster } from "react-hot-toast";
-import PrivateRoute from './Components/PrivateRoute';
-import FullPageLoader from './Components/FullPageLoader';
+import PrivateRoute from './Components/common/PrivateRoute';
+import FullPageLoader from './Components/common/FullPageLoader';
 
-const Homepage = lazy(() => import('./Components/Pages/Homepage'));
-const Signup = lazy(() => import('./Components/Signup'));
-const Login = lazy(() => import('./Components/Login'));
-const ResetPassword = lazy(() => import('./Components/ResetPassword'));
-const ForgotPassword = lazy(() => import('./Components/ForgotPassword'));
-const ResetSuccess = lazy(() => import('./Components/resetSucess'));
-const NotFound = lazy(() => import('./Components/NotFound'));
-const EmailCheck = lazy(() => import('./Components/EmailCheck'));
-const UserDashboard = lazy(() => import('./Components/NairaNestDashboard'));
-const Account = lazy(() => import('./Components/Account'));
-const Transactions = lazy(() => import('./Components/Transactions'));
-const Settings = lazy(() => import('./Components/Settings'));
-const MainDashboard = lazy(() => import('./Components/MainDashboard'));
-const AdminUsers = lazy(() => import('./Components/AdminUsers'));
-const AdminTransactions = lazy(() => import('./Components/AdminTransactions'));
-const AdminLayout = lazy(() => import('./Components/AdminLayout'));
-const AdminOverview = lazy(() => import('./Components/AdminOverview'));
+const Homepage = lazy(() => import('./Components/pages/Homepage'));
+const Signup = lazy(() => import('./Components/auth/Signup'));
+const Login = lazy(() => import('./Components/auth/Login'));
+const ResetPassword = lazy(() => import('./Components/auth/ResetPassword'));
+const ForgotPassword = lazy(() => import('./Components/auth/ForgotPassword'));
+const ResetSuccess = lazy(() => import('./Components/auth/resetSucess'));
+const NotFound = lazy(() => import('./Components/pages/NotFound'));
+const EmailCheck = lazy(() => import('./Components/auth/EmailCheck'));
+const UserDashboard = lazy(() => import('./Components/dashboard/NairaNestDashboard'));
+const Account = lazy(() => import('./Components/dashboard/Account'));
+const Transactions = lazy(() => import('./Components/dashboard/Transactions'));
+const Settings = lazy(() => import('./Components/dashboard/Settings'));
+const MainDashboard = lazy(() => import('./Components/dashboard/MainDashboard'));
+const AdminUsers = lazy(() => import('./Components/admin/AdminUsers'));
+const AdminTransactions = lazy(() => import('./Components/admin/AdminTransactions'));
+const AdminLayout = lazy(() => import('./Components/admin/AdminLayout'));
+const AdminOverview = lazy(() => import('./Components/admin/AdminOverview'));
 
 function App() {
   console.log("App component rendered");
