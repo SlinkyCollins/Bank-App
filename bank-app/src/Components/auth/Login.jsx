@@ -16,8 +16,6 @@ import { LoadingButton } from '@mui/lab';
 import { useEffect } from 'react';
 import "./Login.css"
 import banking1 from "../../assets/banking1.webp";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../../Redux/userSlice';
 import Logo from "/src/assets/logo.webp";
@@ -146,8 +144,7 @@ const Login = () => {
         <Grid container sx={{ height: "100vh" }} className='logingridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='logingriditem1'>
                 <div className="bg-image" style={{ height: "23rem" }}>
-                    <LazyLoadImage
-                        effect="blur"
+                    <img
                         src={banking1} // Replace with your image source
                         width="100%"
                         height="100%"

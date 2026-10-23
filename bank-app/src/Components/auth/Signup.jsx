@@ -14,8 +14,6 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { LoadingButton } from '@mui/lab';
 import bgImg from "../../assets/bg-img.webp";
 import "./Signup.css"
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import Logo from "/src/assets/logo.webp";
 
 const Signup = () => {
@@ -103,10 +101,9 @@ const Signup = () => {
         <Grid container sx={{ height: "100vh" }} className='signupgridcontainer'>
             <Grid item xs={12} md={6} sx={{ color: "#fff" }} className='signupgriditem1'>
                 <div className="bg-image" style={{ height: "23rem" }}>
-                    <LazyLoadImage
+                    <img
                         height="100%"
                         src={bgImg}
-                        effect="blur"
                         width="100%"
                         style=
                         {{
