@@ -6,6 +6,8 @@
 
 **NairaNest** is a comprehensive, full-stack banking platform designed to simulate modern financial operations. It features a secure, high-performance REST API backed by **ACID-compliant transactions** and a responsive React frontend with distinct dashboards for Users and Administrators.
 
+The frontend uses route-level code splitting, optimized WebP image assets, non-blocking Rubik font loading, and Vite vendor chunking to reduce initial page load costs.
+
 ### 🚀 Key Features
 
 #### 🛡️ Security & Architecture
@@ -48,9 +50,19 @@
 ```bash
 ├── bank-app/               # Frontend (React + Vite)
 │   ├── src/
-│   │   ├── Components/     # UI Components (Dashboards, Modals)
-│   │   ├── Redux/          # Global State Slices
-│   │   └── ...
+│   │   ├── Components/
+│   │   │   ├── admin/      # Admin layout and pages
+│   │   │   ├── auth/       # Login, signup, and password recovery
+│   │   │   ├── common/     # Shared loaders, modals, and route guards
+│   │   │   ├── dashboard/  # User dashboard pages
+│   │   │   ├── layout/     # Navigation and drawer components
+│   │   │   └── pages/      # Homepage and public pages
+│   │   ├── assets/         # Optimized WebP images and app assets
+│   │   ├── app/            # Redux store configuration
+│   │   ├── Redux/          # Redux slices
+│   │   └── perfDiagnostics.js
+│   ├── vite.config.js      # Vendor chunking and CSS splitting
+│   └── package.json
 ├── node/                   # Backend (Express API)
 │   ├── Controllers/        # Business Logic (Transactions, Auth)
 │   ├── Models/             # Mongoose Schemas
@@ -125,6 +137,16 @@ npm run dev
 
 ```
 
+Available frontend commands:
+
+```bash
+npm run build    # Create a production build
+npm run preview  # Preview the production build locally
+npm run lint     # Run ESLint
+```
+
+To inspect Core Web Vitals during development, open the browser console after starting the frontend. The diagnostics in `bank-app/src/perfDiagnostics.js` report TTFB, LCP, INP, and CLS when supported by the browser.
+
 ### 🔌 API Documentation
 
 | Method | Endpoint | Description | Access |
@@ -151,6 +173,12 @@ npm run dev
 #### Deployment
 - Frontend: Build with `npm run build`, deploy to Vercel/Netlify.
 - Backend: Deploy to Render/Heroku, connect to MongoDB Atlas.
+
+#### Frontend performance
+- Hero and background images are stored as WebP assets; the first homepage hero image is loaded eagerly for LCP.
+- Other route components are loaded on demand with React lazy loading.
+- Vite separates React, MUI, Redux, and Swiper vendor code into cacheable chunks.
+- Fonts load asynchronously and only the Rubik family weights used by the app are requested.
 
 #### Contributing
 1. Fork the repo.
