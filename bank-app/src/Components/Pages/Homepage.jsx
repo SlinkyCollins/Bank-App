@@ -8,8 +8,6 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import image3 from '/src/assets/banking3.webp';
 import image8 from '/src/assets/banking8.webp';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -92,12 +90,13 @@ const Homepage = () => {
       >
         <SwiperSlide>
           <div className="slide-container">
-            <LazyLoadImage
-              effect="blur"
+            <img
               width="100%"
               height="100%"
               src={image3}
-              alt="Slide 1"
+              alt="Send and receive money with NairaNest"
+              fetchPriority="high"
+              decoding="async"
               style=
               {{
                 objectFit: "cover"
@@ -121,12 +120,13 @@ const Homepage = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="slide-container">
-            <LazyLoadImage
-              effect="blur"
+            <img
               width="100%"
               height="100%"
               src={image8}
-              alt="Slide 3"
+              alt="Trusted business banking with NairaNest"
+              loading="lazy"
+              decoding="async"
               style=
               {{
                 objectFit: "cover"
